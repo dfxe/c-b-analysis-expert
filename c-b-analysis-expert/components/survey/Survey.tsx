@@ -9,17 +9,21 @@ import FormQuestion from "./FormQuestion";
 import Typography from "@mui/material/Typography";
 import OutTable from "./OutTable";
 const Survey = () => {
+  const [currentPage, setCurrentPage] = useState<number>(0);
   const [data, setData] = useState({
     orgDetails: {
       id: 2,
       title: "",
       initiative: "",
+      question: "What is the name of the org?",
     },
+    currency: "GBP",
     quantitativeCosts: {
       recurring: {
         id: 1,
         title: "Servers",
         description: "Computers being used to deploy the product.",
+        question: "How much is the overhead cost for the server?",
         category: "Hardware",
         period: { periodTimeUnit: "w", periodTime: 1, periodCost: 10 },
       },
@@ -49,16 +53,21 @@ const Survey = () => {
       }}
     >
       <Typography variant="h4" component="h4" sx={{ textAlign: "center" }}>
-        Cost Benefit Analysis
+        Cost Benefit Analysis Survey
       </Typography>
 
-      <CurrencySelect></CurrencySelect>
+      {currentPage === 0 && <CurrencySelect></CurrencySelect>}
 
-      <FormQuestion question="What is the name of the org?" />
+      {currentPage === 1 && (
+        <FormQuestion question="What is the name of the org?" />
+      )}
 
-      <OutTable></OutTable>
+      {currentPage === 2 && <OutTable></OutTable>}
 
-      <SubmitEntry maxQuestions={maxQuestionsRef.current}></SubmitEntry>
+      <SubmitEntry
+        setCurrentPage={setCurrentPage}
+        maxQuestions={maxQuestionsRef.current}
+      ></SubmitEntry>
     </div>
   );
 };

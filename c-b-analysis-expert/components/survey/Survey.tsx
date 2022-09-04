@@ -4,10 +4,10 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import CurrencySelect from "./CurrencySelect";
-import OverallProgress from "./OverallProgress";
 import SubmitEntry from "./SubmitEntry";
 import FormQuestion from "./FormQuestion";
 import Typography from "@mui/material/Typography";
+import OutTable from "./OutTable";
 const Survey = () => {
   const [data, setData] = useState({
     orgDetails: {
@@ -55,6 +55,8 @@ const Survey = () => {
       <CurrencySelect></CurrencySelect>
 
       <FormQuestion question="What is the name of the org?" />
+
+      <OutTable></OutTable>
 
       <SubmitEntry maxQuestions={maxQuestionsRef.current}></SubmitEntry>
     </div>

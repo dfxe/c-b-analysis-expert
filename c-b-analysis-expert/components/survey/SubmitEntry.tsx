@@ -52,8 +52,7 @@ export default function SubmitEntry({ maxQuestions = 16 }: SubmitEntryProps) {
       position="static"
       activeStep={activeStep}
       sx={{
-        position: "fixed",
-        bottom: "4rem",
+        mt: "2rem",
         width: "50%",
         maxWidth: "100vw",
         flexGrow: 1,

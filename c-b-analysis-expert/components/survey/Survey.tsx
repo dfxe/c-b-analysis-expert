@@ -5,7 +5,6 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import CurrencySelect from "./CurrencySelect";
 import OverallProgress from "./OverallProgress";
-import { useProgressNumber } from "../contexts/ProgressProvider";
 import SubmitEntry from "./SubmitEntry";
 import FormQuestion from "./FormQuestion";
 import Typography from "@mui/material/Typography";
@@ -52,8 +51,6 @@ const Survey = () => {
       <Typography variant="h4" component="h4" sx={{ textAlign: "center" }}>
         Cost Benefit Analysis
       </Typography>
-
-      <OverallProgress />
 
       <CurrencySelect></CurrencySelect>
 

@@ -47,10 +47,13 @@ export default function SubmitEntry({
     //TODO works in full screen mode perfectly,
     //ELSE: need to take into account box margins.w + container.w
     if (nextStep === 0) {
+      //@ts-ignore
       stepsContainerRef.current.scrollTo(0, 0);
     } else {
+      //@ts-ignore
       stepsContainerRef.current.scrollTo({
         left:
+          //@ts-ignore
           stepsContainerRef.current.children[nextStep].getBoundingClientRect()
             .right / 2,
         top: 0,
@@ -95,7 +98,13 @@ export default function SubmitEntry({
   }, [activeStep]);
 
   return (
-    <Box sx={{ width: "100%", mb: "10vh", mt: "10vh" }}>
+    <Box
+      sx={{
+        width: "100%",
+        mb: "10vh",
+        mt: "10vh",
+      }}
+    >
       <Stepper
         ref={stepsContainerRef}
         nonLinear
@@ -148,7 +157,6 @@ export default function SubmitEntry({
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Button
                   color="inherit"
-                  variant="contained"
                   disabled={activeStep === 0}
                   onClick={handleBack}
                   sx={{ mr: 1 }}
@@ -156,7 +164,7 @@ export default function SubmitEntry({
                   Back
                 </Button>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button variant="contained" onClick={handleNext} sx={{ mr: 1 }}>
+                <Button onClick={handleNext} sx={{ mr: 1 }}>
                   Next
                 </Button>
               </Box>

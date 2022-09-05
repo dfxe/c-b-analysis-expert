@@ -17,7 +17,7 @@ const Survey = () => {
       initiative: "",
       question: "What is the name of the org?",
     },
-    currency: "GBP",
+    currency: { currencyChosen: "GBP" },
     quantitativeCosts: {
       recurring: {
         id: 1,
@@ -49,11 +49,11 @@ const Survey = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: "10rem",
+        marginTop: "10vh",
       }}
     >
       <Typography variant="h4" component="h4" sx={{ textAlign: "center" }}>
-        Cost Benefit Analysis Survey
+        Cost-Benefit Analysis Survey
       </Typography>
 
       {currentPage === 0 && <CurrencySelect></CurrencySelect>}
@@ -66,6 +66,7 @@ const Survey = () => {
 
       <SubmitEntry
         setCurrentPage={setCurrentPage}
+        summaries={["Currency", " Organisation", "Tables", "More 1", "More 2"]}
         maxQuestions={maxQuestionsRef.current}
       ></SubmitEntry>
     </div>

@@ -13,26 +13,23 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 interface SubmitEntryProps {
   setCurrentPage: Dispatch<SetStateAction<number>>;
+  summaries: string[];
   maxQuestions: number;
 }
 
-const steps = [
-  "Select campaign settings",
-  "Create an ad group",
-  "Create an ad",
-];
-
 export default function SubmitEntry({
   setCurrentPage,
+  summaries,
   maxQuestions = 16,
 }: SubmitEntryProps) {
   const [activeStep, setActiveStep] = React.useState(0);
+  const stepsContainerRef = React.useRef(null);
   const [completed, setCompleted] = React.useState<{
     [k: number]: boolean;
   }>({});
 
   const totalSteps = () => {
-    return steps.length;
+    return summaries.length;
   };
 
   const completedSteps = () => {
@@ -46,13 +43,28 @@ export default function SubmitEntry({
   const allStepsCompleted = () => {
     return completedSteps() === totalSteps();
   };
+  const scrollToItem = (nextStep: number) => {
+    //TODO works in full screen mode perfectly,
+    //ELSE: need to take into account box margins.w + container.w
+    if (nextStep === 0) {
+      stepsContainerRef.current.scrollTo(0, 0);
+    } else {
+      stepsContainerRef.current.scrollTo({
+        left:
+          stepsContainerRef.current.children[nextStep].getBoundingClientRect()
+            .right / 2,
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  };
 
   const handleNext = () => {
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? // It's the last step, but not all steps have been completed,
           // find the first step that has been completed
-          steps.findIndex((step, i) => !(i in completed))
+          summaries.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
   };
@@ -78,19 +90,25 @@ export default function SubmitEntry({
   };
 
   React.useEffect(() => {
+    scrollToItem(activeStep);
     setCurrentPage(activeStep);
   }, [activeStep]);
 
   return (
     <Box sx={{ width: "100%", mb: "10vh", mt: "10vh" }}>
-      <Stepper nonLinear activeStep={activeStep}>
-        {steps.map((label, index) => (
+      <Stepper
+        ref={stepsContainerRef}
+        nonLinear
+        activeStep={activeStep}
+        sx={{ overflowX: "scroll", overflowY: "hidden" }}
+      >
+        {summaries.map((label, index) => (
           <Step key={label} completed={completed[index]}>
             <StepButton
               color={completed[index] ? `success` : `inherit`}
               onClick={handleStep(index)}
             >
-              {label}
+              {label}&ensp;&ensp;
             </StepButton>
           </Step>
         ))}
@@ -112,7 +130,7 @@ export default function SubmitEntry({
               Step {activeStep + 1}
             </Typography>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
-              {activeStep !== steps.length &&
+              {activeStep !== summaries.length &&
                 (completed[activeStep] ? (
                   <Typography
                     variant="caption"

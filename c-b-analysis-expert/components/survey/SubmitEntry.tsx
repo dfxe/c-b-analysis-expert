@@ -1,7 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
 import Button from "@mui/material/Button";
-import { useTheme } from "@mui/material/styles";
-import MobileStepper from "@mui/material/MobileStepper";
 
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -11,6 +9,7 @@ import StepButton from "@mui/material/StepButton";
 import Typography from "@mui/material/Typography";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+
 interface SubmitEntryProps {
   setCurrentPage: Dispatch<SetStateAction<number>>;
   summaries: string[];
@@ -160,11 +159,16 @@ export default function SubmitEntry({
                   disabled={activeStep === 0}
                   onClick={handleBack}
                   sx={{ mr: 1 }}
+                  startIcon={<KeyboardArrowLeft></KeyboardArrowLeft>}
                 >
                   Back
                 </Button>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleNext} sx={{ mr: 1 }}>
+                <Button
+                  onClick={handleNext}
+                  sx={{ mr: 1 }}
+                  endIcon={<KeyboardArrowRight></KeyboardArrowRight>}
+                >
                   Next
                 </Button>
               </Box>

@@ -14,7 +14,7 @@ const Home: NextPage = () => {
       </Head>
       <div
         style={{
-          position: "fixed",
+          position: "absolute",
           left: "4vw",
           top: "2vh",
           padding: "1em",

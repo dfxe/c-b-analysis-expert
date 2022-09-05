@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import anime from "animejs";
 
 function createData(
   name: string,
@@ -115,8 +116,18 @@ const rows = [
 ];
 
 export default function OutTable() {
+  React.useEffect(() => {
+    anime({
+      targets: "#out-table-1",
+      translateY: [-250, 0],
+      opacity: [0, 1],
+      easing: "linear",
+      duration: 500,
+    });
+  }, []);
+
   return (
-    <TableContainer sx={{ width: "80vw" }} component={Paper}>
+    <TableContainer id="out-table-1" sx={{ width: "80vw" }} component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>

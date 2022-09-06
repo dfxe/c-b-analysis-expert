@@ -1,11 +1,9 @@
 import React, { Dispatch, SetStateAction } from "react";
 import Button from "@mui/material/Button";
-
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
-
 import Typography from "@mui/material/Typography";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
@@ -109,7 +107,7 @@ export default function SubmitEntry({
         ref={stepsContainerRef}
         nonLinear
         activeStep={activeStep}
-        sx={{ overflowX: "scroll", overflowY: "hidden" }}
+        sx={{ overflowX: "hidden", overflowY: "hidden" }}
       >
         {summaries.map((label, index) => (
           <Step key={label} completed={completed[index]}>
@@ -148,7 +146,11 @@ export default function SubmitEntry({
                     Step {activeStep + 1} already completed
                   </Typography>
                 ) : (
-                  <Button variant="contained" onClick={handleComplete}>
+                  <Button
+                    variant="contained"
+                    sx={{ backgroundColor: "black" }}
+                    onClick={handleComplete}
+                  >
                     {completedSteps() === totalSteps() - 1
                       ? "Finish"
                       : "Complete Step"}

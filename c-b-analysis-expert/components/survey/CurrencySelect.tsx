@@ -23,10 +23,7 @@ export default function CurrencySelect() {
     },
   ];
 
-  const [currency, setCurrency] = React.useState("USD");
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrency(event.target.value);
     details.dispatch({
       type: "changed_currency",
       nextCurrency: event.target.value,
@@ -46,7 +43,7 @@ export default function CurrencySelect() {
           id="outlined-select-currency-native"
           select
           label=""
-          value={currency}
+          value={details.state.currency.chosenCurrency}
           onChange={handleChange}
           SelectProps={{
             native: true,

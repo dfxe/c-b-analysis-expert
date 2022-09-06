@@ -1,35 +1,14 @@
-import React, {
-  createContext,
-  useState,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useReducer,
-} from "react";
+import React, { createContext, Dispatch, useContext, useReducer } from "react";
 import { nanoid } from "nanoid";
-
-interface CostRows {
-  recurring: {
-    id: string;
-    title: string;
-    description: string;
-    category: string;
-    period: {
-      periodTimeUnit: string;
-      periodTime: number;
-      periodCost: number;
-    };
-  }[];
-}
 
 interface Details {
   orgDetails: {
     id: string;
-    title: string;
+    title?: string;
     initiative: string;
     question: string;
   };
-  currency: { chosenCurrency: string };
+  currency: { chosenCurrency?: string };
   quantitativeCosts: {
     recurring: {
       id: string;
@@ -71,7 +50,8 @@ interface ShowDetails {
 
 interface ActionType {
   type: string;
-  nextCurrency: string;
+  nextCurrency?: string;
+  nextOrgName?: string;
 }
 
 const DetailsContext = createContext({
@@ -82,7 +62,7 @@ const DetailsContext = createContext({
       initiative: "",
       question: "What is the name of the org?",
     },
-    currency: { chosenCurrency: "GBP" },
+    currency: { chosenCurrency: "USD" },
     quantitativeCosts: {
       recurring: [],
       nonRecurring: {},
@@ -118,6 +98,14 @@ export default function DetailsProvider({ children }: Props) {
           ...state,
           currency: { ...state.currency, chosenCurrency: action.nextCurrency },
         };
+      case "changed_org_name":
+        return {
+          ...state,
+          orgDetails: {
+            ...state.orgDetails,
+            title: action.nextOrgName,
+          },
+        };
     }
 
     throw Error("Unknown action.");
@@ -130,7 +118,7 @@ export default function DetailsProvider({ children }: Props) {
       initiative: "",
       question: "What is the name of the org?",
     },
-    currency: { chosenCurrency: "GBP" },
+    currency: { chosenCurrency: "USD" },
     quantitativeCosts: {
       recurring: [
         {
@@ -160,8 +148,8 @@ export default function DetailsProvider({ children }: Props) {
   });
 
   React.useEffect(() => {
-    console.log(state.currency);
-  }, [state.currency]);
+    console.log(state.orgDetails.title);
+  }, [state.orgDetails.title]);
 
   return (
     <DetailsContext.Provider value={{ state: state, dispatch: dispatch }}>

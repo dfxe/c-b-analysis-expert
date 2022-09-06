@@ -33,7 +33,6 @@ const Survey = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: "10vh",
       }}
     >
       <Typography variant="h4" component="h4" sx={{ textAlign: "center" }}>

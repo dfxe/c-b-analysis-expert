@@ -32,7 +32,7 @@ const Home: NextPage = () => {
         layout="responsive"
         objectPosition={"block"}
         objectFit="cover"
-        style={{ zIndex: -1, opacity: 0.3 }}
+        style={{ zIndex: -1, opacity: 0.2 }}
         alt="cost-benefit analysis background"
       ></Image>
       <ProgressProvider>

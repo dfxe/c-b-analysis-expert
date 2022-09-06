@@ -10,18 +10,18 @@ import Typography from "@mui/material/Typography";
 import OutTable from "./OutTable";
 import { nanoid } from "nanoid";
 import AddField from "./AddField";
+import Image from "next/image";
 const Survey = () => {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const maxQuestionsRef = React.useRef(7);
 
   const pages = () => {
     return [
-      <CurrencySelect key={"oUg-UxeEv20zib1QKiL3L"} />,
-
       <FormQuestion
         key={"C4i4MsLt8kp80bztULT6-"}
         question="What is the name of the org?"
       />,
+      <CurrencySelect key={"oUg-UxeEv20zib1QKiL3L"} />,
 
       <OutTable key={"_mDcQS-RpqpcNrophAWDV"} />,
     ];
@@ -37,15 +37,11 @@ const Survey = () => {
       }}
     >
       <Typography variant="h4" component="h4" sx={{ textAlign: "center" }}>
-        Cost-Benefit Analysis Survey
+        Cost-Benefit Analysis
       </Typography>
-      {pages()[currentPage]}
+
+      {pages()}
       <AddField></AddField>
-      <SubmitEntry
-        setCurrentPage={setCurrentPage}
-        summaries={["Currency", " Organisation", "Tables", "More 1", "More 2"]}
-        maxQuestions={maxQuestionsRef.current}
-      />
     </div>
   );
 };

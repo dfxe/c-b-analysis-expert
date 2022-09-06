@@ -9,6 +9,7 @@ import FormQuestion from "./FormQuestion";
 import Typography from "@mui/material/Typography";
 import OutTable from "./OutTable";
 import { nanoid } from "nanoid";
+import AddField from "./AddField";
 const Survey = () => {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const maxQuestionsRef = React.useRef(7);
@@ -39,11 +40,12 @@ const Survey = () => {
         Cost-Benefit Analysis Survey
       </Typography>
       {pages()[currentPage]}
+      <AddField></AddField>
       <SubmitEntry
         setCurrentPage={setCurrentPage}
         summaries={["Currency", " Organisation", "Tables", "More 1", "More 2"]}
         maxQuestions={maxQuestionsRef.current}
-      ></SubmitEntry>
+      />
     </div>
   );
 };

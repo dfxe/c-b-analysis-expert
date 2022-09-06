@@ -5,8 +5,8 @@ interface Details {
   orgDetails: {
     id: string;
     title?: string;
-    initiative: string;
-    question: string;
+    initiative?: string;
+    question?: string;
   };
   currency: { chosenCurrency?: string };
   quantitativeCosts: {
@@ -52,6 +52,29 @@ interface ActionType {
   type: string;
   nextCurrency?: string;
   nextOrgName?: string;
+  nextInitiative?: string;
+  nextQuestion?: string;
+  nextRecurringCostObject?: {
+    id: string;
+    title: string;
+    description: string;
+    question: string;
+    category: string;
+    period: {
+      periodTimeUnit: string;
+      periodTime: number;
+      periodCost: number;
+    };
+  };
+  qCostsTitle?: string;
+  qCostsDescription?: string;
+  qCostsQuestion?: string;
+  qCostsCategory?: string;
+  qCostsPeriod?: {
+    periodTimeUnit?: string;
+    periodTime?: number;
+    periodCost?: number;
+  };
 }
 
 const DetailsContext = createContext({
@@ -106,11 +129,38 @@ export default function DetailsProvider({ children }: Props) {
             title: action.nextOrgName,
           },
         };
+      case "changed_initiative":
+        return {
+          ...state,
+          orgDetails: {
+            ...state.orgDetails,
+            initiative: action.nextInitiative,
+          },
+        };
+      case "changed_question":
+        return {
+          ...state,
+          orgDetails: {
+            ...state.orgDetails,
+            question: action.nextQuestion,
+          },
+        };
+      case "add_recurring_cost":
+        return {
+          ...state,
+          quantitativeCosts: {
+            recurring: [
+              ...state.quantitativeCosts.recurring,
+              action.nextRecurringCostObject,
+            ],
+          },
+        };
     }
 
     throw Error("Unknown action.");
   };
 
+  //@ts-ignore
   const [state, dispatch] = useReducer(reducer, {
     orgDetails: {
       id: nanoid(),
@@ -148,8 +198,8 @@ export default function DetailsProvider({ children }: Props) {
   });
 
   React.useEffect(() => {
-    console.log(state.orgDetails.title);
-  }, [state.orgDetails.title]);
+    console.log(state.quantitativeCosts.recurring);
+  }, [state.quantitativeCosts.recurring]);
 
   return (
     <DetailsContext.Provider value={{ state: state, dispatch: dispatch }}>

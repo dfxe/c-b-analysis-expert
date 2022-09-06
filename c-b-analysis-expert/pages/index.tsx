@@ -4,6 +4,8 @@ import styles from "../styles/Home.module.css";
 import Survey from "../components/survey/Survey";
 import ProgressProvider from "../components/contexts/ProgressProvider";
 import packageJson from "../package.json";
+import DetailsProvider from "../components/contexts/DetailsProvider";
+
 const Home: NextPage = () => {
   return (
     <div style={{ marginLeft: "5vw", marginRight: "5vw" }}>
@@ -25,7 +27,9 @@ const Home: NextPage = () => {
         {packageJson.version}a
       </div>
       <ProgressProvider>
-        <Survey></Survey>
+        <DetailsProvider>
+          <Survey></Survey>
+        </DetailsProvider>
       </ProgressProvider>
     </div>
   );

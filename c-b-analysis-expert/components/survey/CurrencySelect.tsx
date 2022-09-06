@@ -1,9 +1,9 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
-
+import { useDetails } from "../contexts/DetailsProvider";
 export default function CurrencySelect() {
+  const details = useDetails();
   const currencies = [
     {
       value: "USD",
@@ -23,10 +23,14 @@ export default function CurrencySelect() {
     },
   ];
 
-  const [currency, setCurrency] = React.useState("EUR");
+  const [currency, setCurrency] = React.useState("USD");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCurrency(event.target.value);
+    details.dispatch({
+      type: "changed_currency",
+      nextCurrency: event.target.value,
+    });
   };
   return (
     <div>
@@ -38,25 +42,23 @@ export default function CurrencySelect() {
         noValidate
         autoComplete="off"
       >
-        <div>
-          <TextField
-            id="outlined-select-currency-native"
-            select
-            label=""
-            value={currency}
-            onChange={handleChange}
-            SelectProps={{
-              native: true,
-            }}
-            helperText="Please select your currency"
-          >
-            {currencies.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </TextField>
-        </div>
+        <TextField
+          id="outlined-select-currency-native"
+          select
+          label=""
+          value={currency}
+          onChange={handleChange}
+          SelectProps={{
+            native: true,
+          }}
+          helperText="Please select your currency"
+        >
+          {currencies.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </TextField>
       </Box>
     </div>
   );

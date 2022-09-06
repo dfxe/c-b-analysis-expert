@@ -22,6 +22,7 @@ export default function SubmitEntry({
   maxQuestions = 16,
 }: SubmitEntryProps) {
   const [activeStep, setActiveStep] = React.useState(0);
+
   const stepsContainerRef = React.useRef(null);
   const [completed, setCompleted] = React.useState<{
     [k: number]: boolean;

@@ -10,36 +10,6 @@ import Typography from "@mui/material/Typography";
 import OutTable from "./OutTable";
 const Survey = () => {
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const [data, setData] = useState({
-    orgDetails: {
-      id: 2,
-      title: "",
-      initiative: "",
-      question: "What is the name of the org?",
-    },
-    currency: { currencyChosen: "GBP" },
-    quantitativeCosts: {
-      recurring: {
-        id: 1,
-        title: "Servers",
-        description: "Computers being used to deploy the product.",
-        question: "How much is the overhead cost for the server?",
-        category: "Hardware",
-        period: { periodTimeUnit: "w", periodTime: 1, periodCost: 10 },
-      },
-      nonRecurring: {},
-    },
-    quantitativeBenefits: {
-      recurring: {
-        id: 1,
-        title: "Servers",
-        description: "Computers being used to deploy the product.",
-        category: "Hardware",
-        period: { periodTimeUnit: "w", periodTime: 1, periodCost: 10 },
-      },
-      nonRecurring: {},
-    },
-  });
   const maxQuestionsRef = React.useRef(7);
 
   return (

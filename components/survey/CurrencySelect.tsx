@@ -58,6 +58,7 @@ export default function CurrencySelect() {
           </button>
 
           <div
+            hidden
             className="absolute right-0 z-10 w-56 mt-4 bg-white border border-gray-100 shadow-lg origin-top-right rounded-md"
             role="menu"
           >

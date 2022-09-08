@@ -4,6 +4,9 @@ import FormQuestion from "./FormQuestion";
 import { nanoid } from "nanoid";
 import AddField from "./AddField";
 import Footer from "./Footer";
+import InputAdd from "./InputAdd";
+import InputAddAccordion from "./InputAddAccordion";
+import EndCost from "./EndCost";
 
 const Survey = () => {
   return (
@@ -16,7 +19,10 @@ const Survey = () => {
         />
         <CurrencySelect key={"oUg-UxeEv20zib1QKiL3L"} />
 
-        <AddField></AddField>
+        <InputAdd></InputAdd>
+        <InputAddAccordion></InputAddAccordion>
+        <EndCost></EndCost>
+        {/* <AddField></AddField> */}
       </div>
     </div>
   );

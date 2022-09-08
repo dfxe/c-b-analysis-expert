@@ -5,18 +5,8 @@ import { nanoid } from "nanoid";
 import AddField from "./AddField";
 
 const Survey = () => {
-  const [currentPage, setCurrentPage] = useState<number>(0);
-  const maxQuestionsRef = React.useRef(7);
-
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <div className="flex flex-col justify-center items-center my-10">
       <FormQuestion
         key={"C4i4MsLt8kp80bztULT6-"}
         question="What is the name of the organisation?"

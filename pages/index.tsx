@@ -25,16 +25,7 @@ const Home: NextPage = () => {
       >
         {packageJson.version}a
       </div>
-      <Image
-        src={"/c-b.png"}
-        width="100%"
-        height="50vh"
-        layout="responsive"
-        objectPosition={"block"}
-        objectFit="cover"
-        style={{ zIndex: -1, opacity: 0.2 }}
-        alt="cost-benefit analysis background"
-      ></Image>
+
       <ProgressProvider>
         <DetailsProvider>
           <Survey></Survey>

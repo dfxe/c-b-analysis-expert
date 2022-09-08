@@ -1,14 +1,11 @@
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import { useDetails } from "../contexts/DetailsProvider";
 import { nanoid } from "nanoid";
 
 export default function BasicButtons() {
   const details = useDetails();
   return (
-    <Stack spacing={2} direction="row">
-      <Button
-        variant="contained"
+    <div>
+      <button
         onClick={() =>
           details.dispatch({
             type: "add_recurring_cost",
@@ -24,7 +21,7 @@ export default function BasicButtons() {
         }
       >
         Add field
-      </Button>
-    </Stack>
+      </button>
+    </div>
   );
 }

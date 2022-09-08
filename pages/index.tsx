@@ -5,6 +5,7 @@ import ProgressProvider from "../components/contexts/ProgressProvider";
 import packageJson from "../package.json";
 import DetailsProvider from "../components/contexts/DetailsProvider";
 import Image from "next/image";
+import Footer from "../components/survey/Footer";
 const Home: NextPage = () => {
   return (
     <div style={{ marginLeft: "5vw", marginRight: "5vw" }}>
@@ -21,6 +22,7 @@ const Home: NextPage = () => {
           padding: "1em",
           border: "2px dotted black",
           borderRadius: "64px",
+          zIndex: 1,
         }}
       >
         {packageJson.version}a
@@ -31,6 +33,7 @@ const Home: NextPage = () => {
           <Survey></Survey>
         </DetailsProvider>
       </ProgressProvider>
+      <Footer></Footer>
     </div>
   );
 };

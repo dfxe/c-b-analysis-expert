@@ -17,7 +17,7 @@ const Survey = () => {
           key={"C4i4MsLt8kp80bztULT6-"}
           question="What is the name of the organisation?"
         />
-        <CurrencySelect key={"oUg-UxeEv20zib1QKiL3L"} />
+        <CurrencySelect />
 
         <InputAdd></InputAdd>
         <InputAddAccordion></InputAddAccordion>

@@ -24,7 +24,7 @@ export default function EndCost({ endValue = 0 }) {
 
         <div>
           <p className="text-2xl font-medium text-gray-900">
-            {details.state.currency.chosenCurrency + endValue.toString()}
+            {details.state.currency + endValue.toString()}
           </p>
 
           <p className="text-sm text-gray-500">Total Sales</p>

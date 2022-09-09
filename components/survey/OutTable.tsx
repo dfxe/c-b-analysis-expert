@@ -19,8 +19,8 @@ export default function OutTable() {
 
         <tbody className="divide-y divide-gray-100">
           <tr>
-            {details.state.quantitativeCosts.recurring.length > 0 &&
-              details.state.quantitativeCosts.recurring.map((item) => {
+            {details.state.recurringQuantitativeCost.length > 0 &&
+              details.state.recurringQuantitativeCost.map((item) => {
                 <>
                   <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                     {item.title}

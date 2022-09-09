@@ -25,7 +25,7 @@ export default function CurrencySelect() {
   const handleChange = (item: string) => {
     details.dispatch({
       type: "changed_currency",
-      nextCurrency: item,
+      nextAction: item,
     });
 
     setShowDropdown(!showDropdown);
@@ -37,7 +37,7 @@ export default function CurrencySelect() {
       className="w-full inline-flex justify-between bg-white border rounded-md"
     >
       <div className="px-4 py-2 text-sm text-gray-600 hover:text-gray-700 hover:bg-gray-50 rounded-l-md">
-        {details.state.currency.chosenCurrency}
+        {details.state.currency}
       </div>
 
       <div className="relative">

@@ -1,12 +1,16 @@
 import { useDetails } from "../contexts/DetailsProvider";
 
 interface FormQuestionProps {
+  type: string;
   question: string;
 }
-export default function FormQuestion({ question = "?" }: FormQuestionProps) {
+export default function FormQuestion({
+  type = "changed_org_tile",
+  question = "?",
+}: FormQuestionProps) {
   const details = useDetails();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    details.dispatch({ type: "changed_org_name", nextOrgName: e.target.value });
+    details.dispatch({ type: type, nextAction: e.target.value });
   };
   return (
     <label
@@ -17,6 +21,7 @@ export default function FormQuestion({ question = "?" }: FormQuestionProps) {
         className="w-full px-0 pt-3.5 pb-0 text-sm placeholder-transparent border-none focus:ring-0 peer"
         id="name"
         type="text"
+        onChange={handleChange}
         placeholder={question}
       />
 

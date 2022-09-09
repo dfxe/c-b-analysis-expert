@@ -1,7 +1,7 @@
 import React, { createContext, Dispatch, useContext, useReducer } from "react";
 import { nanoid } from "nanoid";
 
-interface Row {
+type Row = {
   id: string;
   title: string;
   category: string;
@@ -10,79 +10,36 @@ interface Row {
     periodTime: number;
     periodCost: number;
   };
-}
+};
 
-interface Details {
-  orgDetails: {
-    id: string;
-    title?: string;
-    initiative?: string;
-    question?: string;
-  };
-  currency: { chosenCurrency?: string };
-  quantitativeCosts: {
-    recurring: Row[];
+type Details = {
+  id: string;
+  title: string;
+  initiative: string;
+  currency: string;
+};
 
-    nonRecurring: Row[];
-  };
-  quantitativeBenefits: {
-    nonRecurring: Row[];
-  };
-}
-
-interface ActionType {
+type ActionType = {
   type: string;
-  nextCurrency?: string;
-  nextOrgName?: string;
-  nextInitiative?: string;
-  nextQuestion?: string;
-  nextRecurringCostObject?: {
-    id: string;
-    title: string;
-    description: string;
-    question: string;
-    category: string;
-    period: {
-      periodTimeUnit: string;
-      periodTime: number;
-      periodCost: number;
-    };
-  };
-  qCostsTitle?: string;
-  qCostsDescription?: string;
-  qCostsQuestion?: string;
-  qCostsCategory?: string;
-  qCostsPeriod?: {
-    periodTimeUnit?: string;
-    periodTime?: number;
-    periodCost?: number;
-  };
-}
-interface ShowDetails {
+  //nextAction must map to each Details member
+  //each details member should have the following nextAction
+  //that is not good as
+  nextAction: string;
+};
+type ShowDetails = {
   state: Details;
   dispatch: Dispatch<ActionType>;
-}
+};
 
-const DetailsContext = createContext({
+const DetailsContext = createContext<ShowDetails>({
   state: {
-    orgDetails: {
-      id: nanoid(),
-      title: "",
-      initiative: "",
-      question: "What is the name of the org?",
-    },
-    currency: { chosenCurrency: "USD" },
-    quantitativeCosts: {
-      recurring: [],
-      nonRecurring: {},
-    },
-    quantitativeBenefits: {
-      recurring: [],
-      nonRecurring: {},
-    },
+    id: nanoid(),
+    title: "",
+    initiative: "",
+    currency: "",
   },
-  dispatch: () => {},
-} as ShowDetails);
+  dispatch: (action: ActionType) => action,
+});
 
 export const useDetails = () => useContext(DetailsContext);
 
@@ -96,41 +53,33 @@ export default function DetailsProvider({ children }: Props) {
       case "changed_currency":
         return {
           ...state,
-          currency: { ...state.currency, chosenCurrency: action.nextCurrency },
+          currency: action.nextAction,
         };
-      case "changed_org_name":
+      case "changed_org_title":
         return {
           ...state,
-          orgDetails: {
-            ...state.orgDetails,
-            title: action.nextOrgName,
-          },
+          title: action.nextAction,
         };
-      case "changed_initiative":
+      case "changed_org_initiative":
         return {
           ...state,
-          orgDetails: {
-            ...state.orgDetails,
-            initiative: action.nextInitiative,
-          },
+          initiative: action.nextAction,
         };
-      case "changed_question":
-        return {
-          ...state,
-          orgDetails: {
-            ...state.orgDetails,
-            question: action.nextQuestion,
-          },
-        };
+
       case "add_recurring_cost":
         return {
           ...state,
-          quantitativeCosts: {
-            recurring: [
-              ...state.quantitativeCosts.recurring,
-              action.nextRecurringCostObject,
-            ],
-          },
+          recurringQuantitativeCost: [
+            ...state.recurringQuantitativeCost,
+            action.nextAction,
+          ],
+        };
+      case "remove_last_recurring_cost":
+        return {
+          ...state,
+          recurringQuantitativeCost: state.recurringQuantitativeCost.filter(
+            (item, i) => i != state.recurringQuantitativeCost.length - 1
+          ),
         };
     }
 
@@ -138,26 +87,12 @@ export default function DetailsProvider({ children }: Props) {
   };
 
   const [state, dispatch] = useReducer(reducer, {
-    orgDetails: {
-      id: nanoid(),
-      title: "",
-      initiative: "",
-      question: "What is the name of the org?",
-    },
-    currency: { chosenCurrency: "USD" },
-    quantitativeCosts: {
-      recurring: [],
-      nonRecurring: {},
-    },
-    quantitativeBenefits: {
-      recurring: [],
-      nonRecurring: {},
-    },
+    id: "",
+    title: "",
+    initiative: "",
+    currency: "",
+    recurringQuantitativeCost: [],
   });
-
-  React.useEffect(() => {
-    console.log(state.quantitativeCosts.recurring);
-  }, [state.quantitativeCosts.recurring]);
 
   return (
     <DetailsContext.Provider value={{ state: state, dispatch: dispatch }}>

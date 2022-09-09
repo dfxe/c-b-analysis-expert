@@ -12,10 +12,12 @@ const Survey = () => {
         <div className="text-xl">Organisation Summary</div>
         <FormQuestion
           key={"5qNmRyQh-2vb0Wwa5oSr0"}
+          type={"changed_org_title"}
           question="What is the name of the organisation?"
         />
         <FormQuestion
           key={"1_YIjbAJMK58aYTEKHiD1"}
+          type={"changed_org_initiative"}
           question="What is the initiative of the organisation?"
         />
         <CurrencySelect />
@@ -25,7 +27,7 @@ const Survey = () => {
         <InputAddAccordion></InputAddAccordion>
         <div className="text-lg">Recurring Costs</div>
         <hr></hr>
-        <OutTable></OutTable>
+        {/* <OutTable></OutTable> */}
         <EndCost></EndCost>
       </div>
     </div>

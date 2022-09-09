@@ -3,19 +3,19 @@ import { nanoid } from "nanoid";
 import { useDetails } from "../contexts/DetailsProvider";
 export default function CurrencySelect() {
   const details = useDetails();
-  //const [showDropdown, setShowDropdown] = React.useState(true);
+  const [showDropdown, setShowDropdown] = React.useState(false);
   const currencies = [
     {
       value: "USD",
-      label: "USD",
+      label: "$",
     },
     {
       value: "EUR",
-      label: "EUR",
+      label: "€",
     },
     {
       value: "GBP",
-      label: "GBP",
+      label: "£",
     },
     {
       value: "RON",
@@ -23,18 +23,24 @@ export default function CurrencySelect() {
     },
   ];
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
+    e.preventDefault();
     details.dispatch({
       type: "changed_currency",
-      nextCurrency: event.target.value,
+      nextCurrency: e.target.getAttribute("value"),
     });
+    console.log(e.target.getAttribute("value"));
+    setShowDropdown(!showDropdown);
   };
 
   return (
-    <div className="inline-flex items-stretch bg-white border rounded-md">
-      <p className="px-4 py-2 text-sm text-gray-600 hover:text-gray-700 hover:bg-gray-50 rounded-l-md">
-        Select currency
-      </p>
+    <div
+      onClick={() => setShowDropdown(!showDropdown)}
+      className="w-full inline-flex justify-between bg-white border rounded-md"
+    >
+      <div className="px-4 py-2 text-sm text-gray-600 hover:text-gray-700 hover:bg-gray-50 rounded-l-md">
+        Choose Currency
+      </div>
 
       <div className="relative">
         <button
@@ -55,23 +61,29 @@ export default function CurrencySelect() {
           </svg>
         </button>
 
-        <button
+        <div
+          hidden={showDropdown}
           className="absolute right-0 z-10 w-56 mt-4 bg-white border border-gray-100 shadow-lg origin-top-right rounded-md"
           role="menu"
         >
-          <div className="p-2">
-            {currencies.map((item) => (
-              <input
-                type={"button"}
-                onClick={(e) => handleChange(e)}
-                key={nanoid()}
-                className="block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700"
-                role="menuitem"
-                value={item.label}
-              />
-            ))}
+          <div className="py-2 flow-root">
+            <div className="-my-2 divide-y divide-gray-100">
+              <ul className="p-2">
+                {currencies.map((item, i) => (
+                  <li
+                    onClick={handleChange}
+                    key={item.value + i}
+                    className="block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700"
+                    role="menuitem"
+                    value={item.label}
+                  >
+                    {item.value}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </button>
+        </div>
       </div>
     </div>
   );

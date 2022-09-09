@@ -1,4 +1,7 @@
-export default function EndCost() {
+import { useDetails } from "../contexts/DetailsProvider";
+
+export default function EndCost({ endValue = 0 }) {
+  const details = useDetails();
   return (
     <div>
       <article className="flex items-center p-6 bg-white border border-gray-100 rounded-lg gap-4">
@@ -20,7 +23,9 @@ export default function EndCost() {
         </span>
 
         <div>
-          <p className="text-2xl font-medium text-gray-900">$240.94</p>
+          <p className="text-2xl font-medium text-gray-900">
+            {details.state.currency.chosenCurrency + endValue.toString()}
+          </p>
 
           <p className="text-sm text-gray-500">Total Sales</p>
         </div>

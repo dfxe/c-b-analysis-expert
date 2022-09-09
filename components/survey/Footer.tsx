@@ -38,7 +38,7 @@ function Footer() {
           </div>
 
           <p className="mt-4 text-sm text-center text-gray-500 lg:text-right lg:mt-0">
-            Copyright &copy; 2022. All rights reserved.
+            Copyright &copy; {new Date().getFullYear()}. All rights reserved.
           </p>
         </div>
       </div>

@@ -26,28 +26,40 @@ export default function InputAddAccordion() {
           </span>
         </summary>
 
-        <nav className="flex flex-col mt-2">
-          <div className="flex row justify-around">
-            <input
-              type="text"
-              className="block border-2 px-2 py-2 w-1/2 mr-2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
-              value="Server"
-              onChange={(e) =>
-                details.dispatch({
-                  type: "change_field_value",
-                  nextTitle: e.target.value,
-                })
-              }
-            />
-            <NumericInput />
-          </div>
-        </nav>
-
+        {details.state.recurringQuantitativeCost.map((item) => (
+          <nav className="flex flex-col mt-2">
+            <div className="flex row justify-around">
+              <input
+                key={item.id}
+                placeholder={"Row Title"}
+                type="text"
+                className="block border-2 px-2 py-2 w-1/2 mr-2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
+                value={item.title}
+                onChange={(e) =>
+                  details.dispatch({
+                    type: "change_field_value",
+                    nextAction: e.target.value,
+                    editId: e.target.getAttribute("key"),
+                  })
+                }
+              />
+              <NumericInput />
+            </div>
+          </nav>
+        ))}
         <div className="flex row justify-around mt-4">
-          <button className="relative text-indigo-600 font-medium before:absolute before:-bottom-1 before:h-0.5 before:w-full before:origin-left before:scale-x-0 before:bg-indigo-600 before:transition hover:before:scale-100">
+          <button
+            onClick={() => details.dispatch({ type: "add_recurring_cost" })}
+            className="relative text-indigo-600 font-medium before:absolute before:-bottom-1 before:h-0.5 before:w-full before:origin-left before:scale-x-0 before:bg-indigo-600 before:transition hover:before:scale-100"
+          >
             Add field
           </button>
-          <button className="relative text-indigo-600 font-medium before:absolute before:-bottom-1 before:h-0.5 before:w-full before:origin-right before:scale-x-0 before:bg-indigo-600 before:transition hover:before:scale-100">
+          <button
+            onClick={() =>
+              details.dispatch({ type: "remove_last_recurring_cost" })
+            }
+            className="relative text-indigo-600 font-medium before:absolute before:-bottom-1 before:h-0.5 before:w-full before:origin-right before:scale-x-0 before:bg-indigo-600 before:transition hover:before:scale-100"
+          >
             Remove Field
           </button>
         </div>

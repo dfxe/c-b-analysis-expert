@@ -60,9 +60,9 @@ export default function CurrencySelect() {
         </button>
 
         <div
-          hidden={showDropdown}
           className="absolute right-0 z-10 w-56 mt-4 bg-white border border-gray-100 shadow-lg origin-top-right rounded-md"
           role="menu"
+          hidden={showDropdown}
         >
           <div className="py-2 flow-root">
             <div className="-my-2 divide-y divide-gray-100">

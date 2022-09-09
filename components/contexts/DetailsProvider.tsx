@@ -17,6 +17,7 @@ type Details = {
   title: string;
   initiative: string;
   currency: string;
+  recurringQuantitativeCost: Array<Row>;
 };
 
 type ActionType = {
@@ -24,7 +25,8 @@ type ActionType = {
   //nextAction must map to each Details member
   //each details member should have the following nextAction
   //that is not good as
-  nextAction: string;
+  nextAction?: string;
+  editId?: string;
 };
 type ShowDetails = {
   state: Details;
@@ -37,6 +39,7 @@ const DetailsContext = createContext<ShowDetails>({
     title: "",
     initiative: "",
     currency: "",
+    recurringQuantitativeCost: [],
   },
   dispatch: (action: ActionType) => action,
 });
@@ -48,7 +51,7 @@ type Props = {
 };
 
 export default function DetailsProvider({ children }: Props) {
-  const reducer = (state: Details, action: ActionType) => {
+  const reducer = (state: Details, action: ActionType, editId?: string) => {
     switch (action.type) {
       case "changed_currency":
         return {
@@ -65,13 +68,34 @@ export default function DetailsProvider({ children }: Props) {
           ...state,
           initiative: action.nextAction,
         };
-
+      case "edit_input_at":
+        return {
+          ...state,
+          recurringQuantitativeCost: [
+            ...state.recurringQuantitativeCost,
+            {
+              ...state.recurringQuantitativeCost.filter(
+                (item) => item.id === editId
+              ),
+              title: action.nextAction,
+            },
+          ],
+        };
       case "add_recurring_cost":
         return {
           ...state,
           recurringQuantitativeCost: [
             ...state.recurringQuantitativeCost,
-            action.nextAction,
+            {
+              id: nanoid(),
+              title: "",
+              category: "",
+              period: {
+                periodTimeUnit: "",
+                periodTime: "",
+                periodCost: "",
+              },
+            },
           ],
         };
       case "remove_last_recurring_cost":
@@ -90,7 +114,7 @@ export default function DetailsProvider({ children }: Props) {
     id: "",
     title: "",
     initiative: "",
-    currency: "",
+    currency: "$",
     recurringQuantitativeCost: [],
   });
 

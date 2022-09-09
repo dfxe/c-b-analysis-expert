@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react";
+import React from "react";
 import { useDetails } from "../contexts/DetailsProvider";
 export default function CurrencySelect() {
   const details = useDetails();

@@ -1,19 +1,15 @@
-import React, { useState } from "react";
 import CurrencySelect from "./CurrencySelect";
 import FormQuestion from "./FormQuestion";
-import { nanoid } from "nanoid";
-import AddField from "./AddField";
-import Footer from "./Footer";
-import InputAdd from "./InputAdd";
 import InputAddAccordion from "./InputAddAccordion";
 import EndCost from "./EndCost";
+import OutTable from "./OutTable";
 
 const Survey = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <h1 className="text-4xl mt-24">Cost-Benefit Analysis</h1>
       <div className="w-full [&>*]:my-6">
-        <div className="text-xl">Organisation Costs</div>
+        <div className="text-xl">Organisation Summary</div>
         <FormQuestion
           key={"5qNmRyQh-2vb0Wwa5oSr0"}
           question="What is the name of the organisation?"
@@ -23,13 +19,14 @@ const Survey = () => {
           question="What is the initiative of the organisation?"
         />
         <CurrencySelect />
-        {/*<InputAdd></InputAdd>*/}
+        <hr></hr>
         <div className="text-xl">Quantitative Costs</div>
-        <div className="text-lg">Non-recurring costs</div>
+        <div className="text-lg">Non-recurring Costs</div>
         <InputAddAccordion></InputAddAccordion>
-        <div className="text-lg">Recurring costs</div>
+        <div className="text-lg">Recurring Costs</div>
+        <hr></hr>
+        <OutTable></OutTable>
         <EndCost></EndCost>
-        {/* <AddField></AddField> */}
       </div>
     </div>
   );

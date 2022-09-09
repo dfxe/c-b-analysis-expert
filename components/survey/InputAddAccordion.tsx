@@ -1,5 +1,6 @@
 import React from "react";
 import { useDetails } from "../contexts/DetailsProvider";
+import NumericInput from "./NumericInput";
 
 export default function InputAddAccordion() {
   const details = useDetails();
@@ -7,7 +8,7 @@ export default function InputAddAccordion() {
     <nav className="flex flex-col space-y-1 ">
       <details className="group">
         <summary className="flex border-2 items-center px-4 py-2 text-gray-500 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700">
-          <span className="text-sm font-medium"> Teams </span>
+          <span className="text-sm font-medium"> Hardware </span>
 
           <span className="ml-auto transition duration-300 shrink-0 group-open:-rotate-180">
             <svg
@@ -31,16 +32,18 @@ export default function InputAddAccordion() {
               type="text"
               className="block border-2 px-2 py-2 w-1/2 mr-2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
               value="Server"
+              onChange={(e) =>
+                details.dispatch({
+                  type: "change_field_value",
+                  nextTitle: e.target.value,
+                })
+              }
             />
-            <input
-              type="text"
-              className="block border-2 px-4 py-2 w-1/2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
-              value={details.state.currency.chosenCurrency + " 20"}
-            />
+            <NumericInput />
           </div>
         </nav>
 
-        <div className="flex row justify-around">
+        <div className="flex row justify-around mt-4">
           <button className="relative text-indigo-600 font-medium before:absolute before:-bottom-1 before:h-0.5 before:w-full before:origin-left before:scale-x-0 before:bg-indigo-600 before:transition hover:before:scale-100">
             Add field
           </button>

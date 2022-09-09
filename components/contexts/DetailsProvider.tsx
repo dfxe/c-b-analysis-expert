@@ -1,6 +1,17 @@
 import React, { createContext, Dispatch, useContext, useReducer } from "react";
 import { nanoid } from "nanoid";
 
+interface Row {
+  id: string;
+  title: string;
+  category: string;
+  period: {
+    periodTimeUnit: string;
+    periodTime: number;
+    periodCost: number;
+  };
+}
+
 interface Details {
   orgDetails: {
     id: string;
@@ -10,42 +21,13 @@ interface Details {
   };
   currency: { chosenCurrency?: string };
   quantitativeCosts: {
-    recurring: {
-      id: string;
-      title: string;
-      description: string;
-      question: string;
-      category: string;
-      period: {
-        periodTimeUnit: string;
-        periodTime: number;
-        periodCost: number;
-      };
-    }[];
+    recurring: Row[];
 
-    nonRecurring: {};
+    nonRecurring: Row[];
   };
   quantitativeBenefits: {
-    recurring: {
-      id: string;
-      title: string;
-      description: string;
-      question: string;
-      category: string;
-      period: {
-        periodTimeUnit: string;
-        periodTime: number;
-        periodCost: number;
-      };
-    }[];
-
-    nonRecurring: {};
+    nonRecurring: Row[];
   };
-}
-
-interface ShowDetails {
-  state: Details;
-  dispatch: Dispatch<ActionType>;
 }
 
 interface ActionType {
@@ -76,6 +58,10 @@ interface ActionType {
     periodCost?: number;
   };
 }
+interface ShowDetails {
+  state: Details;
+  dispatch: Dispatch<ActionType>;
+}
 
 const DetailsContext = createContext({
   state: {
@@ -91,16 +77,7 @@ const DetailsContext = createContext({
       nonRecurring: {},
     },
     quantitativeBenefits: {
-      recurring: [
-        {
-          id: nanoid(),
-          title: "Servers",
-          description: "Computers being used to deploy the product.",
-          question: "How much is the overhead cost for the server?",
-          category: "Hardware",
-          period: { periodTimeUnit: "w", periodTime: 1, periodCost: 10 },
-        },
-      ],
+      recurring: [],
       nonRecurring: {},
     },
   },
@@ -160,7 +137,6 @@ export default function DetailsProvider({ children }: Props) {
     throw Error("Unknown action.");
   };
 
-  //@ts-ignore
   const [state, dispatch] = useReducer(reducer, {
     orgDetails: {
       id: nanoid(),
@@ -170,29 +146,11 @@ export default function DetailsProvider({ children }: Props) {
     },
     currency: { chosenCurrency: "USD" },
     quantitativeCosts: {
-      recurring: [
-        {
-          id: nanoid(),
-          title: "Servers",
-          description: "Computers being used to deploy the product.",
-          question: "How much is the overhead cost for the server?",
-          category: "Hardware",
-          period: { periodTimeUnit: "w", periodTime: 1, periodCost: 10 },
-        },
-      ],
+      recurring: [],
       nonRecurring: {},
     },
     quantitativeBenefits: {
-      recurring: [
-        {
-          id: nanoid(),
-          title: "Servers",
-          description: "Computers being used to deploy the product.",
-          question: "How much is the overhead cost for the server?",
-          category: "Hardware",
-          period: { periodTimeUnit: "w", periodTime: 1, periodCost: 10 },
-        },
-      ],
+      recurring: [],
       nonRecurring: {},
     },
   });

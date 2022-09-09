@@ -1,10 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Survey from "../components/survey/Survey";
-import ProgressProvider from "../components/contexts/ProgressProvider";
+
 import packageJson from "../package.json";
 import DetailsProvider from "../components/contexts/DetailsProvider";
-import Image from "next/image";
+
 import Footer from "../components/survey/Footer";
 const Home: NextPage = () => {
   return (
@@ -28,11 +28,10 @@ const Home: NextPage = () => {
         {packageJson.version}a
       </div>
 
-      <ProgressProvider>
-        <DetailsProvider>
-          <Survey></Survey>
-        </DetailsProvider>
-      </ProgressProvider>
+      <DetailsProvider>
+        <Survey></Survey>
+      </DetailsProvider>
+
       <Footer></Footer>
     </div>
   );

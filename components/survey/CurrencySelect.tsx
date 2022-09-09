@@ -1,5 +1,4 @@
-import React from "react";
-import { nanoid } from "nanoid";
+import React, { MouseEventHandler } from "react";
 import { useDetails } from "../contexts/DetailsProvider";
 export default function CurrencySelect() {
   const details = useDetails();
@@ -23,13 +22,12 @@ export default function CurrencySelect() {
     },
   ];
 
-  const handleChange = (e) => {
-    e.preventDefault();
+  const handleChange = (item: string) => {
     details.dispatch({
       type: "changed_currency",
-      nextCurrency: e.target.getAttribute("value"),
+      nextCurrency: item,
     });
-    console.log(e.target.getAttribute("value"));
+
     setShowDropdown(!showDropdown);
   };
 
@@ -39,7 +37,7 @@ export default function CurrencySelect() {
       className="w-full inline-flex justify-between bg-white border rounded-md"
     >
       <div className="px-4 py-2 text-sm text-gray-600 hover:text-gray-700 hover:bg-gray-50 rounded-l-md">
-        Choose Currency
+        {details.state.currency.chosenCurrency}
       </div>
 
       <div className="relative">
@@ -71,11 +69,10 @@ export default function CurrencySelect() {
               <ul className="p-2">
                 {currencies.map((item, i) => (
                   <li
-                    onClick={handleChange}
+                    onClick={() => handleChange(item.label)}
                     key={item.value + i}
                     className="block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700"
                     role="menuitem"
-                    value={item.label}
                   >
                     {item.value}
                   </li>

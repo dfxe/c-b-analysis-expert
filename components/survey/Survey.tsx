@@ -13,14 +13,21 @@ const Survey = () => {
     <div className="flex flex-col justify-center items-center">
       <h1 className="text-4xl mt-24">Cost-Benefit Analysis</h1>
       <div className="w-full [&>*]:my-6">
+        <div className="text-xl">Organisation Costs</div>
         <FormQuestion
-          key={"C4i4MsLt8kp80bztULT6-"}
+          key={"5qNmRyQh-2vb0Wwa5oSr0"}
           question="What is the name of the organisation?"
         />
+        <FormQuestion
+          key={"1_YIjbAJMK58aYTEKHiD1"}
+          question="What is the initiative of the organisation?"
+        />
         <CurrencySelect />
-
-        <InputAdd></InputAdd>
+        {/*<InputAdd></InputAdd>*/}
+        <div className="text-xl">Quantitative Costs</div>
+        <div className="text-lg">Non-recurring costs</div>
         <InputAddAccordion></InputAddAccordion>
+        <div className="text-lg">Recurring costs</div>
         <EndCost></EndCost>
         {/* <AddField></AddField> */}
       </div>

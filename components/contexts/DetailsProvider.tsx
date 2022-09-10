@@ -1,5 +1,6 @@
 import React, { createContext, Dispatch, useContext, useReducer } from "react";
 import { nanoid } from "nanoid";
+//observation about nanoid -> it only trigger once
 
 type Row = {
   id: string;
@@ -25,7 +26,7 @@ type ActionType = {
   //nextAction must map to each Details member
   //each details member should have the following nextAction
   //that is not good as
-  nextAction?: string | Array<Row>;
+  nextAction?: string | Array<Row> | HTMLInputElement;
   editId?: string;
 };
 type ShowDetails = {
@@ -51,7 +52,7 @@ type Props = {
 };
 
 export default function DetailsProvider({ children }: Props) {
-  const reducer = (state: Details, action: ActionType, editId?: string) => {
+  const reducer = (state: Details, action: ActionType) => {
     switch (action.type) {
       case "changed_currency":
         return {
@@ -72,9 +73,37 @@ export default function DetailsProvider({ children }: Props) {
         return {
           ...state,
           recurringQuantitativeCost: [
-            ...state.recurringQuantitativeCost,
-            state.recurringQuantitativeCost.map((item) => {
-              if (item.id === editId) return { title: action.nextAction };
+            ...state.recurringQuantitativeCost.map((item) => {
+              if (
+                item.id ===
+                (action.nextAction as HTMLInputElement).getAttribute("key")
+              ) {
+                return {
+                  ...item,
+                  title: (action.nextAction as HTMLInputElement).value,
+                };
+              } else {
+                return { item };
+              }
+            }),
+          ],
+        };
+      case "edit_period_cost":
+        return {
+          ...state,
+          recurringQuantitativeCost: [
+            ...state.recurringQuantitativeCost.map((item) => {
+              if (
+                item.id ===
+                (action.nextAction as HTMLInputElement).getAttribute("key")
+              ) {
+                return {
+                  ...item,
+                  title: (action.nextAction as HTMLInputElement).value,
+                };
+              } else {
+                return { item };
+              }
             }),
           ],
         };
@@ -84,7 +113,7 @@ export default function DetailsProvider({ children }: Props) {
           recurringQuantitativeCost: [
             ...state.recurringQuantitativeCost,
             {
-              id: nanoid(),
+              id: "idEL" + state.recurringQuantitativeCost.length.toString(),
               title: "",
               category: "",
               period: {
@@ -116,7 +145,10 @@ export default function DetailsProvider({ children }: Props) {
   });
 
   React.useEffect(() => {
-    console.log(state.recurringQuantitativeCost);
+    /* state.recurringQuantitativeCost.map((item: Row[]) =>
+      console.table(item[0]?.title)
+    ); */
+    console.log(state);
   }, [state.recurringQuantitativeCost]);
 
   return (

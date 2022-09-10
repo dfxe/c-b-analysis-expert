@@ -16,6 +16,6 @@
     "incremental": true,
 
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "__tests__/editDetails.test.jsx", "cypress/fixtures/editInput.cy.tss"],
   "exclude": ["node_modules"]
 }

@@ -3,15 +3,14 @@ import { useDetails } from "../contexts/DetailsProvider";
 
 export default function InputAddAccordion() {
   const details = useDetails();
-  const handleDetails = (e) => {
+  const handleDetails = (e, command: string, editId: string) => {
     details.dispatch({
-      type: "edit_input_at",
-      nextAction: e.target,
+      type: command,
+      nextAction: e.target.value,
+      editId: editId,
     });
   };
-  const handleNumbers = (e) => {
-    details.dispatch({ type: "edit_period_cost", nextAction: e.target });
-  };
+
   return (
     <nav className="flex flex-col space-y-1 ">
       <details className="group">
@@ -39,20 +38,27 @@ export default function InputAddAccordion() {
               <li key={item.id + i.toString()}>
                 <input
                   placeholder={"Row Title"}
-                  key={item[0]?.id}
+                  key={"3"}
                   type="text"
                   className="block border-2 px-2 py-2 w-1/2 mr-2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
-                  value={item[0]?.title}
-                  onChange={handleDetails}
+                  value={item.title}
+                  onChange={(e) =>
+                    handleDetails(e, "edit_input_at", item.id + i.toString())
+                  }
                 />
                 <input
-                  key={item[0]?.id}
+                  key={item.id + i.toString()}
                   type="text"
                   className="block border-2 px-4 py-2 w-1/2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
                   onChange={(e) => {
-                    !isNaN(+e.target.value) && handleNumbers(e);
+                    !isNaN(+e.target.value) &&
+                      handleDetails(
+                        e,
+                        "edit_period_cost",
+                        item.id + i.toString()
+                      );
                   }}
-                  value={item[0]?.period.periodCost}
+                  value={item.period.periodCost}
                 />
               </li>
             ))}

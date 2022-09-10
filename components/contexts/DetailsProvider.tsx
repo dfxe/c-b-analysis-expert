@@ -26,7 +26,7 @@ type ActionType = {
   //nextAction must map to each Details member
   //each details member should have the following nextAction
   //that is not good as
-  nextAction?: string | Array<Row> | HTMLInputElement;
+  nextAction?: string | Array<Row>;
   editId?: string;
 };
 type ShowDetails = {
@@ -52,7 +52,7 @@ type Props = {
 };
 
 export default function DetailsProvider({ children }: Props) {
-  const reducer = (state: Details, action: ActionType) => {
+  const reducer = (state: Details, action: ActionType, editId: string) => {
     switch (action.type) {
       case "changed_currency":
         return {
@@ -73,17 +73,15 @@ export default function DetailsProvider({ children }: Props) {
         return {
           ...state,
           recurringQuantitativeCost: [
-            ...state.recurringQuantitativeCost.map((item) => {
-              if (
-                item.id ===
-                (action.nextAction as HTMLInputElement).getAttribute("key")
-              ) {
+            ...state.recurringQuantitativeCost.map((item, i) => {
+              if (item.id + i.toString() === action.editId) {
+                console.log("foundasd");
                 return {
                   ...item,
-                  title: (action.nextAction as HTMLInputElement).value,
+                  title: action.nextAction,
                 };
               } else {
-                return { item };
+                return { ...item };
               }
             }),
           ],
@@ -92,17 +90,17 @@ export default function DetailsProvider({ children }: Props) {
         return {
           ...state,
           recurringQuantitativeCost: [
-            ...state.recurringQuantitativeCost.map((item) => {
-              if (
-                item.id ===
-                (action.nextAction as HTMLInputElement).getAttribute("key")
-              ) {
+            ...state.recurringQuantitativeCost.map((item, i) => {
+              if (item.id + i.toString() === action.editId) {
                 return {
                   ...item,
-                  title: (action.nextAction as HTMLInputElement).value,
+                  period: {
+                    ...item.period,
+                    periodCost: action.nextAction,
+                  },
                 };
               } else {
-                return { item };
+                return { ...item };
               }
             }),
           ],
@@ -141,7 +139,18 @@ export default function DetailsProvider({ children }: Props) {
     title: "",
     initiative: "",
     currency: "$",
-    recurringQuantitativeCost: [],
+    recurringQuantitativeCost: [
+      {
+        id: "idEL0",
+        title: "",
+        category: "",
+        period: {
+          periodTimeUnit: "",
+          periodTime: 0,
+          periodCost: 0,
+        },
+      },
+    ],
   });
 
   React.useEffect(() => {

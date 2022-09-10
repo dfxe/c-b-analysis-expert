@@ -26,11 +26,11 @@ export default function InputAddAccordion() {
           </span>
         </summary>
 
-        {details.state.recurringQuantitativeCost.map((item) => (
+        {details.state.recurringQuantitativeCost.map((item, i) => (
           <nav className="flex flex-col mt-2">
             <div className="flex row justify-around">
               <input
-                key={item.id}
+                key={item.id + i}
                 placeholder={"Row Title"}
                 type="text"
                 className="block border-2 px-2 py-2 w-1/2 mr-2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"

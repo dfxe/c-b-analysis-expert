@@ -2,7 +2,7 @@ import React from "react";
 import { useDetails } from "../contexts/DetailsProvider";
 export default function CurrencySelect() {
   const details = useDetails();
-  const [showDropdown, setShowDropdown] = React.useState(false);
+  const [hideDropdown, setHideDropdown] = React.useState(true);
   const currencies = [
     {
       value: "USD",
@@ -28,12 +28,12 @@ export default function CurrencySelect() {
       nextAction: item,
     });
 
-    setShowDropdown(!showDropdown);
+    setHideDropdown(!hideDropdown);
   };
 
   return (
     <div
-      onClick={() => setShowDropdown(!showDropdown)}
+      onClick={() => setHideDropdown(!hideDropdown)}
       className="w-full inline-flex justify-between bg-white border rounded-md"
     >
       <div className="px-4 py-2 text-sm text-gray-600 hover:text-gray-700 hover:bg-gray-50 rounded-l-md">
@@ -62,7 +62,7 @@ export default function CurrencySelect() {
         <div
           className="absolute right-0 z-10 w-56 mt-4 bg-white border border-gray-100 shadow-lg origin-top-right rounded-md"
           role="menu"
-          hidden={showDropdown}
+          hidden={hideDropdown}
         >
           <div className="py-2 flow-root">
             <div className="-my-2 divide-y divide-gray-100">

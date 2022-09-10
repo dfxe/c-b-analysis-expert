@@ -18,7 +18,7 @@ type Details = {
   title: string;
   initiative: string;
   currency: string;
-  recurringQuantitativeCost: Array<Row>;
+  recurringQuantitativeCost: { [key: string]: Row[] };
 };
 
 type ActionType = {
@@ -40,7 +40,7 @@ const DetailsContext = createContext<ShowDetails>({
     title: "",
     initiative: "",
     currency: "",
-    recurringQuantitativeCost: [],
+    recurringQuantitativeCost: { Hardware: Row[] },
   },
   dispatch: (action: ActionType) => action,
 });
@@ -73,7 +73,7 @@ export default function DetailsProvider({ children }: Props) {
         return {
           ...state,
           recurringQuantitativeCost: [
-            ...state.recurringQuantitativeCost.map((item, i) => {
+            ...state.recurringQuantitativeCost.Hardware.map((item, i) => {
               if (item.id + i.toString() === action.editId) {
                 console.log("foundasd");
                 return {
@@ -90,7 +90,7 @@ export default function DetailsProvider({ children }: Props) {
         return {
           ...state,
           recurringQuantitativeCost: [
-            ...state.recurringQuantitativeCost.map((item, i) => {
+            ...state.recurringQuantitativeCost.Hardware.map((item, i) => {
               if (item.id + i.toString() === action.editId) {
                 return {
                   ...item,
@@ -109,7 +109,7 @@ export default function DetailsProvider({ children }: Props) {
         return {
           ...state,
           recurringQuantitativeCost: [
-            ...state.recurringQuantitativeCost,
+            ...state.recurringQuantitativeCost.Hardware,
             {
               id: "idEL" + state.recurringQuantitativeCost.length.toString(),
               title: "",
@@ -125,9 +125,11 @@ export default function DetailsProvider({ children }: Props) {
       case "remove_last_recurring_cost":
         return {
           ...state,
-          recurringQuantitativeCost: state.recurringQuantitativeCost.filter(
-            (item, i) => i != state.recurringQuantitativeCost.length - 1
-          ),
+          recurringQuantitativeCost:
+            state.recurringQuantitativeCost.Hardware.filter(
+              (item, i) =>
+                i != state.recurringQuantitativeCost.Hardware.length - 1
+            ),
         };
     }
 

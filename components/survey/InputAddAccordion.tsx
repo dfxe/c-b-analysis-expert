@@ -12,10 +12,10 @@ export default function InputAddAccordion() {
   };
 
   return (
-    <nav className="flex flex-col space-y-1 ">
+    <nav className="flex flex-col space-y-1">
       <details className="group">
         <summary className="flex border-2 items-center px-4 py-2 text-gray-500 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700">
-          <span className="text-sm font-medium"> Hardware </span>
+          <span className="text-sm font-medium">Hard</span>
 
           <span className="ml-auto transition duration-300 shrink-0 group-open:-rotate-180">
             <svg
@@ -51,6 +51,7 @@ export default function InputAddAccordion() {
                 />
                 <input
                   key={item.id + i.toString()}
+                  placeholder={"Row Cost"}
                   type="text"
                   className="block border-2 px-4 py-2 w-1/2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
                   onChange={(e) => {

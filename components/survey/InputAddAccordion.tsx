@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import React from "react";
 import { useDetails } from "../contexts/DetailsProvider";
 import NumericInput from "./NumericInput";
@@ -25,19 +26,18 @@ export default function InputAddAccordion() {
             </svg>
           </span>
         </summary>
-
-        {details.state.recurringQuantitativeCost.map((item, i) => (
-          <nav className="flex flex-col mt-2">
-            <div className="flex row justify-around">
+        <nav className="flex flex-col mt-2">
+          {details.state.recurringQuantitativeCost.map((item, i) => (
+            <div className="flex row justify-around" key={nanoid() + i + "d"}>
               <input
-                key={item.id + i}
                 placeholder={"Row Title"}
+                key={item.id}
                 type="text"
                 className="block border-2 px-2 py-2 w-1/2 mr-2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
                 value={item.title}
                 onChange={(e) =>
                   details.dispatch({
-                    type: "change_field_value",
+                    type: "edit_input_at",
                     nextAction: e.target.value,
                     editId: e.target.getAttribute("key"),
                   })
@@ -45,8 +45,8 @@ export default function InputAddAccordion() {
               />
               <NumericInput />
             </div>
-          </nav>
-        ))}
+          ))}
+        </nav>
         <div className="flex row justify-around mt-4">
           <button
             onClick={() => details.dispatch({ type: "add_recurring_cost" })}

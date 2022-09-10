@@ -25,7 +25,7 @@ type ActionType = {
   //nextAction must map to each Details member
   //each details member should have the following nextAction
   //that is not good as
-  nextAction?: string;
+  nextAction?: string | Array<Row>;
   editId?: string;
 };
 type ShowDetails = {
@@ -73,12 +73,9 @@ export default function DetailsProvider({ children }: Props) {
           ...state,
           recurringQuantitativeCost: [
             ...state.recurringQuantitativeCost,
-            {
-              ...state.recurringQuantitativeCost.filter(
-                (item) => item.id === editId
-              ),
-              title: action.nextAction,
-            },
+            state.recurringQuantitativeCost.map((item) => {
+              if (item.id === editId) return { title: action.nextAction };
+            }),
           ],
         };
       case "add_recurring_cost":
@@ -117,6 +114,10 @@ export default function DetailsProvider({ children }: Props) {
     currency: "$",
     recurringQuantitativeCost: [],
   });
+
+  React.useEffect(() => {
+    console.log(state.recurringQuantitativeCost);
+  }, [state.recurringQuantitativeCost]);
 
   return (
     <DetailsContext.Provider value={{ state: state, dispatch: dispatch }}>

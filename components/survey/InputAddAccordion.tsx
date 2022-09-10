@@ -33,9 +33,12 @@ export default function InputAddAccordion() {
           </span>
         </summary>
         <nav className="flex flex-col mt-2">
-          <ul className="flex row justify-around">
+          <ul>
             {details.state.recurringQuantitativeCost.map((item, i) => (
-              <li key={item.id + i.toString()}>
+              <li
+                className="flex row justify-around"
+                key={item.id + i.toString()}
+              >
                 <input
                   placeholder={"Row Title"}
                   key={"3"}

@@ -1,6 +1,5 @@
 import React, { createContext, Dispatch, useContext, useReducer } from "react";
 import { nanoid } from "nanoid";
-//observation about nanoid -> it only trigger once
 
 type Row = {
   id: string;
@@ -19,6 +18,7 @@ type Details = {
   initiative: string;
   currency: string;
   recurringQuantitativeCost: { [key: string]: Row[] };
+  nonRecurringQuantitativeCost: Row[];
 };
 
 type ActionType = {
@@ -40,7 +40,8 @@ const DetailsContext = createContext<ShowDetails>({
     title: "",
     initiative: "",
     currency: "",
-    recurringQuantitativeCost: { Hardware: Row[] },
+    //TODO Type here needs to be any key and value of [key:value]
+    recurringQuantitativeCost: { Hardware: [] },
   },
   dispatch: (action: ActionType) => action,
 });
@@ -89,8 +90,8 @@ export default function DetailsProvider({ children }: Props) {
       case "edit_period_cost":
         return {
           ...state,
-          recurringQuantitativeCost: [
-            ...state.recurringQuantitativeCost.Hardware.map((item, i) => {
+          recurringQuantitativeCost:
+            state.recurringQuantitativeCost.Hardware.map((item, i) => {
               if (item.id + i.toString() === action.editId) {
                 return {
                   ...item,
@@ -103,7 +104,6 @@ export default function DetailsProvider({ children }: Props) {
                 return { ...item };
               }
             }),
-          ],
         };
       case "add_recurring_cost":
         return {
@@ -141,18 +141,20 @@ export default function DetailsProvider({ children }: Props) {
     title: "",
     initiative: "",
     currency: "$",
-    recurringQuantitativeCost: [
-      {
-        id: "idEL0",
-        title: "",
-        category: "",
-        period: {
-          periodTimeUnit: "",
-          periodTime: 0,
-          periodCost: 0,
+    recurringQuantitativeCost: {
+      Hardware: [
+        {
+          id: "idEL0",
+          title: "",
+          category: "",
+          period: {
+            periodTimeUnit: "",
+            periodTime: 0,
+            periodCost: 0,
+          },
         },
-      },
-    ],
+      ],
+    },
   });
 
   React.useEffect(() => {

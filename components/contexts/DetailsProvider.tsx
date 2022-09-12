@@ -12,12 +12,16 @@ type Row = {
   };
 };
 
+type Category = {
+  [key:string]: Row[];
+};
+
 type Details = {
   id: string;
   title: string;
   initiative: string;
   currency: string;
-  recurringQuantitativeCost: { [key: string]: Row[] };
+  recurringQuantitativeCost: Category[];
   nonRecurringQuantitativeCost: Row[];
 };
 
@@ -41,7 +45,8 @@ const DetailsContext = createContext<ShowDetails>({
     initiative: "",
     currency: "",
     //TODO Type here needs to be any key and value of [key:value]
-    recurringQuantitativeCost: { Hardware: [] },
+    recurringQuantitativeCost: {hardware:[]}[],
+    nonRecurringQuantitativeCost: [],
   },
   dispatch: (action: ActionType) => action,
 });
@@ -155,12 +160,10 @@ export default function DetailsProvider({ children }: Props) {
         },
       ],
     },
+    nonRecurringQuantitativeCost: [],
   });
 
   React.useEffect(() => {
-    /* state.recurringQuantitativeCost.map((item: Row[]) =>
-      console.table(item[0]?.title)
-    ); */
     console.log(state);
   }, [state.recurringQuantitativeCost]);
 

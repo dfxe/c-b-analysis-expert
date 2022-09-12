@@ -34,7 +34,7 @@ export default function InputAddAccordion() {
         </summary>
         <nav className="flex flex-col mt-2">
           <ul>
-            {details.state.recurringQuantitativeCost.map((item, i) => (
+            {details.state.recurringQuantitativeCost.Hardware.map((item, i) => (
               <li
                 className="flex row justify-around"
                 key={item.id + i.toString()}

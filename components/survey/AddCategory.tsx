@@ -7,6 +7,23 @@ type Props = {
 export default function AddCategory({ categoryName }: Props) {
   const details = useDetails();
   const inputRef = useRef("");
+  const handleAdd = () => {
+    const isDuplicate = () => {
+      return details.state.recurringQuantitativeCost.some((item) =>
+        Object.keys(item).includes(inputRef.current)
+      );
+    };
+    if (!isDuplicate()) {
+      if (categoryName === "recurring") {
+        details.dispatch({
+          type: "add_recurring_cost_category",
+          nextAction: inputRef.current,
+        });
+      }
+    } else {
+      throw Error("Duplicate");
+    }
+  };
   return (
     <div>
       <div className="relative">
@@ -20,12 +37,7 @@ export default function AddCategory({ categoryName }: Props) {
         <button
           className="absolute p-2 text-white bg-blue-600 rounded-full -translate-y-1/2 top-1/2 right-4"
           type="button"
-          onClick={() =>
-            details.dispatch({
-              type: "add_recurring_cost_category",
-              nextAction: inputRef.current,
-            })
-          }
+          onClick={handleAdd}
         >
           <svg
             className="w-4 h-4"

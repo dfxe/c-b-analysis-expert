@@ -16,6 +16,7 @@ const Survey = () => {
         })
       );
     });
+    categories = Array.from(new Set(categories).values());
     return categories.map((item) => (
       <InputField key={item + "cat"} subCategoryName={item} />
     ));
@@ -39,9 +40,12 @@ const Survey = () => {
         <hr></hr>
         <div className="text-xl">Quantitative Costs</div>
         <div className="text-lg">Non-recurring Costs</div>
-        <AddCategory key="add-cat-1-" categoryName="non-recurring" />
+        <AddCategory
+          key="add-cat-1-non-recurring"
+          categoryName="non-recurring"
+        />
         <div className="text-lg">Recurring Costs</div>
-        <AddCategory categoryName="recurring" />
+        <AddCategory key="add-cat-2-recurring" categoryName="recurring" />
         {details.state.recurringQuantitativeCost.length > 0 && getInputField()}
         <hr></hr>
         {/* <OutTable></OutTable> */}

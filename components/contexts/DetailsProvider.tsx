@@ -136,7 +136,7 @@ export default function DetailsProvider({ children }: Props) {
                   id:
                     action.nextAction +
                     state.recurringQuantitativeCost.length.toString(),
-                  title: "Procurement",
+                  title: "i.e. Procurement",
                   category: action.nextAction,
                   period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
                 },
@@ -144,17 +144,21 @@ export default function DetailsProvider({ children }: Props) {
             },
           ],
         };
-      case "add_recurring_cost_field":
+      case "add_recurring_cost_row":
         return {
           ...state,
           recurringQuantitativeCost: [
             ...state.recurringQuantitativeCost,
             {
-              banana: [
+              [action.nextAction as string]: [
+                ...[action.nextAction as string],
                 {
-                  id: "hdware1",
-                  title: "Procurement",
-                  category: "hardware",
+                  id:
+                    action.nextAction +
+                    state.recurringQuantitativeCost.length.toString() +
+                    "a",
+                  title: "i.e. Procurement",
+                  category: action.nextAction,
                   period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
                 },
               ],

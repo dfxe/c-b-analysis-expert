@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useDetails } from "../contexts/DetailsProvider";
 
 type Props = {
@@ -6,8 +6,10 @@ type Props = {
 };
 export default function AddCategory({ categoryName }: Props) {
   const details = useDetails();
+  const [isEmpty, setIsEmpty] = useState(true);
   const inputRef = useRef("");
   const handleAdd = () => {
+    if (inputRef.current === "") return;
     const isDuplicate = () => {
       return details.state.recurringQuantitativeCost.some((item) =>
         Object.keys(item).includes(inputRef.current)
@@ -31,13 +33,17 @@ export default function AddCategory({ categoryName }: Props) {
           className="w-full py-4 pl-3 pr-16 text-sm border-2 border-gray-200 rounded-lg"
           type="text"
           placeholder="Add category... (i.e. Hardware, Software)"
-          onChange={(e) => (inputRef.current = e.target.value)}
+          onChange={(e) => {
+            setIsEmpty(e.target.value === "");
+            inputRef.current = e.target.value;
+          }}
         />
 
         <button
-          className="absolute p-2 text-white bg-blue-600 rounded-full -translate-y-1/2 top-1/2 right-4"
+          className="absolute p-2 text-white disabled:bg-slate-500 bg-slate-500 rounded-full -translate-y-1/2 top-1/2 right-4 disabled:opacity-25"
           type="button"
           onClick={handleAdd}
+          disabled={isEmpty}
         >
           <svg
             className="w-4 h-4"

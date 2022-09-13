@@ -5,7 +5,7 @@ export default function EndCost({ endValue = 0 }) {
   return (
     <div>
       <article className="flex items-center p-6 bg-white border border-gray-100 rounded-lg gap-4">
-        <span className="p-3 text-blue-600 bg-blue-100 rounded-full">
+        <span className="p-3 text-slate-500 bg-blue-100 rounded-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-8 h-8"

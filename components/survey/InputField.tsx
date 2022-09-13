@@ -1,6 +1,7 @@
 import { ChangeEvent } from "react";
 import { useDetails } from "../contexts/DetailsProvider";
 import AddRow from "./AddRow";
+import RemoveLastRow from "./RemoveLastRow";
 
 type Props = {
   subCategoryName: string;
@@ -90,14 +91,7 @@ export default function InputField({ subCategoryName }: Props) {
         </nav>
         <div className="flex row justify-around mt-4">
           <AddRow subCategoryName={subCategoryName}></AddRow>
-          <button
-            onClick={() =>
-              details.dispatch({ type: "remove_last_recurring_cost" })
-            }
-            className="relative text-indigo-600 font-medium before:absolute before:-bottom-1 before:h-0.5 before:w-full before:origin-right before:scale-x-0 before:bg-indigo-600 before:transition hover:before:scale-100"
-          >
-            Remove Field
-          </button>
+          <RemoveLastRow></RemoveLastRow>
         </div>
       </details>
     </nav>

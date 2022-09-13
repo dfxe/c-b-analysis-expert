@@ -47,7 +47,6 @@ export default function InputField({ subCategoryName }: Props) {
               details.state.recurringQuantitativeCost.map((item) =>
                 Object.keys(item).map((key) =>
                   item[key].map((value, i) => {
-                    console.log("trigerrign");
                     return (
                       <li
                         className="flex row justify-around"

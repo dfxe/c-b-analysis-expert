@@ -109,19 +109,21 @@ export default function DetailsProvider({ children }: Props) {
         return {
           ...state,
           recurringQuantitativeCost: state.recurringQuantitativeCost.map(
-            (item, i) => {
-              if (item.id + i.toString() === action.editId) {
-                return {
-                  ...item,
-                  period: {
-                    ...item.period,
-                    periodCost: action.nextAction,
-                  },
-                };
-
-                return { ...item };
-              }
-            }
+            (item) =>
+              Object.keys(item).map((key) =>
+                item[key].map((v, i) => {
+                  if (v.id + i.toString() === action.editId) {
+                    return {
+                      ...item,
+                      period: {
+                        ...item.period,
+                        periodCost: action.nextAction,
+                      },
+                    };
+                  }
+                  return { ...item };
+                })
+              )
           ),
         };
 

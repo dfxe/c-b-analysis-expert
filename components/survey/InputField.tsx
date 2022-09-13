@@ -45,40 +45,43 @@ export default function InputField({ subCategoryName }: Props) {
               details.state.recurringQuantitativeCost.map((item) =>
                 Object.keys(item).map((key) =>
                   item[key].map((value, i) => {
-                    <li
-                      className="flex row justify-around"
-                      key={value.id + i.toString()}
-                    >
-                      <input
-                        placeholder={"Row Title"}
-                        key={"3"}
-                        type="text"
-                        className="block border-2 px-2 py-2 w-1/2 mr-2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
-                        value={value.title}
-                        onChange={(e) =>
-                          handleDetails(
-                            e,
-                            "edit_input_at",
-                            value.id + i.toString()
-                          )
-                        }
-                      />
-                      <input
-                        key={item.id + i.toString()}
-                        placeholder={"Row Cost"}
-                        type="text"
-                        className="block border-2 px-4 py-2 w-1/2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
-                        onChange={(e) => {
-                          !isNaN(+e.target.value) &&
+                    console.log("trigerrign");
+                    return (
+                      <li
+                        className="flex row justify-around"
+                        key={value.id + i.toString()}
+                      >
+                        <input
+                          placeholder={"Row Title"}
+                          key={"3"}
+                          type="text"
+                          className="block border-2 px-2 py-2 w-1/2 mr-2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
+                          value={value.title}
+                          onChange={(e) =>
                             handleDetails(
                               e,
-                              "edit_period_cost",
+                              "edit_input_at",
                               value.id + i.toString()
-                            );
-                        }}
-                        value={value.period.periodCost}
-                      />
-                    </li>;
+                            )
+                          }
+                        />
+                        <input
+                          key={item.id + i.toString()}
+                          placeholder={"Row Cost"}
+                          type="text"
+                          className="block border-2 px-4 py-2 w-1/2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
+                          onChange={(e) => {
+                            !isNaN(+e.target.value) &&
+                              handleDetails(
+                                e,
+                                "edit_period_cost",
+                                value.id + i.toString()
+                              );
+                          }}
+                          value={value.period.periodCost}
+                        />
+                      </li>
+                    );
                   })
                 )
               )}

@@ -175,7 +175,7 @@ export default function DetailsProvider({ children }: Props) {
   };
 
   const [state, dispatch] = useReducer(reducer, {
-    id: nanoid(),
+    id: "your-next-c-b-analysis-id",
     title: "",
     initiative: "",
     currency: "$",

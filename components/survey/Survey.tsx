@@ -7,7 +7,19 @@ import { useDetails } from "../contexts/DetailsProvider";
 
 const Survey = () => {
   const details = useDetails();
-
+  const getInputField = () => {
+    let categories: string[] = [];
+    details.state.recurringQuantitativeCost.map((item) => {
+      Object.keys(item).map((key) =>
+        item[key].map((v) => {
+          categories = [...categories, v.category];
+        })
+      );
+    });
+    return categories.map((item) => (
+      <InputField key={item + "cat"} subCategoryName={item} />
+    ));
+  };
   return (
     <div className="flex flex-col justify-center items-center">
       <h1 className="text-4xl mt-24">Cost-Benefit Analysis</h1>
@@ -28,20 +40,9 @@ const Survey = () => {
         <div className="text-xl">Quantitative Costs</div>
         <div className="text-lg">Non-recurring Costs</div>
         <AddCategory key="add-cat-1-" categoryName="non-recurring" />
-        {/** TODO here needs be a InputFields */}
-
         <div className="text-lg">Recurring Costs</div>
         <AddCategory categoryName="recurring" />
-        {details.state.recurringQuantitativeCost.map((item, i) => {
-          Object.keys(item).map((key) =>
-            item[key].map((v) => (
-              <InputField
-                key={v.category + i.toString() + "cat"}
-                subCategoryName={v.category}
-              />
-            ))
-          );
-        })}
+        {details.state.recurringQuantitativeCost.length > 0 && getInputField()}
         <hr></hr>
         {/* <OutTable></OutTable> */}
         <EndCost></EndCost>

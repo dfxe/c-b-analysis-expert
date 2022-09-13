@@ -50,7 +50,7 @@ const DetailsContext = createContext<ShowDetails>({
       {
         hardware: [
           {
-            id: nanoid(),
+            id: "hdware",
             title: "Procurement",
             category: "hardware",
             period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
@@ -91,23 +91,26 @@ export default function DetailsProvider({ children }: Props) {
         return {
           ...state,
           recurringQuantitativeCost: [
-            ...state.recurringQuantitativeCost.map((item, i) => {
-              if (item.id + i.toString() === action.editId) {
-                return {
-                  ...item,
-                  title: action.nextAction,
-                };
-              } else {
-                return { ...item };
-              }
+            ...state.recurringQuantitativeCost.map((item) => {
+              Object.keys(item).map((key) =>
+                item[key].map((value, i) => {
+                  if (value.id + i.toString() === action.editId) {
+                    return {
+                      ...value,
+                      title: action.nextAction,
+                    };
+                  }
+                  return { ...value };
+                })
+              );
             }),
           ],
         };
       case "edit_period_cost":
         return {
           ...state,
-          recurringQuantitativeCost:
-            state.recurringQuantitativeCost.Hardware.map((item, i) => {
+          recurringQuantitativeCost: state.recurringQuantitativeCost.map(
+            (item, i) => {
               if (item.id + i.toString() === action.editId) {
                 return {
                   ...item,
@@ -116,36 +119,55 @@ export default function DetailsProvider({ children }: Props) {
                     periodCost: action.nextAction,
                   },
                 };
-              } else {
+
                 return { ...item };
               }
-            }),
+            }
+          ),
         };
-      case "add_recurring_cost":
+
+      case "add_recurring_cost_category":
         return {
           ...state,
           recurringQuantitativeCost: [
-            ...state.recurringQuantitativeCost.Hardware,
+            ...state.recurringQuantitativeCost,
             {
-              id: "idEL" + state.recurringQuantitativeCost.length.toString(),
-              title: "",
-              category: "",
-              period: {
-                periodTimeUnit: "",
-                periodTime: "",
-                periodCost: "",
-              },
+              [action.nextAction as string]: [
+                {
+                  id:
+                    action.nextAction +
+                    state.recurringQuantitativeCost.length.toString(),
+                  title: "Procurement",
+                  category: action.nextAction,
+                  period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
+                },
+              ],
+            },
+          ],
+        };
+      case "add_recurring_cost_field":
+        return {
+          ...state,
+          recurringQuantitativeCost: [
+            ...state.recurringQuantitativeCost,
+            {
+              hardware: [
+                {
+                  id: "hdware1",
+                  title: "Procurement",
+                  category: "hardware",
+                  period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
+                },
+              ],
             },
           ],
         };
       case "remove_last_recurring_cost":
         return {
           ...state,
-          recurringQuantitativeCost:
-            state.recurringQuantitativeCost.Hardware.filter(
-              (item, i) =>
-                i != state.recurringQuantitativeCost.Hardware.length - 1
-            ),
+          recurringQuantitativeCost: state.recurringQuantitativeCost.filter(
+            (item, i) => i != state.recurringQuantitativeCost.length - 1
+          ),
         };
     }
 
@@ -157,20 +179,8 @@ export default function DetailsProvider({ children }: Props) {
     title: "",
     initiative: "",
     currency: "$",
-    recurringQuantitativeCost: {
-      Hardware: [
-        {
-          id: "idEL0",
-          title: "",
-          category: "",
-          period: {
-            periodTimeUnit: "",
-            periodTime: 0,
-            periodCost: 0,
-          },
-        },
-      ],
-    },
+    recurringQuantitativeCost: [],
+
     nonRecurringQuantitativeCost: [],
   });
 

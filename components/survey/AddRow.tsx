@@ -1,7 +1,7 @@
 import { useDetails } from "../contexts/DetailsProvider";
 import { nanoid } from "nanoid";
 
-export default function BasicButtons() {
+export default function AddRow() {
   const details = useDetails();
   return (
     <div>

@@ -1,10 +1,13 @@
 import CurrencySelect from "./CurrencySelect";
 import FormQuestion from "./FormQuestion";
-import InputAddAccordion from "./InputAddAccordion";
+import InputField from "./InputField";
 import EndCost from "./EndCost";
-import OutTable from "./OutTable";
+import AddCategory from "./AddCategory";
+import { useDetails } from "../contexts/DetailsProvider";
 
 const Survey = () => {
+  const details = useDetails();
+
   return (
     <div className="flex flex-col justify-center items-center">
       <h1 className="text-4xl mt-24">Cost-Benefit Analysis</h1>
@@ -24,8 +27,21 @@ const Survey = () => {
         <hr></hr>
         <div className="text-xl">Quantitative Costs</div>
         <div className="text-lg">Non-recurring Costs</div>
-        <InputAddAccordion></InputAddAccordion>
+        <AddCategory key="add-cat-1-" categoryName="non-recurring" />
+        {/** TODO here needs be a InputFields */}
+
         <div className="text-lg">Recurring Costs</div>
+        <AddCategory categoryName="recurring" />
+        {details.state.recurringQuantitativeCost.map((item, i) => {
+          Object.keys(item).map((key) =>
+            item[key].map((v) => (
+              <InputField
+                key={v.category + i.toString() + "cat"}
+                subCategoryName={v.category}
+              />
+            ))
+          );
+        })}
         <hr></hr>
         {/* <OutTable></OutTable> */}
         <EndCost></EndCost>

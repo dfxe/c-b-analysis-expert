@@ -1,5 +1,4 @@
 import React, { createContext, Dispatch, useContext, useReducer } from "react";
-import { nanoid } from "nanoid";
 
 type Row = {
   id: string;
@@ -41,7 +40,7 @@ type ShowDetails = {
 
 const DetailsContext = createContext<ShowDetails>({
   state: {
-    id: nanoid(),
+    id: "your-next-c-b-analysis-id",
     title: "",
     initiative: "",
     currency: "",
@@ -151,7 +150,7 @@ export default function DetailsProvider({ children }: Props) {
           recurringQuantitativeCost: [
             ...state.recurringQuantitativeCost,
             {
-              hardware: [
+              banana: [
                 {
                   id: "hdware1",
                   title: "Procurement",

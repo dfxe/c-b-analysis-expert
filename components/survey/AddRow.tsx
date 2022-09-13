@@ -1,27 +1,20 @@
 import { useDetails } from "../contexts/DetailsProvider";
-import { nanoid } from "nanoid";
-
-export default function AddRow() {
+type Props = {
+  subCategoryName: string;
+};
+export default function AddRow({ subCategoryName }: Props) {
   const details = useDetails();
   return (
-    <div>
-      <button
-        onClick={() =>
-          details.dispatch({
-            type: "add_recurring_cost",
-            nextRecurringCostObject: {
-              id: nanoid(),
-              title: "",
-              description: "",
-              question: "",
-              category: "",
-              period: { periodTimeUnit: "", periodTime: 0, periodCost: 0 },
-            },
-          })
-        }
-      >
-        Add field
-      </button>
-    </div>
+    <button
+      className="relative text-indigo-600 font-medium before:absolute before:-bottom-1 before:h-0.5 before:w-full before:origin-left before:scale-x-0 before:bg-indigo-600 before:transition hover:before:scale-100"
+      onClick={() =>
+        details.dispatch({
+          type: "add_recurring_cost_field",
+          nextAction: subCategoryName, //category
+        })
+      }
+    >
+      Add field
+    </button>
   );
 }

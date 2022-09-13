@@ -1,4 +1,3 @@
-import React from "react";
 import { useDetails } from "../contexts/DetailsProvider";
 
 export default function InputAddAccordion() {

@@ -10,6 +10,8 @@ function Footer() {
               id="icons"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 214 206.99"
+              width="25%"
+              height="25%"
             >
               <defs>
                 <style>{".cls-2{fill:#005096}"}</style>

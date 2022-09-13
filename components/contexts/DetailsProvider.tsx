@@ -13,7 +13,7 @@ type Row = {
 };
 
 type Category = {
-  [key:string]: Row[];
+  [key: string]: Row[];
 };
 
 type Details = {
@@ -22,7 +22,7 @@ type Details = {
   initiative: string;
   currency: string;
   recurringQuantitativeCost: Category[];
-  nonRecurringQuantitativeCost: Row[];
+  nonRecurringQuantitativeCost: Category[];
 };
 
 type ActionType = {
@@ -33,6 +33,7 @@ type ActionType = {
   nextAction?: string | Array<Row>;
   editId?: string;
 };
+
 type ShowDetails = {
   state: Details;
   dispatch: Dispatch<ActionType>;
@@ -45,7 +46,18 @@ const DetailsContext = createContext<ShowDetails>({
     initiative: "",
     currency: "",
     //TODO Type here needs to be any key and value of [key:value]
-    recurringQuantitativeCost: {hardware:[]}[],
+    recurringQuantitativeCost: [
+      {
+        hardware: [
+          {
+            id: nanoid(),
+            title: "Procurement",
+            category: "hardware",
+            period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
+          },
+        ],
+      },
+    ],
     nonRecurringQuantitativeCost: [],
   },
   dispatch: (action: ActionType) => action,
@@ -79,9 +91,8 @@ export default function DetailsProvider({ children }: Props) {
         return {
           ...state,
           recurringQuantitativeCost: [
-            ...state.recurringQuantitativeCost.Hardware.map((item, i) => {
+            ...state.recurringQuantitativeCost.map((item, i) => {
               if (item.id + i.toString() === action.editId) {
-                console.log("foundasd");
                 return {
                   ...item,
                   title: action.nextAction,

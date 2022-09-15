@@ -26,6 +26,17 @@ export default function AddCategory({ categoryName }: Props) {
       throw Error("Duplicate");
     }
   };
+  const handleEnterInput = (e) => {
+    setIsEmpty(e.target.value === "");
+    inputRef.current = e.target.value;
+  };
+  const handleKey = (e) => {
+    e.preventDefault();
+    if (e.code === "KeyEnter") {
+      console.log("dasda");
+      handleAdd();
+    }
+  };
   return (
     <div>
       <div className="relative">

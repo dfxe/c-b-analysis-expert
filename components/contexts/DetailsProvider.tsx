@@ -146,7 +146,26 @@ export default function DetailsProvider({ children }: Props) {
             },
           ],
         };
-      case "add_recurring_cost_row":
+      case "add_non_recurring_cost_category":
+        return {
+          ...state,
+          recurringQuantitativeCost: [
+            ...state.recurringQuantitativeCost,
+            {
+              [action.nextAction as string]: [
+                {
+                  id:
+                    action.nextAction +
+                    state.recurringQuantitativeCost.length.toString(),
+                  title: "i.e. Procurement",
+                  category: action.nextAction,
+                  period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
+                },
+              ],
+            },
+          ],
+        };
+      case "add_recurring_cost_row": //under category (recurring or non-recurring)
         return {
           ...state,
           recurringQuantitativeCost: [
@@ -167,6 +186,7 @@ export default function DetailsProvider({ children }: Props) {
             },
           ],
         };
+
       case "remove_last_recurring_cost":
         return {
           ...state,

@@ -21,19 +21,23 @@ export default function AddCategory({ categoryName }: Props) {
           type: "add_recurring_cost_category",
           nextAction: inputRef.current,
         });
+      } else if (categoryName === "non-recurring") {
+        details.dispatch({
+          type: "add_non_recurring_cost_category",
+          nextAction: inputRef.current,
+        });
       }
     } else {
       throw Error("Duplicate");
     }
   };
-  const handleEnterInput = (e) => {
+  const handleInput = (e) => {
     setIsEmpty(e.target.value === "");
     inputRef.current = e.target.value;
   };
   const handleKey = (e) => {
     e.preventDefault();
     if (e.code === "KeyEnter") {
-      console.log("dasda");
       handleAdd();
     }
   };
@@ -44,10 +48,7 @@ export default function AddCategory({ categoryName }: Props) {
           className="w-full py-4 pl-3 pr-16 text-sm border-2 border-gray-200 rounded-lg"
           type="text"
           placeholder="Add category... (i.e. Hardware, Software)"
-          onChange={(e) => {
-            setIsEmpty(e.target.value === "");
-            inputRef.current = e.target.value;
-          }}
+          onChange={handleInput}
         />
 
         <button

@@ -89,6 +89,21 @@ export default function DetailsProvider({ children }: Props) {
       case "edit_input_at":
         return {
           ...state,
+          recurringQuantitativeCost: state.recurringQuantitativeCost.map(
+            (item) =>
+              Object.keys(item).map((key) =>
+                item[key].map((v, i) => {
+                  if (v.id + i.toString() === action.editId) {
+                    console.log(v.id + i.toString(), action.editId);
+                    return {
+                      ...v,
+                      title: action.nextAction,
+                    };
+                  }
+                  return { ...item };
+                })
+              )
+          ),
         };
       case "edit_period_cost":
         console.log("first");
@@ -100,9 +115,9 @@ export default function DetailsProvider({ children }: Props) {
                 item[key].map((v, i) => {
                   if (v.id + i.toString() === action.editId) {
                     return {
-                      ...item,
+                      ...v,
                       period: {
-                        ...item.period,
+                        ...v.period,
                         periodCost: action.nextAction,
                       },
                     };

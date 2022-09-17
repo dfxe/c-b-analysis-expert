@@ -90,39 +90,33 @@ export default function DetailsProvider({ children }: Props) {
         return {
           ...state,
           recurringQuantitativeCost: state.recurringQuantitativeCost.map(
-            (item) =>
-              Object.keys(item).map((key) =>
-                item[key].map((v, i) => {
-                  if (v.id + i.toString() === action.editId) {
-                    return {
-                      ...v,
-                      title: action.nextAction,
-                    };
-                  }
-                  return { ...item };
-                })
-              )
+            (item, i) => {
+              if (item.id + i.toString() + "a" === action.editId) {
+                return {
+                  ...item,
+                  title: action.nextAction,
+                };
+              }
+              return { ...item };
+            }
           ),
         };
       case "edit_period_cost":
         return {
           ...state,
           recurringQuantitativeCost: state.recurringQuantitativeCost.map(
-            (item) =>
-              Object.keys(item).map((key) =>
-                item[key].map((v, i) => {
-                  if (v.id + i.toString() === action.editId) {
-                    return {
-                      ...v,
-                      period: {
-                        ...v.period,
-                        periodCost: action.nextAction,
-                      },
-                    };
-                  }
-                  return { ...item };
-                })
-              )
+            (item, i) => {
+              if (item.id + i.toString() + "a" === action.editId) {
+                return {
+                  ...item,
+                  period: {
+                    ...item.period,
+                    periodCost: action.nextAction,
+                  },
+                };
+              }
+              return { ...item };
+            }
           ),
         };
 
@@ -134,7 +128,8 @@ export default function DetailsProvider({ children }: Props) {
             {
               id:
                 action.nextAction +
-                state.recurringQuantitativeCost.length.toString(),
+                state.recurringQuantitativeCost.length.toString() +
+                "a",
               title: "i.e. Procurement",
               category: action.nextAction,
               period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },

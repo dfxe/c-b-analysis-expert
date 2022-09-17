@@ -15,7 +15,8 @@ export default function AddCategory({ categoryName }: Props) {
         (item) =>
           item.id ===
           inputRef.current +
-            (details.state.recurringQuantitativeCost.length - 1).toString()
+            (details.state.recurringQuantitativeCost.length - 1).toString() +
+            "a"
       );
     };
 

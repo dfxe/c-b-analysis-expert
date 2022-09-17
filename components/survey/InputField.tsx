@@ -41,58 +41,55 @@ export default function InputField({ subCategoryName }: Props) {
             </svg>
           </span>
         </summary>
-        {/* <nav className="flex flex-col mt-2">
+        <nav className="flex flex-col mt-2">
           <ul>
             {details.state.recurringQuantitativeCost.length > 0 &&
-              details.state.recurringQuantitativeCost.map((item) =>
-                Object.keys(item).map((key) =>
-                  item[key].map((value, i) => {
-                    //console.log("valuez", item[key]);
-                    return (
-                      <li
-                        className="flex row justify-around"
-                        key={value.id + i.toString()}
-                      >
-                        <input
-                          placeholder={"Row Title"}
-                          key={"3"}
-                          type="text"
-                          className="block border-2 px-2 py-2 w-1/2 mr-2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
-                          value={value.title}
-                          onChange={(e) =>
+              details.state.recurringQuantitativeCost.map((item, i) => {
+                if (item.category === subCategoryName) {
+                  return (
+                    <li
+                      className="flex row justify-around"
+                      key={item.id + i.toString() + "a"}
+                    >
+                      <input
+                        placeholder={"Row Title"}
+                        key={"3"}
+                        type="text"
+                        className="block border-2 px-2 py-2 w-1/2 mr-2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
+                        value={item.title}
+                        onChange={(e) =>
+                          handleDetails(
+                            e,
+                            "edit_input_at",
+                            item.id + i.toString() + "a"
+                          )
+                        }
+                      />
+                      <input
+                        key={item.id + i.toString()}
+                        placeholder={"Row Cost"}
+                        type="text"
+                        className="block border-2 px-4 py-2 w-1/2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
+                        onChange={(e) => {
+                          !isNaN(+e.target.value) &&
                             handleDetails(
                               e,
-                              "edit_input_at",
-                              value.id + i.toString()
-                            )
-                          }
-                        />
-                        <input
-                          key={item.id + i.toString()}
-                          placeholder={"Row Cost"}
-                          type="text"
-                          className="block border-2 px-4 py-2 w-1/2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
-                          onChange={(e) => {
-                            !isNaN(+e.target.value) &&
-                              handleDetails(
-                                e,
-                                "edit_period_cost",
-                                value.id + i.toString()
-                              );
-                          }}
-                          value={value.period.periodCost}
-                        />
-                      </li>
-                    );
-                  })
-                )
-              )}
+                              "edit_period_cost",
+                              item.id + i.toString() + "a"
+                            );
+                        }}
+                        value={item.period.periodCost}
+                      />
+                    </li>
+                  );
+                }
+              })}
           </ul>
-        </nav> */}
-        <div className="flex row justify-around mt-4">
+        </nav>
+        {/*   <div className="flex row justify-around mt-4">
           <AddRow subCategoryName={subCategoryName}></AddRow>
           <RemoveLastRow></RemoveLastRow>
-        </div>
+        </div> */}
       </details>
     </nav>
   );

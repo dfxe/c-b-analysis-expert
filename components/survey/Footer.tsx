@@ -1,5 +1,6 @@
 import React from "react";
 
+import packageJson from "../../package.json";
 const Footer = () => {
   return (
     <footer className="bg-gray-50">
@@ -39,9 +40,21 @@ const Footer = () => {
             </svg>
           </div>
 
-          <p className="mt-4 text-sm text-center text-gray-500 lg:text-right lg:mt-0">
-            Copyright &copy; {new Date().getFullYear()}. All rights reserved.
-          </p>
+          <div className="mt-4 flex flex-col text-sm text-center text-gray-500 lg:text-right lg:mt-0">
+            <div>GPL-3, {new Date().getFullYear()}</div>
+            <div className="h-2"></div>
+            <div
+              style={{
+                textAlign: "center",
+                padding: "1em",
+                border: "2px dotted black",
+                borderRadius: "64px",
+                zIndex: 1,
+              }}
+            >
+              v{packageJson.version}a
+            </div>
+          </div>
         </div>
       </div>
     </footer>

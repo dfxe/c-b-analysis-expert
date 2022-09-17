@@ -17,9 +17,16 @@ export default function OutTable() {
         </thead>
 
         <tbody className="divide-y divide-gray-100">
-          {details.state.recurringQuantitativeCost.map((item) => {
+          {details.state.recurringQuantitativeCost.map((item, i) => {
             return (
-              <tr key={item.title + item.title.length.toString() + "table"}>
+              <tr
+                key={
+                  item.title +
+                  item.title.length.toString() +
+                  i.toString() +
+                  "table"
+                }
+              >
                 <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                   {item.title}
                 </td>

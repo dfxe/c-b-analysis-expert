@@ -140,9 +140,18 @@ export default function DetailsProvider({ children }: Props) {
         return {
           //TODO just the same as edit input, just with category instead of row
           ...state,
-          recurringQuantitativeCost: state.recurringQuantitativeCost.map(
-            (item) => item
-          ),
+          recurringQuantitativeCost: [
+            ...state.recurringQuantitativeCost,
+            {
+              id:
+                action.nextAction +
+                state.recurringQuantitativeCost.length.toString() +
+                "a",
+              title: "",
+              category: action.nextAction,
+              period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
+            },
+          ],
         };
       case "removed_category":
         return {

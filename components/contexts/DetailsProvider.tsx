@@ -70,6 +70,11 @@ type Props = {
 
 export default function DetailsProvider({ children }: Props) {
   const reducer = (state: Details, action: ActionType, editId: string) => {
+    console.log(
+      state.recurringQuantitativeCost.map((item) =>
+        Object.keys(item).map((key) => item[key])
+      )
+    );
     switch (action.type) {
       case "changed_currency":
         return {
@@ -94,7 +99,6 @@ export default function DetailsProvider({ children }: Props) {
               Object.keys(item).map((key) =>
                 item[key].map((v, i) => {
                   if (v.id + i.toString() === action.editId) {
-                    console.log(v.id + i.toString(), action.editId);
                     return {
                       ...v,
                       title: action.nextAction,
@@ -106,7 +110,6 @@ export default function DetailsProvider({ children }: Props) {
           ),
         };
       case "edit_period_cost":
-        console.log("first");
         return {
           ...state,
           recurringQuantitativeCost: state.recurringQuantitativeCost.map(
@@ -168,24 +171,35 @@ export default function DetailsProvider({ children }: Props) {
         };
       case "add_recurring_cost_row": //under category (recurring or non-recurring)
         return {
+          //TODO just the same as edit input, just with category instead of row
           ...state,
-          recurringQuantitativeCost: [
-            ...state.recurringQuantitativeCost,
-            {
-              [action.nextAction as string]: [
-                ...[action.nextAction as string],
-                {
-                  id:
-                    action.nextAction +
-                    state.recurringQuantitativeCost.length.toString() +
-                    "a",
-                  title: "i.e. Procurement",
-                  category: action.nextAction,
-                  period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
-                },
-              ],
-            },
-          ],
+          recurringQuantitativeCost: state.recurringQuantitativeCost.map(
+            (item) =>
+              Object.keys(item).map((key) =>
+                item[key].map((v, i) => {
+                  if (v.id === action.nextAction + i.toString()) {
+                    return [
+                      ...item[key],
+                      {
+                        id:
+                          action.nextAction +
+                          (
+                            state.recurringQuantitativeCost.length + 1
+                          ).toString(),
+                        title: "i.e. Procurement",
+                        category: action.nextAction,
+                        period: {
+                          periodTimeUnit: "d",
+                          periodTime: 1,
+                          periodCost: 1,
+                        },
+                      },
+                    ];
+                  }
+                  return { ...item };
+                })
+              )
+          ),
         };
 
       case "remove_last_recurring_cost":
@@ -211,7 +225,7 @@ export default function DetailsProvider({ children }: Props) {
   });
 
   React.useEffect(() => {
-    console.log(state);
+    //console.log(state);
   }, [state.recurringQuantitativeCost]);
 
   return (

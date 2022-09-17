@@ -9,7 +9,7 @@ const Survey = () => {
   const details = useDetails();
   const getInputField = () => {
     let categories: string[] = [];
-    console.log(details.state.recurringQuantitativeCost);
+    //console.log(details.state.recurringQuantitativeCost);
     details.state.recurringQuantitativeCost.map((item) => {
       Object.keys(item).map((key) =>
         item[key].map((v) => {

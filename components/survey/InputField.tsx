@@ -1,7 +1,5 @@
 import { ChangeEvent } from "react";
 import { useDetails } from "../contexts/DetailsProvider";
-import AddRow from "./AddRow";
-import RemoveLastRow from "./RemoveLastRow";
 
 type Props = {
   subCategoryName: string;
@@ -106,10 +104,6 @@ export default function InputField({ subCategoryName }: Props) {
               })}
           </ul>
         </nav>
-        {/*   <div className="flex row justify-around mt-4">
-          <AddRow subCategoryName={subCategoryName}></AddRow>
-          <RemoveLastRow></RemoveLastRow>
-        </div> */}
       </details>
     </nav>
   );

@@ -17,6 +17,15 @@ const Survey = () => {
       <InputField key={item + "cat"} subCategoryName={item} />
     ));
   };
+
+  const computeCost = () => {
+    let cost = 0;
+    details.state.recurringQuantitativeCost.map(
+      (item) => (cost += +item.period.periodCost)
+    );
+    return cost;
+  };
+
   return (
     <div className="flex flex-col justify-center items-center">
       <h1 className="text-4xl mt-24">Cost-Benefit Analysis</h1>
@@ -46,7 +55,10 @@ const Survey = () => {
         <AddCategory key="add-cat-2-recurring" categoryName="recurring" />
         <hr></hr>
         {/* <OutTable></OutTable> */}
-        <EndCost></EndCost>
+        <EndCost
+          currency={details.state.currency}
+          endValue={computeCost()}
+        ></EndCost>
       </div>
     </div>
   );

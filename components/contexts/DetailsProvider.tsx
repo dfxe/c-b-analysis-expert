@@ -55,11 +55,6 @@ type Props = {
 
 export default function DetailsProvider({ children }: Props) {
   const reducer = (state: Details, action: ActionType) => {
-    console.log(
-      state.recurringQuantitativeCost.filter(
-        (item) => item.category === action.nextAction
-      )
-    );
     switch (action.type) {
       case "changed_currency":
         return {

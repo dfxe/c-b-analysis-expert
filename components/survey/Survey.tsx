@@ -11,11 +11,7 @@ const Survey = () => {
     let categories: string[] = [];
     //console.log(details.state.recurringQuantitativeCost);
     details.state.recurringQuantitativeCost.map((item) => {
-      Object.keys(item).map((key) =>
-        item[key].map((v) => {
-          categories = [...categories, v.category];
-        })
-      );
+      categories = [...categories, item.category];
     });
     categories = Array.from(new Set(categories).values());
     return categories.map((item) => (

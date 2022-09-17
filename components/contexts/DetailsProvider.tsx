@@ -70,11 +70,6 @@ type Props = {
 
 export default function DetailsProvider({ children }: Props) {
   const reducer = (state: Details, action: ActionType, editId: string) => {
-    console.log(
-      state.recurringQuantitativeCost.map((item) =>
-        Object.keys(item).map((key) => item[key])
-      )
-    );
     switch (action.type) {
       case "changed_currency":
         return {
@@ -137,16 +132,12 @@ export default function DetailsProvider({ children }: Props) {
           recurringQuantitativeCost: [
             ...state.recurringQuantitativeCost,
             {
-              [action.nextAction as string]: [
-                {
-                  id:
-                    action.nextAction +
-                    state.recurringQuantitativeCost.length.toString(),
-                  title: "i.e. Procurement",
-                  category: action.nextAction,
-                  period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
-                },
-              ],
+              id:
+                action.nextAction +
+                state.recurringQuantitativeCost.length.toString(),
+              title: "i.e. Procurement",
+              category: action.nextAction,
+              period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
             },
           ],
         };
@@ -156,16 +147,12 @@ export default function DetailsProvider({ children }: Props) {
           recurringQuantitativeCost: [
             ...state.recurringQuantitativeCost,
             {
-              [action.nextAction as string]: [
-                {
-                  id:
-                    action.nextAction +
-                    state.recurringQuantitativeCost.length.toString(),
-                  title: "i.e. Procurement",
-                  category: action.nextAction,
-                  period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
-                },
-              ],
+              id:
+                action.nextAction +
+                state.recurringQuantitativeCost.length.toString(),
+              title: "i.e. Procurement",
+              category: action.nextAction,
+              period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
             },
           ],
         };
@@ -174,31 +161,7 @@ export default function DetailsProvider({ children }: Props) {
           //TODO just the same as edit input, just with category instead of row
           ...state,
           recurringQuantitativeCost: state.recurringQuantitativeCost.map(
-            (item) =>
-              Object.keys(item).map((key) =>
-                item[key].map((v, i) => {
-                  if (v.id === action.nextAction + i.toString()) {
-                    return [
-                      ...item[key],
-                      {
-                        id:
-                          action.nextAction +
-                          (
-                            state.recurringQuantitativeCost.length + 1
-                          ).toString(),
-                        title: "i.e. Procurement",
-                        category: action.nextAction,
-                        period: {
-                          periodTimeUnit: "d",
-                          periodTime: 1,
-                          periodCost: 1,
-                        },
-                      },
-                    ];
-                  }
-                  return { ...item };
-                })
-              )
+            (item) => item
           ),
         };
 

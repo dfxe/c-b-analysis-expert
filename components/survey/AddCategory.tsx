@@ -11,10 +11,14 @@ export default function AddCategory({ categoryName }: Props) {
   const handleAdd = () => {
     if (inputRef.current === "") return;
     const isDuplicate = () => {
-      return details.state.recurringQuantitativeCost.some((item) =>
-        Object.keys(item).includes(inputRef.current)
+      return details.state.recurringQuantitativeCost.some(
+        (item) =>
+          item.id ===
+          inputRef.current +
+            (details.state.recurringQuantitativeCost.length - 1).toString()
       );
     };
+
     if (!isDuplicate()) {
       if (categoryName === "recurring") {
         details.dispatch({

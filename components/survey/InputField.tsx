@@ -41,7 +41,7 @@ export default function InputField({ subCategoryName }: Props) {
             </svg>
           </span>
         </summary>
-        <nav className="flex flex-col mt-2">
+        {/* <nav className="flex flex-col mt-2">
           <ul>
             {details.state.recurringQuantitativeCost.length > 0 &&
               details.state.recurringQuantitativeCost.map((item) =>
@@ -88,7 +88,7 @@ export default function InputField({ subCategoryName }: Props) {
                 )
               )}
           </ul>
-        </nav>
+        </nav> */}
         <div className="flex row justify-around mt-4">
           <AddRow subCategoryName={subCategoryName}></AddRow>
           <RemoveLastRow></RemoveLastRow>

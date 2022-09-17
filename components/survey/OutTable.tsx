@@ -3,7 +3,7 @@ import { useDetails } from "../contexts/DetailsProvider";
 
 export default function OutTable() {
   const details = useDetails();
-  const rowRef = useRef("");
+  const rowRef = useRef("nullerino");
 
   const getNextRow = (currentRow: string) => {
     if (rowRef.current != currentRow) {

@@ -136,9 +136,8 @@ export default function DetailsProvider({ children }: Props) {
             },
           ],
         };
-      case "add_recurring_cost_row": //under category (recurring or non-recurring)
+      case "add_recurring_cost_row":
         return {
-          //TODO just the same as edit input, just with category instead of row
           ...state,
           recurringQuantitativeCost: [
             ...state.recurringQuantitativeCost,

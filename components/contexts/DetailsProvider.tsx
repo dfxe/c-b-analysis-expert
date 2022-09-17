@@ -144,8 +144,14 @@ export default function DetailsProvider({ children }: Props) {
             (item) => item
           ),
         };
-
       case "removed_category":
+        return {
+          ...state,
+          recurringQuantitativeCost: state.recurringQuantitativeCost.filter(
+            (item) => item.category != action.nextAction
+          ),
+        };
+      case "removed_row":
         return {
           ...state,
           recurringQuantitativeCost: state.recurringQuantitativeCost.filter(

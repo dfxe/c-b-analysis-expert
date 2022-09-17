@@ -1,5 +1,6 @@
 import { ChangeEvent } from "react";
 import { useDetails } from "../contexts/DetailsProvider";
+import AddRow from "./AddRow";
 
 type Props = {
   subCategoryName: string;
@@ -28,7 +29,7 @@ export default function InputField({ subCategoryName }: Props) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-6 h-6 cursor-pointer"
             onClick={() =>
               details.dispatch({
                 type: "removed_category",
@@ -66,12 +67,32 @@ export default function InputField({ subCategoryName }: Props) {
                 if (item.category === subCategoryName) {
                   return (
                     <li
-                      className="flex row justify-around"
+                      className="flex row justify-around items-center"
                       key={item.id + i.toString() + "a"}
                     >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6 cursor-pointer"
+                        onClick={() =>
+                          details.dispatch({
+                            type: "removed_row",
+                            nextAction: subCategoryName,
+                          })
+                        }
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      &nbsp;&nbsp;
                       <input
                         placeholder={"Row Title"}
-                        key={"3"}
                         type="text"
                         className="block border-2 px-2 py-2 w-1/2 mr-2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
                         value={item.title}
@@ -84,7 +105,6 @@ export default function InputField({ subCategoryName }: Props) {
                         }
                       />
                       <input
-                        key={item.id + i.toString()}
                         placeholder="Cost"
                         type="text"
                         className="block border-2 px-4 py-2 w-1/2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
@@ -104,6 +124,9 @@ export default function InputField({ subCategoryName }: Props) {
               })}
           </ul>
         </nav>
+        <div className="flex row justify-center items-center">
+          <AddRow subCategoryName={subCategoryName}></AddRow>
+        </div>
       </details>
     </nav>
   );

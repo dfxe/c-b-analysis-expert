@@ -1,7 +1,17 @@
+import { useRef } from "react";
 import { useDetails } from "../contexts/DetailsProvider";
 
 export default function OutTable() {
   const details = useDetails();
+  const rowRef = useRef("");
+
+  const getNextRow = (currentRow: string) => {
+    if (rowRef.current != currentRow) {
+      rowRef.current = currentRow;
+      return true;
+    }
+    return false;
+  };
   return (
     <div className="overflow-hidden overflow-x-auto border border-gray-100 rounded">
       <table className="min-w-full text-sm divide-y divide-gray-200">
@@ -27,11 +37,19 @@ export default function OutTable() {
                   "table"
                 }
               >
+                {getNextRow(item.category) && (
+                  <th className="px-4 py-2 font-medium text-left text-gray-900 bg-gray-200 whitespace-nowrap">
+                    {item.category}
+                  </th>
+                )}
+
                 <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                   {item.title}
                 </td>
                 <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
-                  {item.period.periodCost}
+                  {details.state.currency +
+                    " " +
+                    item.period.periodCost.toString()}
                 </td>
               </tr>
             );

@@ -28,7 +28,7 @@ export default function EndCost({ currency = "", endValue = 0 }: Props) {
             {currency + endValue.toString()}
           </p>
 
-          <p className="text-sm text-gray-500">Total Sales</p>
+          <p className="text-sm text-gray-500">Cost</p>
         </div>
       </article>
     </div>

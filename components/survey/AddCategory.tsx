@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useDetails } from "../contexts/DetailsProvider";
 
 type Props = {
@@ -6,15 +6,14 @@ type Props = {
 };
 export default function AddCategory({ categoryName }: Props) {
   const details = useDetails();
-  const [isEmpty, setIsEmpty] = useState(true);
-  const inputRef = useRef("");
+  const [field, setField] = useState("");
   const handleAdd = () => {
-    if (inputRef.current === "") return;
+    if (field === "") return;
     const isDuplicate = () => {
       return details.state.recurringQuantitativeCost.some(
         (item) =>
           item.id ===
-          inputRef.current +
+          field +
             (details.state.recurringQuantitativeCost.length - 1).toString() +
             "a"
       );
@@ -24,30 +23,23 @@ export default function AddCategory({ categoryName }: Props) {
       if (categoryName === "recurring") {
         details.dispatch({
           type: "add_recurring_cost_category",
-          nextAction: inputRef.current,
+          nextAction: field,
         });
       } else if (categoryName === "non-recurring") {
         details.dispatch({
           type: "add_non_recurring_cost_category",
-          nextAction: inputRef.current,
+          nextAction: field,
         });
       }
-      inputRef.current = "";
-      setIsEmpty(true);
+      setField("");
     } else {
       throw Error("Duplicate");
     }
   };
   const handleInput = (e) => {
-    setIsEmpty(e.target.value === "");
-    inputRef.current = e.target.value;
+    setField(e.target.value);
   };
-  const handleKey = (e) => {
-    e.preventDefault();
-    if (e.code === "KeyEnter") {
-      handleAdd();
-    }
-  };
+
   return (
     <div>
       <div className="relative">
@@ -55,6 +47,7 @@ export default function AddCategory({ categoryName }: Props) {
           className="w-full py-4 pl-3 pr-16 text-sm border-2 border-gray-200 rounded-lg"
           type="text"
           placeholder="Add category... (i.e. Hardware, Software)"
+          value={field}
           onChange={handleInput}
         />
 
@@ -62,7 +55,7 @@ export default function AddCategory({ categoryName }: Props) {
           className="absolute p-2 text-white disabled:bg-slate-500 bg-slate-500 rounded-full -translate-y-1/2 top-1/2 right-4 disabled:opacity-25"
           type="button"
           onClick={handleAdd}
-          disabled={isEmpty}
+          disabled={field === ""}
         >
           <svg
             className="w-4 h-4"

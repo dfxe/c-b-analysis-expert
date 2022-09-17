@@ -67,7 +67,7 @@ export default function InputField({ subCategoryName }: Props) {
                       />
                       <input
                         key={item.id + i.toString()}
-                        placeholder={"Row Cost"}
+                        placeholder="Cost"
                         type="text"
                         className="block border-2 px-4 py-2 w-1/2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
                         onChange={(e) => {

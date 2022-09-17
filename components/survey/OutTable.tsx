@@ -1,4 +1,3 @@
-import React from "react";
 import { useDetails } from "../contexts/DetailsProvider";
 
 export default function OutTable() {
@@ -18,19 +17,18 @@ export default function OutTable() {
         </thead>
 
         <tbody className="divide-y divide-gray-100">
-          <tr>
-            {details.state.recurringQuantitativeCost.length > 0 &&
-              details.state.recurringQuantitativeCost.map((item) => {
-                <>
-                  <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                    {item.title}
-                  </td>
-                  <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
-                    {item.period.periodCost}
-                  </td>
-                </>;
-              })}
-          </tr>
+          {details.state.recurringQuantitativeCost.map((item) => {
+            return (
+              <tr key={item.title + item.title.length.toString() + "table"}>
+                <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
+                  {item.title}
+                </td>
+                <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
+                  {item.period.periodCost}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

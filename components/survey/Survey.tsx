@@ -4,6 +4,7 @@ import InputField from "./InputField";
 import EndCost from "./EndCost";
 import AddCategory from "./AddCategory";
 import { useDetails } from "../contexts/DetailsProvider";
+import OutTable from "./OutTable";
 
 const Survey = () => {
   const details = useDetails();
@@ -54,11 +55,8 @@ const Survey = () => {
         {details.state.recurringQuantitativeCost.length > 0 && getInputField()}
         <AddCategory key="add-cat-2-recurring" categoryName="recurring" />
         <hr></hr>
-        {/* <OutTable></OutTable> */}
-        <EndCost
-          currency={details.state.currency}
-          endValue={computeCost()}
-        ></EndCost>
+        <OutTable />
+        <EndCost currency={details.state.currency} endValue={computeCost()} />
       </div>
     </div>
   );

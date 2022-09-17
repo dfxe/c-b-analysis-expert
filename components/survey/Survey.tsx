@@ -41,8 +41,9 @@ const Survey = () => {
           categoryName="non-recurring"
         />
         <div className="text-lg">Recurring Costs</div>
-        <AddCategory key="add-cat-2-recurring" categoryName="recurring" />
+
         {details.state.recurringQuantitativeCost.length > 0 && getInputField()}
+        <AddCategory key="add-cat-2-recurring" categoryName="recurring" />
         <hr></hr>
         {/* <OutTable></OutTable> */}
         <EndCost></EndCost>

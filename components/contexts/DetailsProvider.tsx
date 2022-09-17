@@ -130,7 +130,7 @@ export default function DetailsProvider({ children }: Props) {
                 action.nextAction +
                 state.recurringQuantitativeCost.length.toString() +
                 "a",
-              title: "i.e. Procurement",
+              title: "",
               category: action.nextAction,
               period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
             },

@@ -32,6 +32,8 @@ export default function AddCategory({ categoryName }: Props) {
           nextAction: inputRef.current,
         });
       }
+      inputRef.current = "";
+      setIsEmpty(true);
     } else {
       throw Error("Duplicate");
     }

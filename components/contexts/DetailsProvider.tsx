@@ -54,7 +54,12 @@ type Props = {
 };
 
 export default function DetailsProvider({ children }: Props) {
-  const reducer = (state: Details, action: ActionType, editId: string) => {
+  const reducer = (state: Details, action: ActionType) => {
+    console.log(
+      state.recurringQuantitativeCost.filter(
+        (item) => item.category === action.nextAction
+      )
+    );
     switch (action.type) {
       case "changed_currency":
         return {
@@ -145,11 +150,11 @@ export default function DetailsProvider({ children }: Props) {
           ),
         };
 
-      case "remove_last_recurring_cost":
+      case "removed_category":
         return {
           ...state,
           recurringQuantitativeCost: state.recurringQuantitativeCost.filter(
-            (item, i) => i != state.recurringQuantitativeCost.length - 1
+            (item) => item.category != action.nextAction
           ),
         };
     }
@@ -163,7 +168,6 @@ export default function DetailsProvider({ children }: Props) {
     initiative: "",
     currency: "$",
     recurringQuantitativeCost: [],
-
     nonRecurringQuantitativeCost: [],
   });
 

@@ -27,6 +27,7 @@ export default function OutTable() {
         </thead>
 
         <tbody className="divide-y divide-gray-100">
+          {/**TODO need a portal here to place at the correct category in the DOM */}
           {details.state.recurringQuantitativeCost.map((item, i) => {
             return (
               <tr

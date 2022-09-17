@@ -77,12 +77,12 @@ export default function InputField({ subCategoryName }: Props) {
                         strokeWidth={1.5}
                         stroke="currentColor"
                         className="w-6 h-6 cursor-pointer"
-                        onClick={() =>
+                        onClick={() => {
                           details.dispatch({
                             type: "removed_row",
-                            nextAction: subCategoryName,
-                          })
-                        }
+                            nextAction: item.id,
+                          });
+                        }}
                       >
                         <path
                           strokeLinecap="round"

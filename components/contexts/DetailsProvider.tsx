@@ -160,10 +160,14 @@ export default function DetailsProvider({ children }: Props) {
           ),
         };
       case "removed_row":
+        //TODO - remove only the row that is being clicked
         return {
           ...state,
           recurringQuantitativeCost: state.recurringQuantitativeCost.filter(
-            (item) => item.category != action.nextAction
+            (item) => {
+              //console.log(item.id != action.nextAction);
+              item.id != action.nextAction;
+            }
           ),
         };
     }

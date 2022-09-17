@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEventHandler, useState } from "react";
 import { useDetails } from "../contexts/DetailsProvider";
 
 type Props = {
@@ -6,7 +6,7 @@ type Props = {
 };
 export default function AddCategory({ categoryName }: Props) {
   const details = useDetails();
-  const [field, setField] = useState("");
+  const [field, setField] = useState<string>("");
   const handleAdd = () => {
     if (field === "") return;
     const isDuplicate = () => {
@@ -36,8 +36,8 @@ export default function AddCategory({ categoryName }: Props) {
       throw Error("Duplicate");
     }
   };
-  const handleInput = (e) => {
-    setField(e.target.value);
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setField((e.target as HTMLInputElement).value);
   };
 
   return (

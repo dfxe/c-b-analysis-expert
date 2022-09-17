@@ -11,17 +11,13 @@ type Row = {
   };
 };
 
-type Category = {
-  [key: string]: Row[];
-};
-
 type Details = {
   id: string;
   title: string;
   initiative: string;
   currency: string;
-  recurringQuantitativeCost: Category[];
-  nonRecurringQuantitativeCost: Category[];
+  recurringQuantitativeCost: Row[];
+  nonRecurringQuantitativeCost: Row[];
 };
 
 type ActionType = {
@@ -44,19 +40,8 @@ const DetailsContext = createContext<ShowDetails>({
     title: "",
     initiative: "",
     currency: "",
-    //TODO Type here needs to be any key and value of [key:value]
-    recurringQuantitativeCost: [
-      {
-        hardware: [
-          {
-            id: "hdware",
-            title: "Procurement",
-            category: "hardware",
-            period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
-          },
-        ],
-      },
-    ],
+
+    recurringQuantitativeCost: [],
     nonRecurringQuantitativeCost: [],
   },
   dispatch: (action: ActionType) => action,

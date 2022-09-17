@@ -1,6 +1,6 @@
 import React from "react";
 
-function Footer() {
+const Footer = () => {
   return (
     <footer className="bg-gray-50">
       <div className="px-4 py-8 mx-auto max-w-screen-xl sm:px-6 lg:px-8">
@@ -46,6 +46,6 @@ function Footer() {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

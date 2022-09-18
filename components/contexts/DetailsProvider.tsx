@@ -227,6 +227,32 @@ export default function DetailsProvider({ children }: Props) {
             (item) => item.id != action.nextAction
           ),
         };
+      case "edit_benefit_input_at":
+        return {
+          ...state,
+          benefits: state.benefits.map((item) => {
+            if (item.id === action.editId) {
+              return {
+                ...item,
+                title: action.nextAction,
+              };
+            }
+            return { ...item };
+          }),
+        };
+      case "edit_benefit_period_cost":
+        return {
+          ...state,
+          benefits: state.benefits.map((item) => {
+            if (item.id === action.editId) {
+              return {
+                ...item,
+                periodCost: action.nextAction,
+              };
+            }
+            return { ...item };
+          }),
+        };
     }
 
     throw Error("Unknown action.");

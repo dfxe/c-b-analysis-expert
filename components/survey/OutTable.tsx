@@ -3,11 +3,13 @@ import { useDetails } from "../contexts/DetailsProvider";
 
 export default function OutTable() {
   const details = useDetails();
-  const rowRef = useRef("nullerino");
+  const rowRef = useRef<string[]>([]);
 
   const getNextRow = (currentRow: string) => {
-    if (rowRef.current != currentRow) {
-      rowRef.current = currentRow;
+    const isPresentInTable = rowRef.current.some((item) => item === currentRow);
+    if (!isPresentInTable) {
+      rowRef.current = [...rowRef.current, currentRow];
+      console.log(isPresentInTable, rowRef.current);
       return true;
     }
     return false;
@@ -51,8 +53,12 @@ export default function OutTable() {
                 </tr>
               )}
               <tr>
-                <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                  {item.title}
+                <td
+                  className={`px-4 py-2 font-medium ${
+                    item.title === "" ? "text-gray-400" : "text-gray-900"
+                  } whitespace-nowrap`}
+                >
+                  {item.title || "empty"}
                 </td>
                 <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
                   {details.state.currency +

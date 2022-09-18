@@ -3,6 +3,8 @@ import React, { createContext, Dispatch, useContext, useReducer } from "react";
 type Row = {
   id: string;
   title: string;
+  isRecurring: boolean;
+  isCategoryParent: boolean;
   category: string;
   period: {
     periodTimeUnit: string;
@@ -16,8 +18,7 @@ type Details = {
   title: string;
   initiative: string;
   currency: string;
-  recurringQuantitativeCost: Row[];
-  nonRecurringQuantitativeCost: Row[];
+  costs: Row[];
 };
 
 type ActionType = {
@@ -41,8 +42,7 @@ const DetailsContext = createContext<ShowDetails>({
     initiative: "",
     currency: "",
 
-    recurringQuantitativeCost: [],
-    nonRecurringQuantitativeCost: [],
+    costs: [],
   },
   dispatch: (action: ActionType) => action,
 });
@@ -74,47 +74,60 @@ export default function DetailsProvider({ children }: Props) {
       case "edit_input_at":
         return {
           ...state,
-          recurringQuantitativeCost: state.recurringQuantitativeCost.map(
-            (item, i) => {
-              if (item.id + i.toString() + "a" === action.editId) {
-                return {
-                  ...item,
-                  title: action.nextAction,
-                };
-              }
-              return { ...item };
+          costs: state.costs.map((item, i) => {
+            if (item.id + i.toString() + "a" === action.editId) {
+              return {
+                ...item,
+                title: action.nextAction,
+              };
             }
-          ),
+            return { ...item };
+          }),
         };
       case "edit_period_cost":
         return {
           ...state,
-          recurringQuantitativeCost: state.recurringQuantitativeCost.map(
-            (item, i) => {
-              if (item.id + i.toString() + "a" === action.editId) {
-                return {
-                  ...item,
-                  period: {
-                    ...item.period,
-                    periodCost: action.nextAction,
-                  },
-                };
-              }
-              return { ...item };
+          costs: state.costs.map((item, i) => {
+            if (item.id + i.toString() + "a" === action.editId) {
+              return {
+                ...item,
+                period: {
+                  ...item.period,
+                  periodCost: action.nextAction,
+                },
+              };
             }
-          ),
+            return { ...item };
+          }),
         };
 
       case "add_non_recurring_cost_category":
         return {
           ...state,
-          nonRecurringQuantitativeCost: [
-            ...state.nonRecurringQuantitativeCost,
+          costs: [
+            ...state.costs,
             {
-              id:
-                action.nextAction +
-                state.nonRecurringQuantitativeCost.length.toString(),
+              id: action.nextAction + state.costs.length.toString() + "b",
               title: "i.e. Procurement",
+              isRecurring: false,
+              isCategoryParent: true,
+              category: action.nextAction,
+              period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
+            },
+          ],
+        };
+
+      case "add_non_recurring_cost_row":
+        return {
+          ...state,
+          costs: [
+            ...state.costs,
+            {
+              id: action.nextAction + state.costs.length.toString() + "b",
+              title: "",
+              isRecurring: false,
+              isCategoryParent: false,
+
               category: action.nextAction,
               period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
             },
@@ -124,14 +137,13 @@ export default function DetailsProvider({ children }: Props) {
       case "add_recurring_cost_category":
         return {
           ...state,
-          recurringQuantitativeCost: [
-            ...state.recurringQuantitativeCost,
+          costs: [
+            ...state.costs,
             {
-              id:
-                action.nextAction +
-                state.recurringQuantitativeCost.length.toString() +
-                "a",
+              id: action.nextAction + state.costs.length.toString() + "a",
               title: "",
+              isRecurring: true,
+              isCategoryParent: true,
               category: action.nextAction,
               period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
             },
@@ -141,40 +153,34 @@ export default function DetailsProvider({ children }: Props) {
       case "add_recurring_cost_row":
         return {
           ...state,
-          recurringQuantitativeCost: [
-            ...state.recurringQuantitativeCost,
+          costs: [
+            ...state.costs,
             {
-              id:
-                action.nextAction +
-                state.recurringQuantitativeCost.length.toString() +
-                "a",
+              id: action.nextAction + state.costs.length.toString() + "a",
               title: "",
+              isRecurring: true,
+              isCategoryParent: false,
               category: action.nextAction,
               period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
             },
           ],
         };
+
       case "removed_category":
         return {
           ...state,
-          recurringQuantitativeCost: state.recurringQuantitativeCost.filter(
+          costs: state.costs.filter(
             (item) => item.category != action.nextAction
           ),
-          nonRecurringQuantitativeCost:
-            state.nonRecurringQuantitativeCost.filter(
-              (item) => item.category != action.nextAction
-            ),
         };
       case "removed_row":
         //TODO - remove only the row that is being clicked
         return {
           ...state,
-          recurringQuantitativeCost: state.recurringQuantitativeCost.filter(
-            (item) => {
-              //console.log(item.id != action.nextAction);
-              item.id != action.nextAction;
-            }
-          ),
+          costs: state.costs.filter((item) => {
+            //console.log(item.id != action.nextAction);
+            item.id != action.nextAction;
+          }),
         };
     }
 
@@ -186,13 +192,13 @@ export default function DetailsProvider({ children }: Props) {
     title: "",
     initiative: "",
     currency: "$",
-    recurringQuantitativeCost: [],
-    nonRecurringQuantitativeCost: [],
+
+    costs: [],
   });
 
   React.useEffect(() => {
     //console.log(state);
-  }, [state.recurringQuantitativeCost]);
+  }, [state.costs]);
 
   return (
     <DetailsContext.Provider value={{ state: state, dispatch: dispatch }}>

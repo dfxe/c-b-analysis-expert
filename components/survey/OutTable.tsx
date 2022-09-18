@@ -1,19 +1,8 @@
-import { useRef } from "react";
 import { useDetails } from "../contexts/DetailsProvider";
 
 export default function OutTable() {
   const details = useDetails();
-  const rowRef = useRef<string[]>([]);
 
-  const getNextRow = (currentRow: string) => {
-    const isPresentInTable = rowRef.current.some((item) => item === currentRow);
-    if (!isPresentInTable) {
-      rowRef.current = [...rowRef.current, currentRow];
-      console.log(isPresentInTable, rowRef.current);
-      return true;
-    }
-    return false;
-  };
   return (
     <div className="overflow-hidden overflow-x-auto border border-gray-100 rounded">
       <div className="text-xl px-4 py-2">
@@ -36,38 +25,76 @@ export default function OutTable() {
           </tr>
         </thead>
 
-        {details.state.recurringQuantitativeCost.map((item, i) => {
-          return (
-            <tbody
-              key={
-                item.title +
-                item.title.length.toString() +
-                i.toString() +
-                "table"
-              }
-              className="divide-y divide-gray-100"
-            >
-              {getNextRow(item.category) && (
-                <tr className="px-4 py-2 font-medium text-left text-gray-900 bg-gray-200 whitespace-nowrap">
-                  <th>{item.category}</th>
+        {details.state.costs.map((item, i) => {
+          if (item.isRecurring) {
+            return (
+              <tbody
+                key={
+                  item.title +
+                  item.title.length.toString() +
+                  i.toString() +
+                  "table"
+                }
+                className="divide-y divide-gray-100"
+              >
+                {item.isCategoryParent && (
+                  <tr className="px-4 py-2 font-medium text-left text-gray-900 bg-gray-200 whitespace-nowrap">
+                    <th>{item.category}</th>
+                  </tr>
+                )}
+                <tr>
+                  <td
+                    className={`px-4 py-2 font-medium ${
+                      item.title === "" ? "text-gray-400" : "text-gray-900"
+                    } whitespace-nowrap`}
+                  >
+                    {item.title || "empty"}
+                  </td>
+                  <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
+                    {details.state.currency +
+                      " " +
+                      item.period.periodCost.toString()}
+                  </td>
                 </tr>
-              )}
-              <tr>
-                <td
-                  className={`px-4 py-2 font-medium ${
-                    item.title === "" ? "text-gray-400" : "text-gray-900"
-                  } whitespace-nowrap`}
-                >
-                  {item.title || "empty"}
-                </td>
-                <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
-                  {details.state.currency +
-                    " " +
-                    item.period.periodCost.toString()}
-                </td>
-              </tr>
-            </tbody>
-          );
+              </tbody>
+            );
+          }
+        })}
+
+        {details.state.costs.map((item, i) => {
+          if (!item.isRecurring) {
+            return (
+              <tbody
+                key={
+                  item.title +
+                  item.title.length.toString() +
+                  i.toString() +
+                  "table"
+                }
+                className="divide-y divide-gray-100"
+              >
+                {item.isCategoryParent && (
+                  <tr className="px-4 py-2 font-medium text-left text-gray-900 bg-gray-200 whitespace-nowrap">
+                    <th>{item.category}</th>
+                  </tr>
+                )}
+                <tr>
+                  <td
+                    className={`px-4 py-2 font-medium ${
+                      item.title === "" ? "text-gray-400" : "text-gray-900"
+                    } whitespace-nowrap`}
+                  >
+                    {item.title || "empty"}
+                  </td>
+                  <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
+                    {details.state.currency +
+                      " " +
+                      item.period.periodCost.toString()}
+                  </td>
+                </tr>
+              </tbody>
+            );
+          }
         })}
       </table>
     </div>

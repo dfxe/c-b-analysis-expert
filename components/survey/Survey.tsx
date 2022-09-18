@@ -12,7 +12,7 @@ const Survey = () => {
   const getInputField = (category: string) => {
     let categories: string[] = [];
     if (category === "recurring") {
-      details.state.recurringQuantitativeCost.map((item) => {
+      details.state.costs.map((item) => {
         categories = [...categories, item.category];
       });
       categories = Array.from(new Set(categories).values());
@@ -20,7 +20,7 @@ const Survey = () => {
         <InputField key={item + "cat-r"} subCategoryName={item} />
       ));
     } else if (category === "non-recurring") {
-      details.state.nonRecurringQuantitativeCost.map((item) => {
+      details.state.costs.map((item) => {
         categories = [...categories, item.category];
       });
       categories = Array.from(new Set(categories).values());
@@ -35,9 +35,7 @@ const Survey = () => {
 
   const computeCost = () => {
     let cost = 0;
-    details.state.recurringQuantitativeCost.map(
-      (item) => (cost += +item.period.periodCost)
-    );
+    details.state.costs.map((item) => (cost += +item.period.periodCost));
     return cost;
   };
 
@@ -60,16 +58,14 @@ const Survey = () => {
         <hr></hr>
         <div className="text-xl">Quantitative Costs</div>
         <div className="text-lg">Non-recurring Costs</div>
-        {details.state.nonRecurringQuantitativeCost.length > 0 &&
-          getInputField("non-recurring")}
+        {details.state.costs.length > 0 && getInputField("non-recurring")}
         <AddCategory
           key="add-cat-1-non-recurring"
           categoryName="non-recurring"
         />
         <div className="text-lg">Recurring Costs</div>
 
-        {details.state.recurringQuantitativeCost.length > 0 &&
-          getInputField("recurring")}
+        {details.state.costs.length > 0 && getInputField("recurring")}
         <AddCategory key="add-cat-2-recurring" categoryName="recurring" />
         <hr></hr>
         <OutTable />

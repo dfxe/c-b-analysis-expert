@@ -62,12 +62,12 @@ export default function InputField({ subCategoryName }: Props) {
         </summary>
         <nav className="flex flex-col mt-2">
           <ul>
-            {details.state.recurringQuantitativeCost.length > 0 &&
-              details.state.recurringQuantitativeCost.map((item, i) => {
+            {details.state.costs.length > 0 &&
+              details.state.costs.map((item, i) => {
                 if (item.category === subCategoryName) {
                   return (
                     <li
-                      className="flex row justify-around items-center"
+                      className="flex row justify-around items-center py-1"
                       key={item.id + i.toString() + "a"}
                     >
                       <svg

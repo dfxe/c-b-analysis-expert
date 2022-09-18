@@ -54,13 +54,32 @@ const Survey = () => {
           type={"changed_org_initiative"}
           question="What is the initiative of the organisation?"
         />
-        <FormQuestion
-          key={"1_YIjbAJMK5asd8aYTEKHiD1"}
-          type={"changed_period_unit"}
-          question="What is the time unit (days, weeks, months, years)?"
+        <Dropdown
+          key={"1_YIjbAJMK58aYTEKHiD1asdasdwqe123"}
+          actionDispatchType="changed_period_unit"
+          values={[
+            {
+              value: "day",
+              label: "d",
+            },
+            {
+              value: "week",
+              label: "w",
+            },
+            {
+              value: "month",
+              label: "m",
+            },
+            {
+              value: "year",
+              label: "yr",
+            },
+          ]}
+          title="Pick a time unit"
         />
 
         <Dropdown
+          key={"1_YIjbAJMK58aYnnmbvTEKHiD1asdasdwqe123"}
           actionDispatchType="changed_currency"
           values={[
             {
@@ -80,6 +99,7 @@ const Survey = () => {
               label: "RON",
             },
           ]}
+          title="Pick your currency"
         />
         <hr></hr>
         <div className="text-xl">Quantitative Costs</div>

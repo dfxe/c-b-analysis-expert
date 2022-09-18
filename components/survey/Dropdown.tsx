@@ -3,29 +3,31 @@ import { useDetails } from "../contexts/DetailsProvider";
 type Props = {
   actionDispatchType: string;
   values: { value: string; label: string }[];
+  title: string;
 };
-export default function Dropdown({ actionDispatchType, values }: Props) {
+export default function Dropdown({ actionDispatchType, values, title }: Props) {
   const details = useDetails();
   const [hideDropdown, setHideDropdown] = React.useState(true);
+  const [selected, showSelected] = React.useState("");
 
   const handleChange = (item: string) => {
     details.dispatch({
       type: actionDispatchType,
       nextAction: item,
     });
-
+    showSelected(item);
     setHideDropdown(!hideDropdown);
   };
 
   return (
     <div>
-      Pick your currency
+      {title}
       <div
         onClick={() => setHideDropdown(!hideDropdown)}
         className="w-full inline-flex justify-between bg-white border rounded-md"
       >
         <div className="px-4 py-2 text-sm text-gray-600 hover:text-gray-700 hover:bg-gray-50 rounded-l-md">
-          {details.state.currency}
+          {selected}
         </div>
 
         <div className="relative">
@@ -58,7 +60,7 @@ export default function Dropdown({ actionDispatchType, values }: Props) {
                   {values.map((item, i) => (
                     <li
                       onClick={() => handleChange(item.label)}
-                      key={item.value + i}
+                      key={item.value + i + title}
                       className="block cursor-pointer px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
                       role="menuitem"
                     >

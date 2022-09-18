@@ -19,6 +19,13 @@ a {
   box-sizing: border-box;
 }
 
+@media only screen and (min-width: 1024px) {
+  html {
+    padding-inline-start: 25vw;
+    padding-inline-end: 25vw;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

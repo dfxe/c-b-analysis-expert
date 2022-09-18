@@ -258,6 +258,7 @@ export default function DetailsProvider({ children }: Props) {
     throw Error("Unknown action.");
   };
 
+  //TODO fix type, should be (action:actiontype) => details as Details
   const [state, dispatch] = useReducer(reducer, {
     id: "your-next-c-b-analysis-id",
     title: "",

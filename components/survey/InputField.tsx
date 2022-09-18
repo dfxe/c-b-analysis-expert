@@ -210,7 +210,7 @@ export default function InputField({
                             checkInput(+e.target.value) &&
                               handleDetails(
                                 passValidInput(e.target.value),
-                                "edit_benefit_period_cost",
+                                "edit_period_cost",
                                 item.id
                               );
                           }}

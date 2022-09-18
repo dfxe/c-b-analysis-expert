@@ -170,10 +170,11 @@ export default function DetailsProvider({ children }: Props) {
         //TODO - remove only the row that is being clicked
         return {
           ...state,
-          costs: state.costs.filter((item) => {
-            //console.log(item.id != action.nextAction);
-            item.id != action.nextAction;
-          }),
+          costs: state.costs.filter(
+            (item) =>
+              //console.log(item.id != action.nextAction);
+              item.id != action.nextAction
+          ),
         };
       case "add_benefit":
         return {
@@ -184,7 +185,7 @@ export default function DetailsProvider({ children }: Props) {
               id:
                 action.nextAction +
                 state.benefits.length.toString() +
-                "benefit",
+                "benefit-cat",
               title: "",
               isRecurring: true,
               isCategoryParent: true,
@@ -220,12 +221,11 @@ export default function DetailsProvider({ children }: Props) {
           ),
         };
       case "removed_benefit_row":
-        //TODO - remove only the row that is being clicked
         return {
           ...state,
-          benefits: state.benefits.filter((item) => {
-            item.id != action.nextAction;
-          }),
+          benefits: state.benefits.filter(
+            (item) => item.id != action.nextAction
+          ),
         };
     }
 
@@ -241,10 +241,6 @@ export default function DetailsProvider({ children }: Props) {
     costs: [],
     benefits: [],
   });
-
-  React.useEffect(() => {
-    //console.log(state);
-  }, [state.costs]);
 
   return (
     <DetailsContext.Provider value={{ state: state, dispatch: dispatch }}>

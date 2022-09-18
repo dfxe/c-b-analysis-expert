@@ -35,12 +35,26 @@ export default function InputField({
             strokeWidth={1.5}
             stroke="currentColor"
             className="w-6 h-6 cursor-pointer"
-            onClick={() =>
-              details.dispatch({
-                type: "removed_category",
-                nextAction: subCategoryName,
-              })
-            }
+            onClick={() => {
+              if (categoryFrequency === "general") {
+                details.dispatch({
+                  type: "removed_benefit_category",
+                  nextAction: subCategoryName,
+                });
+              } else if (
+                categoryFrequency === "recurring" ||
+                categoryFrequency === "non-recurring"
+              ) {
+                details.dispatch({
+                  type: "removed_cost_category",
+                  nextAction: subCategoryName,
+                });
+              } else {
+                throw new Error(
+                  "Cannot remove category due to invalid category frequency."
+                );
+              }
+            }}
           >
             <path
               strokeLinecap="round"

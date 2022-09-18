@@ -26,24 +26,23 @@ export default function OutTable() {
           </tr>
         </thead>
 
-        <tbody className="divide-y divide-gray-100">
-          {/**TODO need a portal here to place at the correct category in the DOM */}
-          {details.state.recurringQuantitativeCost.map((item, i) => {
-            return (
-              <tr
-                key={
-                  item.title +
-                  item.title.length.toString() +
-                  i.toString() +
-                  "table"
-                }
-              >
-                {getNextRow(item.category) && (
-                  <th className="px-4 py-2 font-medium text-left text-gray-900 bg-gray-200 whitespace-nowrap">
-                    {item.category}
-                  </th>
-                )}
-
+        {details.state.recurringQuantitativeCost.map((item, i) => {
+          return (
+            <tbody
+              key={
+                item.title +
+                item.title.length.toString() +
+                i.toString() +
+                "table"
+              }
+              className="divide-y divide-gray-100"
+            >
+              {getNextRow(item.category) && (
+                <tr className="px-4 py-2 font-medium text-left text-gray-900 bg-gray-200 whitespace-nowrap">
+                  <th>{item.category}</th>
+                </tr>
+              )}
+              <tr>
                 <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                   {item.title}
                 </td>
@@ -53,9 +52,9 @@ export default function OutTable() {
                     item.period.periodCost.toString()}
                 </td>
               </tr>
-            );
-          })}
-        </tbody>
+            </tbody>
+          );
+        })}
       </table>
     </div>
   );

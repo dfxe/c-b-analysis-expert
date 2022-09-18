@@ -10,13 +10,25 @@ export default function AddCategory({ categoryName }: Props) {
   const handleAdd = () => {
     if (field === "") return;
     const isDuplicate = () => {
-      return details.state.recurringQuantitativeCost.some(
-        (item) =>
-          item.id ===
-          field +
-            (details.state.recurringQuantitativeCost.length - 1).toString() +
-            "a"
-      );
+      return categoryName === "recurring"
+        ? details.state.recurringQuantitativeCost.some(
+            (item) =>
+              item.id ===
+              field +
+                (
+                  details.state.recurringQuantitativeCost.length - 1
+                ).toString() +
+                "a"
+          )
+        : details.state.nonRecurringQuantitativeCost.some(
+            (item) =>
+              item.id ===
+              field +
+                (
+                  details.state.nonRecurringQuantitativeCost.length - 1
+                ).toString() +
+                "a"
+          );
     };
 
     if (!isDuplicate()) {

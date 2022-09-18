@@ -105,6 +105,22 @@ export default function DetailsProvider({ children }: Props) {
           ),
         };
 
+      case "add_non_recurring_cost_category":
+        return {
+          ...state,
+          nonRecurringQuantitativeCost: [
+            ...state.nonRecurringQuantitativeCost,
+            {
+              id:
+                action.nextAction +
+                state.nonRecurringQuantitativeCost.length.toString(),
+              title: "i.e. Procurement",
+              category: action.nextAction,
+              period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
+            },
+          ],
+        };
+
       case "add_recurring_cost_category":
         return {
           ...state,
@@ -121,21 +137,7 @@ export default function DetailsProvider({ children }: Props) {
             },
           ],
         };
-      case "add_non_recurring_cost_category":
-        return {
-          ...state,
-          recurringQuantitativeCost: [
-            ...state.recurringQuantitativeCost,
-            {
-              id:
-                action.nextAction +
-                state.recurringQuantitativeCost.length.toString(),
-              title: "i.e. Procurement",
-              category: action.nextAction,
-              period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
-            },
-          ],
-        };
+
       case "add_recurring_cost_row":
         return {
           ...state,
@@ -158,6 +160,10 @@ export default function DetailsProvider({ children }: Props) {
           recurringQuantitativeCost: state.recurringQuantitativeCost.filter(
             (item) => item.category != action.nextAction
           ),
+          nonRecurringQuantitativeCost:
+            state.nonRecurringQuantitativeCost.filter(
+              (item) => item.category != action.nextAction
+            ),
         };
       case "removed_row":
         //TODO - remove only the row that is being clicked

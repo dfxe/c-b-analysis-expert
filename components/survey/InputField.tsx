@@ -7,6 +7,7 @@ type Props = {
 };
 export default function InputField({ subCategoryName }: Props) {
   const details = useDetails();
+
   const handleDetails = (
     e: ChangeEvent<HTMLInputElement>,
     command: string,

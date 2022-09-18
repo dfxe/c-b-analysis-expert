@@ -1,4 +1,4 @@
-import CurrencySelect from "./CurrencySelect";
+import Dropdown from "./Dropdown";
 import FormQuestion from "./FormQuestion";
 import InputField from "./InputField";
 import EndCost from "./EndCost";
@@ -60,7 +60,27 @@ const Survey = () => {
           question="What is the time unit (days, weeks, months, years)?"
         />
 
-        <CurrencySelect />
+        <Dropdown
+          actionDispatchType="changed_currency"
+          values={[
+            {
+              value: "USD",
+              label: "$",
+            },
+            {
+              value: "EUR",
+              label: "€",
+            },
+            {
+              value: "GBP",
+              label: "£",
+            },
+            {
+              value: "RON",
+              label: "RON",
+            },
+          ]}
+        />
         <hr></hr>
         <div className="text-xl">Quantitative Costs</div>
         <div className="text-lg">Non-recurring Costs</div>

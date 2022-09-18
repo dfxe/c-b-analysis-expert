@@ -184,7 +184,7 @@ export default function DetailsProvider({ children }: Props) {
     title: "",
     initiative: "",
     currency: "$",
-
+    periodUnit: "d",
     costs: [],
   });
 

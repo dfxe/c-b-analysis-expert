@@ -1,30 +1,16 @@
 import React from "react";
 import { useDetails } from "../contexts/DetailsProvider";
-export default function CurrencySelect() {
+type Props = {
+  actionDispatchType: string;
+  values: { value: string; label: string }[];
+};
+export default function Dropdown({ actionDispatchType, values }: Props) {
   const details = useDetails();
   const [hideDropdown, setHideDropdown] = React.useState(true);
-  const currencies = [
-    {
-      value: "USD",
-      label: "$",
-    },
-    {
-      value: "EUR",
-      label: "€",
-    },
-    {
-      value: "GBP",
-      label: "£",
-    },
-    {
-      value: "RON",
-      label: "RON",
-    },
-  ];
 
   const handleChange = (item: string) => {
     details.dispatch({
-      type: "changed_currency",
+      type: actionDispatchType,
       nextAction: item,
     });
 
@@ -69,7 +55,7 @@ export default function CurrencySelect() {
             <div className="py-2 flow-root">
               <div className="-my-2 divide-y divide-gray-100">
                 <ul className="p-2">
-                  {currencies.map((item, i) => (
+                  {values.map((item, i) => (
                     <li
                       onClick={() => handleChange(item.label)}
                       key={item.value + i}

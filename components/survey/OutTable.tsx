@@ -20,13 +20,17 @@ export default function OutTable() {
               Quantitative Costs
             </th>
             <th className="px-4 py-2 font-medium text-left text-gray-900 whitespace-nowrap">
-              Cost
+              Cost {"per " + details.state.periodUnit}
             </th>
           </tr>
         </thead>
-
+        <tbody>
+          <tr className="px-4 py-2 font-medium text-left text-gray-500 bg-gray-200 whitespace-nowrap">
+            <th className="px-4 py-2">Non-recurring</th>
+          </tr>
+        </tbody>
         {details.state.costs.map((item, i) => {
-          if (item.isRecurring) {
+          if (!item.isRecurring) {
             return (
               <tbody
                 key={
@@ -58,9 +62,13 @@ export default function OutTable() {
             );
           }
         })}
-
+        <tbody>
+          <tr className="px-4 py-2 font-medium text-left text-gray-500 bg-gray-200 whitespace-nowrap">
+            <th className="px-4 py-2">Recurring</th>
+          </tr>
+        </tbody>
         {details.state.costs.map((item, i) => {
-          if (!item.isRecurring) {
+          if (item.isRecurring) {
             return (
               <tbody
                 key={

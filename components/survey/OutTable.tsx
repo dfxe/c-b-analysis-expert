@@ -14,6 +14,9 @@ export default function OutTable() {
   };
   return (
     <div className="overflow-hidden overflow-x-auto border border-gray-100 rounded">
+      <div className="text-xl px-4 py-2">
+        {details.state.title} - {details.state.initiative}
+      </div>
       <table className="min-w-full text-sm divide-y divide-gray-200">
         <thead>
           <tr className="bg-gray-50">

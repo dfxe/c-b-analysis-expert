@@ -16,6 +16,7 @@ type Details = {
   currency: string;
   periodUnit: string;
   costs: Row[];
+  benefits: Row[];
 };
 
 type ActionType = {
@@ -39,8 +40,8 @@ const DetailsContext = createContext<ShowDetails>({
     initiative: "",
     currency: "",
     periodUnit: "d",
-
     costs: [],
+    benefits: [],
   },
   dispatch: (action: ActionType) => action,
 });
@@ -72,7 +73,7 @@ export default function DetailsProvider({ children }: Props) {
       case "changed_period_unit":
         return {
           ...state,
-          perionUnit: action.nextAction,
+          periodUnit: action.nextAction,
         };
       case "edit_input_at":
         return {
@@ -158,19 +159,71 @@ export default function DetailsProvider({ children }: Props) {
           ],
         };
 
-      case "removed_category":
+      case "removed_cost_category":
         return {
           ...state,
           costs: state.costs.filter(
             (item) => item.category != action.nextAction
           ),
         };
-      case "removed_row":
+      case "removed_cost_row":
         //TODO - remove only the row that is being clicked
         return {
           ...state,
           costs: state.costs.filter((item) => {
             //console.log(item.id != action.nextAction);
+            item.id != action.nextAction;
+          }),
+        };
+      case "add_benefit":
+        return {
+          ...state,
+          benefits: [
+            ...state.benefits,
+            {
+              id:
+                action.nextAction +
+                state.benefits.length.toString() +
+                "benefit",
+              title: "",
+              isRecurring: true,
+              isCategoryParent: true,
+              category: action.nextAction,
+              periodCost: 0,
+            },
+          ],
+        };
+      case "add_benefit_row":
+        return {
+          ...state,
+          benefits: [
+            ...state.benefits,
+            {
+              id:
+                action.nextAction + state.benefits.length.toString() + "b-row",
+              title: "",
+              isRecurring: state.benefits.filter(
+                (item) =>
+                  item.isCategoryParent && item.category === action.nextAction
+              )[0].isRecurring,
+              isCategoryParent: false,
+              category: action.nextAction,
+              periodCost: 0,
+            },
+          ],
+        };
+      case "removed_benefit_category":
+        return {
+          ...state,
+          benefits: state.benefits.filter(
+            (item) => item.category != action.nextAction
+          ),
+        };
+      case "removed_benefit_row":
+        //TODO - remove only the row that is being clicked
+        return {
+          ...state,
+          benefits: state.benefits.filter((item) => {
             item.id != action.nextAction;
           }),
         };
@@ -186,6 +239,7 @@ export default function DetailsProvider({ children }: Props) {
     currency: "$",
     periodUnit: "",
     costs: [],
+    benefits: [],
   });
 
   React.useEffect(() => {

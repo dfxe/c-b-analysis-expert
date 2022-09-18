@@ -3,9 +3,13 @@ import { useDetails } from "../contexts/DetailsProvider";
 import AddRow from "./AddRow";
 
 type Props = {
+  categoryFrequency: string;
   subCategoryName: string;
 };
-export default function InputField({ subCategoryName }: Props) {
+export default function InputField({
+  categoryFrequency,
+  subCategoryName,
+}: Props) {
   const details = useDetails();
 
   const handleDetails = (
@@ -63,65 +67,131 @@ export default function InputField({ subCategoryName }: Props) {
         </summary>
         <nav className="flex flex-col mt-2">
           <ul>
-            {details.state.costs.length > 0 &&
-              details.state.costs.map((item) => {
-                if (item.category === subCategoryName) {
-                  return (
-                    <li
-                      className="flex row justify-around items-center py-1"
-                      key={
-                        item.id + details.state.costs.length.toString() + "li"
-                      }
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6 cursor-pointer"
-                        onClick={() => {
-                          details.dispatch({
-                            type: "removed_row",
-                            nextAction: item.id,
-                          });
-                        }}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      &nbsp;&nbsp;
-                      <input
-                        placeholder={"Row Title"}
-                        type="text"
-                        className="block border-2 px-2 py-2 w-1/2 mr-2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
-                        value={item.title}
-                        onChange={(e) =>
-                          handleDetails(e, "edit_input_at", item.id)
+            {categoryFrequency === "general"
+              ? details.state.benefits.map((item) => {
+                  if (item.category === subCategoryName) {
+                    return (
+                      <li
+                        className="flex row justify-around items-center py-1"
+                        key={
+                          item.id +
+                          details.state.benefits.length.toString() +
+                          "bli"
                         }
-                      />
-                      <input
-                        placeholder="Cost"
-                        type="text"
-                        pattern={"[0-9]*"}
-                        className="block border-2 px-4 py-2 w-1/2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
-                        onChange={(e) => {
-                          !isNaN(+e.target.value) &&
-                            handleDetails(e, "edit_period_cost", item.id);
-                        }}
-                        value={item.periodCost.toString()}
-                      />
-                    </li>
-                  );
-                }
-              })}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6 cursor-pointer"
+                          onClick={() => {
+                            details.dispatch({
+                              type: "removed_benefit_row",
+                              nextAction: item.id,
+                            });
+                          }}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                        &nbsp;&nbsp;
+                        <input
+                          placeholder={"Row Title"}
+                          type="text"
+                          className="block border-2 px-2 py-2 w-1/2 mr-2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
+                          value={item.title}
+                          onChange={(e) =>
+                            handleDetails(e, "edit_input_at", item.id)
+                          }
+                        />
+                        {/**TODO 0 at start issue and when adding + or - */}
+                        <input
+                          placeholder="Cost"
+                          type="text"
+                          pattern={"[0-9]*"}
+                          className="block border-2 px-4 py-2 w-1/2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
+                          onChange={(e) => {
+                            !isNaN(+e.target.value) &&
+                              handleDetails(e, "edit_period_cost", item.id);
+                          }}
+                          value={item.periodCost.toString()}
+                        />
+                      </li>
+                    );
+                  }
+                })
+              : details.state.costs.length > 0 &&
+                details.state.costs.map((item) => {
+                  if (item.category === subCategoryName) {
+                    return (
+                      <li
+                        className="flex row justify-around items-center py-1"
+                        key={
+                          item.id +
+                          details.state.costs.length.toString() +
+                          "cli"
+                        }
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6 cursor-pointer"
+                          onClick={() => {
+                            details.dispatch({
+                              type: "removed_cost_row",
+                              nextAction: item.id,
+                            });
+                          }}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                        &nbsp;&nbsp;
+                        <input
+                          placeholder={"Row Title"}
+                          type="text"
+                          className="block border-2 px-2 py-2 w-1/2 mr-2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
+                          value={item.title}
+                          onChange={(e) =>
+                            handleDetails(e, "edit_input_at", item.id)
+                          }
+                        />
+                        {/**TODO 0 at start issue and when adding + or - */}
+                        <input
+                          placeholder="Cost"
+                          type="text"
+                          pattern={"[0-9]*"}
+                          className="block border-2 px-4 py-2 w-1/2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
+                          onChange={(e) => {
+                            !isNaN(+e.target.value) &&
+                              handleDetails(e, "edit_period_cost", item.id);
+                          }}
+                          value={item.periodCost.toString()}
+                        />
+                      </li>
+                    );
+                  }
+                })}
           </ul>
         </nav>
-        <div className="flex row justify-center items-center">
-          <AddRow subCategoryName={subCategoryName}></AddRow>
+        <div className="flex row justify-end items-center">
+          <AddRow
+            categoryFrequency={categoryFrequency}
+            subCategoryName={subCategoryName}
+          >
+            Add field
+          </AddRow>
         </div>
       </details>
     </nav>

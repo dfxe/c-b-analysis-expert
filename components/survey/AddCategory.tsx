@@ -10,7 +10,16 @@ export default function AddCategory({ categoryFrequency }: Props) {
   const handleAdd = () => {
     if (field === "") return;
     const isDuplicate = (): boolean => {
-      return details.state.costs.some((item) => item.category === field);
+      if (categoryFrequency === "general") {
+        return details.state.benefits.some((item) => item.category === field);
+      } else if (
+        categoryFrequency === "recurring" ||
+        categoryFrequency === "non-recurring"
+      ) {
+        return details.state.costs.some((item) => item.category === field);
+      } else {
+        throw new Error("Check duplicate under unknown category frequency.");
+      }
     };
 
     if (!isDuplicate()) {
@@ -24,12 +33,17 @@ export default function AddCategory({ categoryFrequency }: Props) {
           type: "add_non_recurring_cost_category",
           nextAction: field,
         });
+      } else if (categoryFrequency === "general") {
+        details.dispatch({
+          type: "add_benefit",
+          nextAction: field,
+        });
       } else {
         throw new Error("Category frequency not found");
       }
       setField("");
     } else {
-      throw Error("Duplicate");
+      throw new Error("Duplicate");
     }
   };
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {

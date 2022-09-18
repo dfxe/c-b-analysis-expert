@@ -52,6 +52,7 @@ export default function Dropdown({ actionDispatchType, values, title }: Props) {
           <div
             className="absolute right-0 z-10 w-56 mt-4 bg-white border border-gray-100 shadow-lg origin-top-right rounded-md"
             role="menu"
+            onBlur={() => setHideDropdown(true)}
             hidden={hideDropdown}
           >
             <div className="py-2 flow-root">
@@ -59,7 +60,7 @@ export default function Dropdown({ actionDispatchType, values, title }: Props) {
                 <ul className="p-2">
                   {values.map((item, i) => (
                     <li
-                      onClick={() => handleChange(item.label)}
+                      onClick={() => handleChange(item.value)}
                       key={item.value + i + title}
                       className="block cursor-pointer px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
                       role="menuitem"

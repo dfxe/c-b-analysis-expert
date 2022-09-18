@@ -2,7 +2,16 @@ import { useDetails } from "../contexts/DetailsProvider";
 
 export default function OutTable() {
   const details = useDetails();
-
+  const getCurrencySymbol = (currency: string) => {
+    if (currency === "USD") {
+      return "$";
+    } else if (currency === "EUR") {
+      return "€";
+    } else if (currency === "GBP") {
+      return "£";
+    }
+    return currency;
+  };
   return (
     <div className="overflow-hidden overflow-x-auto border border-gray-100 rounded">
       <div className="text-xl px-4 py-2">
@@ -56,7 +65,9 @@ export default function OutTable() {
                     {item.title || "empty"}
                   </td>
                   <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
-                    {details.state.currency + " " + item.periodCost.toString()}
+                    {getCurrencySymbol(details.state.currency) +
+                      " " +
+                      item.periodCost.toString()}
                   </td>
                 </tr>
               </tbody>
@@ -94,7 +105,49 @@ export default function OutTable() {
                     {item.title || "empty"}
                   </td>
                   <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
-                    {details.state.currency + " " + item.periodCost.toString()}
+                    {getCurrencySymbol(details.state.currency) +
+                      " " +
+                      item.periodCost.toString()}
+                  </td>
+                </tr>
+              </tbody>
+            );
+          }
+        })}
+        <tbody>
+          <tr className="px-4 py-2 font-medium text-left text-gray-500 bg-gray-200 whitespace-nowrap">
+            <th className="px-4 py-2">Benefits</th>
+          </tr>
+        </tbody>
+        {details.state.benefits.map((item, i) => {
+          if (item.isRecurring) {
+            return (
+              <tbody
+                key={
+                  item.title +
+                  item.title.length.toString() +
+                  i.toString() +
+                  "table-benefits"
+                }
+                className="divide-y divide-gray-100"
+              >
+                {item.isCategoryParent && (
+                  <tr className="px-4 py-2 font-medium text-left text-gray-900 bg-gray-200 whitespace-nowrap">
+                    <th className="px-4 py-2">{item.category}</th>
+                  </tr>
+                )}
+                <tr>
+                  <td
+                    className={`px-4 py-2 font-medium ${
+                      item.title === "" ? "text-gray-400" : "text-gray-900"
+                    } whitespace-nowrap`}
+                  >
+                    {item.title || "empty"}
+                  </td>
+                  <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
+                    {getCurrencySymbol(details.state.currency) +
+                      " " +
+                      item.periodCost.toString()}
                   </td>
                 </tr>
               </tbody>

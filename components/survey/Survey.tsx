@@ -9,23 +9,43 @@ import OutTable from "./OutTable";
 const Survey = () => {
   const details = useDetails();
 
-  const getInputField = (category: string) => {
+  const getInputField = (categoryFrequency: string) => {
     let categories: string[] = [];
-    if (category === "recurring") {
+    if (categoryFrequency === "recurring") {
       details.state.costs.map((item) => {
         if (item.isRecurring) categories = [...categories, item.category];
       });
       categories = Array.from(new Set(categories).values());
       return categories.map((item) => (
-        <InputField key={item + "cat-r"} subCategoryName={item} />
+        <InputField
+          key={item + "cat-r"}
+          categoryFrequency={categoryFrequency}
+          subCategoryName={item}
+        />
       ));
-    } else if (category === "non-recurring") {
+    } else if (categoryFrequency === "non-recurring") {
       details.state.costs.map((item) => {
         if (!item.isRecurring) categories = [...categories, item.category];
       });
       categories = Array.from(new Set(categories).values());
       return categories.map((item) => (
-        <InputField key={item + "cat-n-r"} subCategoryName={item} />
+        <InputField
+          key={item + "cat-n-r"}
+          categoryFrequency={categoryFrequency}
+          subCategoryName={item}
+        />
+      ));
+    } else if (categoryFrequency === "general") {
+      details.state.benefits.map((item) => {
+        categories = [...categories, item.category];
+      });
+      categories = Array.from(new Set(categories).values());
+      return categories.map((item) => (
+        <InputField
+          key={item + "cat-b"}
+          categoryFrequency={categoryFrequency}
+          subCategoryName={item}
+        />
       ));
     }
     throw new Error(
@@ -113,6 +133,11 @@ const Survey = () => {
 
         {details.state.costs.length > 0 && getInputField("recurring")}
         <AddCategory key="add-cat-2-recurring" categoryFrequency="recurring" />
+
+        <div className="text-lg">Benefits</div>
+
+        {details.state.benefits.length > 0 && getInputField("general")}
+        <AddCategory key="add-cat-1-benefit" categoryFrequency="general" />
         <hr></hr>
         <OutTable />
         <EndCost currency={details.state.currency} endValue={computeCost()} />

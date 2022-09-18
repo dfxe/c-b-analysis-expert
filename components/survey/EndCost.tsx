@@ -3,10 +3,20 @@ type Props = {
   endValue: number;
 };
 export default function EndCost({ currency = "", endValue = 0 }: Props) {
+  const getCurrencySymbol = (currency: string) => {
+    if (currency === "USD") {
+      return "$";
+    } else if (currency === "EUR") {
+      return "€";
+    } else if (currency === "GBP") {
+      return "£";
+    }
+    return currency;
+  };
   return (
     <div>
       <article className="flex items-center p-6 bg-white border border-gray-100 rounded-lg gap-4">
-        <span className="p-3 text-slate-500 bg-blue-100 rounded-full">
+        <span className="p-3 text-slate-500 bg-gray-100 rounded-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-8 h-8"
@@ -25,7 +35,7 @@ export default function EndCost({ currency = "", endValue = 0 }: Props) {
 
         <div>
           <p className="text-2xl font-medium text-gray-900">
-            {currency + endValue.toString()}
+            {getCurrencySymbol(currency) + " " + endValue.toString()}
           </p>
 
           <p className="text-sm text-gray-500">Cost</p>

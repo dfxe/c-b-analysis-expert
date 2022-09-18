@@ -24,7 +24,11 @@ export default function InputField({
     return !isNaN(value);
   };
   const passValidInput = (value: string): string => {
-    if (value.startsWith("0")) {
+    if (
+      value.startsWith("0") ||
+      value.startsWith("+") ||
+      value.startsWith("-")
+    ) {
       const rest = value.split("").slice(1, -1);
       return rest.join("");
     }
@@ -200,7 +204,6 @@ export default function InputField({
                             )
                           }
                         />
-                        {/**TODO 0 at start issue and when adding + or - */}
                         <input
                           placeholder="Cost"
                           type="text"

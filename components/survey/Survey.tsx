@@ -13,7 +13,7 @@ const Survey = () => {
     let categories: string[] = [];
     if (category === "recurring") {
       details.state.costs.map((item) => {
-        categories = [...categories, item.category];
+        if (item.isRecurring) categories = [...categories, item.category];
       });
       categories = Array.from(new Set(categories).values());
       return categories.map((item) => (
@@ -21,7 +21,7 @@ const Survey = () => {
       ));
     } else if (category === "non-recurring") {
       details.state.costs.map((item) => {
-        categories = [...categories, item.category];
+        if (!item.isRecurring) categories = [...categories, item.category];
       });
       categories = Array.from(new Set(categories).values());
       return categories.map((item) => (
@@ -54,6 +54,12 @@ const Survey = () => {
           type={"changed_org_initiative"}
           question="What is the initiative of the organisation?"
         />
+        <FormQuestion
+          key={"1_YIjbAJMK5asd8aYTEKHiD1"}
+          type={"changed_org_initiative"}
+          question="What is the time unit (days, weeks, months, years)?"
+        />
+
         <CurrencySelect />
         <hr></hr>
         <div className="text-xl">Quantitative Costs</div>

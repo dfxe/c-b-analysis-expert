@@ -74,8 +74,8 @@ export default function DetailsProvider({ children }: Props) {
       case "edit_input_at":
         return {
           ...state,
-          costs: state.costs.map((item, i) => {
-            if (item.id + i.toString() + "a" === action.editId) {
+          costs: state.costs.map((item) => {
+            if (item.id === action.editId) {
               return {
                 ...item,
                 title: action.nextAction,
@@ -87,8 +87,8 @@ export default function DetailsProvider({ children }: Props) {
       case "edit_period_cost":
         return {
           ...state,
-          costs: state.costs.map((item, i) => {
-            if (item.id + i.toString() + "a" === action.editId) {
+          costs: state.costs.map((item) => {
+            if (item.id === action.editId) {
               return {
                 ...item,
                 period: {
@@ -107,27 +107,10 @@ export default function DetailsProvider({ children }: Props) {
           costs: [
             ...state.costs,
             {
-              id: action.nextAction + state.costs.length.toString() + "b",
-              title: "i.e. Procurement",
-              isRecurring: false,
-              isCategoryParent: true,
-              category: action.nextAction,
-              period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
-            },
-          ],
-        };
-
-      case "add_non_recurring_cost_row":
-        return {
-          ...state,
-          costs: [
-            ...state.costs,
-            {
-              id: action.nextAction + state.costs.length.toString() + "b",
+              id: action.nextAction + state.costs.length.toString() + "a",
               title: "",
               isRecurring: false,
-              isCategoryParent: false,
-
+              isCategoryParent: true,
               category: action.nextAction,
               period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
             },
@@ -150,15 +133,15 @@ export default function DetailsProvider({ children }: Props) {
           ],
         };
 
-      case "add_recurring_cost_row":
+      case "add_cost_row":
         return {
           ...state,
           costs: [
             ...state.costs,
             {
-              id: action.nextAction + state.costs.length.toString() + "a",
+              id: action.nextAction + state.costs.length.toString() + "a-row",
               title: "",
-              isRecurring: true,
+              isRecurring: action.nextAction === "recurring" ? true : false,
               isCategoryParent: false,
               category: action.nextAction,
               period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },

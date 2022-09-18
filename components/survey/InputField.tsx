@@ -10,12 +10,12 @@ export default function InputField({ subCategoryName }: Props) {
   const handleDetails = (
     e: ChangeEvent<HTMLInputElement>,
     command: string,
-    editId: string
+    elementId: string
   ) => {
     details.dispatch({
       type: command,
       nextAction: (e.target as HTMLInputElement).value,
-      editId: editId,
+      editId: elementId,
     });
   };
 
@@ -97,11 +97,7 @@ export default function InputField({ subCategoryName }: Props) {
                         className="block border-2 px-2 py-2 w-1/2 mr-2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
                         value={item.title}
                         onChange={(e) =>
-                          handleDetails(
-                            e,
-                            "edit_input_at",
-                            item.id + i.toString() + "a"
-                          )
+                          handleDetails(e, "edit_input_at", item.id)
                         }
                       />
                       <input
@@ -110,13 +106,9 @@ export default function InputField({ subCategoryName }: Props) {
                         className="block border-2 px-4 py-2 w-1/2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
                         onChange={(e) => {
                           !isNaN(+e.target.value) &&
-                            handleDetails(
-                              e,
-                              "edit_period_cost",
-                              item.id + i.toString() + "a"
-                            );
+                            handleDetails(e, "edit_period_cost", item.id);
                         }}
-                        value={item.period.periodCost}
+                        value={item.period.periodCost.toString()}
                       />
                     </li>
                   );

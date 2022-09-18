@@ -39,7 +39,7 @@ export default function OutTable() {
               >
                 {item.isCategoryParent && (
                   <tr className="px-4 py-2 font-medium text-left text-gray-900 bg-gray-200 whitespace-nowrap">
-                    <th>{item.category}</th>
+                    <th className="px-4 py-2">{item.category}</th>
                   </tr>
                 )}
                 <tr>

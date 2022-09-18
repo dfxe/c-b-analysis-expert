@@ -10,7 +10,6 @@ export default function AddCategory({ categoryFrequency }: Props) {
   const handleAdd = () => {
     if (field === "") return;
     const isDuplicate = (): boolean => {
-      //TODO duplicate function is not working
       return details.state.costs.some((item) => item.category === field);
     };
 

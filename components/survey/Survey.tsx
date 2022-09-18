@@ -56,7 +56,7 @@ const Survey = () => {
         />
         <FormQuestion
           key={"1_YIjbAJMK5asd8aYTEKHiD1"}
-          type={"changed_org_initiative"}
+          type={"changed_period_unit"}
           question="What is the time unit (days, weeks, months, years)?"
         />
 

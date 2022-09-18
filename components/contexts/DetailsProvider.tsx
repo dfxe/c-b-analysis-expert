@@ -14,6 +14,7 @@ type Details = {
   title: string;
   initiative: string;
   currency: string;
+  periodUnit: string;
   costs: Row[];
 };
 
@@ -37,6 +38,7 @@ const DetailsContext = createContext<ShowDetails>({
     title: "",
     initiative: "",
     currency: "",
+    periodUnit: "d",
 
     costs: [],
   },
@@ -66,6 +68,11 @@ export default function DetailsProvider({ children }: Props) {
         return {
           ...state,
           initiative: action.nextAction,
+        };
+      case "changed_period_unit":
+        return {
+          ...state,
+          perionUnit: action.nextAction,
         };
       case "edit_input_at":
         return {
@@ -140,7 +147,10 @@ export default function DetailsProvider({ children }: Props) {
             {
               id: action.nextAction + state.costs.length.toString() + "a-row",
               title: "",
-              isRecurring: true,
+              isRecurring: state.costs.filter(
+                (item) =>
+                  item.isCategoryParent && item.category === action.nextAction
+              )[0].isRecurring,
               isCategoryParent: false,
               category: action.nextAction,
               periodCost: 0,

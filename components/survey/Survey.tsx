@@ -35,7 +35,7 @@ const Survey = () => {
 
   const computeCost = () => {
     let cost = 0;
-    details.state.costs.map((item) => (cost += +item.period.periodCost));
+    details.state.costs.map((item) => (cost += +item.periodCost));
     return cost;
   };
 
@@ -67,12 +67,12 @@ const Survey = () => {
         {details.state.costs.length > 0 && getInputField("non-recurring")}
         <AddCategory
           key="add-cat-1-non-recurring"
-          categoryName="non-recurring"
+          categoryFrequency="non-recurring"
         />
         <div className="text-lg">Recurring Costs</div>
 
         {details.state.costs.length > 0 && getInputField("recurring")}
-        <AddCategory key="add-cat-2-recurring" categoryName="recurring" />
+        <AddCategory key="add-cat-2-recurring" categoryFrequency="recurring" />
         <hr></hr>
         <OutTable />
         <EndCost currency={details.state.currency} endValue={computeCost()} />

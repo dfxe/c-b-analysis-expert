@@ -1,32 +1,32 @@
-import { ChangeEventHandler, useState } from "react";
+import { useState } from "react";
 import { useDetails } from "../contexts/DetailsProvider";
 
 type Props = {
-  categoryName: string;
+  categoryFrequency: string;
 };
-export default function AddCategory({ categoryName }: Props) {
+export default function AddCategory({ categoryFrequency }: Props) {
   const details = useDetails();
   const [field, setField] = useState<string>("");
   const handleAdd = () => {
     if (field === "") return;
-    const isDuplicate = () => {
-      return details.state.costs.some(
-        (item) =>
-          item.id === field + (details.state.costs.length - 1).toString() + "a"
-      );
+    const isDuplicate = (): boolean => {
+      //TODO duplicate function is not working
+      return details.state.costs.some((item) => item.category === field);
     };
 
     if (!isDuplicate()) {
-      if (categoryName === "recurring") {
+      if (categoryFrequency === "recurring") {
         details.dispatch({
           type: "add_recurring_cost_category",
           nextAction: field,
         });
-      } else if (categoryName === "non-recurring") {
+      } else if (categoryFrequency === "non-recurring") {
         details.dispatch({
           type: "add_non_recurring_cost_category",
           nextAction: field,
         });
+      } else {
+        throw new Error("Category frequency not found");
       }
       setField("");
     } else {

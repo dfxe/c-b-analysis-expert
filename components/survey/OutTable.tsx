@@ -51,9 +51,7 @@ export default function OutTable() {
                     {item.title || "empty"}
                   </td>
                   <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
-                    {details.state.currency +
-                      " " +
-                      item.period.periodCost.toString()}
+                    {details.state.currency + " " + item.periodCost.toString()}
                   </td>
                 </tr>
               </tbody>
@@ -75,7 +73,7 @@ export default function OutTable() {
               >
                 {item.isCategoryParent && (
                   <tr className="px-4 py-2 font-medium text-left text-gray-900 bg-gray-200 whitespace-nowrap">
-                    <th>{item.category}</th>
+                    <th className="px-4 py-2">{item.category}</th>
                   </tr>
                 )}
                 <tr>
@@ -87,9 +85,7 @@ export default function OutTable() {
                     {item.title || "empty"}
                   </td>
                   <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
-                    {details.state.currency +
-                      " " +
-                      item.period.periodCost.toString()}
+                    {details.state.currency + " " + item.periodCost.toString()}
                   </td>
                 </tr>
               </tbody>

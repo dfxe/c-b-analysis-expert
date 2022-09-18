@@ -63,12 +63,14 @@ export default function InputField({ subCategoryName }: Props) {
         <nav className="flex flex-col mt-2">
           <ul>
             {details.state.costs.length > 0 &&
-              details.state.costs.map((item, i) => {
+              details.state.costs.map((item) => {
                 if (item.category === subCategoryName) {
                   return (
                     <li
                       className="flex row justify-around items-center py-1"
-                      key={item.id + i.toString() + "a"}
+                      key={
+                        item.id + details.state.costs.length.toString() + "li"
+                      }
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +110,7 @@ export default function InputField({ subCategoryName }: Props) {
                           !isNaN(+e.target.value) &&
                             handleDetails(e, "edit_period_cost", item.id);
                         }}
-                        value={item.period.periodCost.toString()}
+                        value={item.periodCost.toString()}
                       />
                     </li>
                   );

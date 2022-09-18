@@ -6,11 +6,7 @@ type Row = {
   isRecurring: boolean;
   isCategoryParent: boolean;
   category: string;
-  period: {
-    periodTimeUnit: string;
-    periodTime: number;
-    periodCost: number;
-  };
+  periodCost: number;
 };
 
 type Details = {
@@ -91,10 +87,7 @@ export default function DetailsProvider({ children }: Props) {
             if (item.id === action.editId) {
               return {
                 ...item,
-                period: {
-                  ...item.period,
-                  periodCost: action.nextAction,
-                },
+                periodCost: action.nextAction,
               };
             }
             return { ...item };
@@ -107,12 +100,15 @@ export default function DetailsProvider({ children }: Props) {
           costs: [
             ...state.costs,
             {
-              id: action.nextAction + state.costs.length.toString() + "a",
+              id:
+                action.nextAction +
+                state.costs.length.toString() +
+                "a-non-recurring",
               title: "",
               isRecurring: false,
               isCategoryParent: true,
               category: action.nextAction,
-              period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
+              periodCost: 0,
             },
           ],
         };
@@ -123,12 +119,15 @@ export default function DetailsProvider({ children }: Props) {
           costs: [
             ...state.costs,
             {
-              id: action.nextAction + state.costs.length.toString() + "a",
+              id:
+                action.nextAction +
+                state.costs.length.toString() +
+                "a-recurring",
               title: "",
               isRecurring: true,
               isCategoryParent: true,
               category: action.nextAction,
-              period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
+              periodCost: 0,
             },
           ],
         };
@@ -141,10 +140,10 @@ export default function DetailsProvider({ children }: Props) {
             {
               id: action.nextAction + state.costs.length.toString() + "a-row",
               title: "",
-              isRecurring: action.nextAction === "recurring" ? true : false,
+              isRecurring: true,
               isCategoryParent: false,
               category: action.nextAction,
-              period: { periodTimeUnit: "d", periodTime: 1, periodCost: 1 },
+              periodCost: 0,
             },
           ],
         };

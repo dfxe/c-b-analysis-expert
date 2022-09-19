@@ -54,9 +54,11 @@ const Survey = () => {
   };
 
   const computeCost = () => {
-    let cost = 0;
+    //TODO analysis to cost needs be further researched
+    let [cost, benefit] = [0, 0];
     details.state.costs.map((item) => (cost += +item.periodCost));
-    return cost;
+    details.state.benefits.map((item) => (benefit += +item.periodCost));
+    return cost !== 0 ? benefit / cost : cost;
   };
 
   return (

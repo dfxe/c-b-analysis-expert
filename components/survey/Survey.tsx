@@ -58,7 +58,7 @@ const Survey = () => {
     let [cost, benefit] = [0, 0];
     details.state.costs.map((item) => (cost += +item.periodCost));
     details.state.benefits.map((item) => (benefit += +item.periodCost));
-    return cost !== 0 ? benefit / cost : cost;
+    return cost !== 0 ? (benefit / cost).toFixed(3) : cost;
   };
 
   return (

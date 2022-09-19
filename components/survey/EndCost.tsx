@@ -40,6 +40,13 @@ export default function EndCost({ currency = "", endValue = 0 }: Props) {
 
           <p className="text-sm text-gray-500">Cost</p>
         </div>
+        <div>
+          {+endValue >= 1
+            ? "If your estimates are accurate (with margin of error) then you can go ahead with the project"
+            : +endValue === 0
+            ? ""
+            : "Your estimates show you might not want to go ahead with this project"}
+        </div>
       </article>
     </div>
   );

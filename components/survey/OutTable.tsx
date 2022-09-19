@@ -30,7 +30,9 @@ export default function OutTable() {
             </th>
             <th className="px-4 py-2 font-medium text-left text-gray-900 whitespace-nowrap">
               {/** TODO does not pick up periodUnit */}
-              {"Cost per " + details.state.periodUnit}
+              {details.state.periodUnit === ""
+                ? ""
+                : "Cost per " + details.state.periodUnit}
             </th>
           </tr>
         </thead>

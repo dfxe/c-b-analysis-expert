@@ -18,7 +18,7 @@ export default function FormQuestion({
       htmlFor="name"
     >
       <input
-        className="w-full px-0 pt-3.5 pb-0 text-sm placeholder-transparent border-none focus:ring-0 peer"
+        className="w-full bg-transparent px-0 pt-3.5 pb-0 text-sm placeholder-transparent border-none focus:ring-0 peer"
         id="name"
         type="text"
         onChange={handleChange}

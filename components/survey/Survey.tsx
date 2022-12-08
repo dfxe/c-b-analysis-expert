@@ -58,12 +58,12 @@ const Survey = () => {
     let [cost, benefit] = [0, 0];
     details.state.costs.map((item) => (cost += +item.periodCost));
     details.state.benefits.map((item) => (benefit += +item.periodCost));
-    return cost !== 0 ? (benefit / cost).toFixed(3) : cost;
+    return cost !== 0 ? parseInt((benefit / cost).toFixed(3), 10) : cost;
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <h1 className="text-4xl mt-24">Cost-Benefit Analysis</h1>
+    <div className="flex flex-col items-center justify-center">
+      <h1 className="mt-24 text-4xl">Cost-Benefit Analysis</h1>
       <div className="w-full [&>*]:my-6">
         <div className="text-xl">Organisation Summary</div>
         <FormQuestion

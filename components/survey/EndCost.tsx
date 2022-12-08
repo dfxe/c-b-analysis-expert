@@ -15,8 +15,8 @@ export default function EndCost({ currency = "", endValue = 0 }: Props) {
   };
   return (
     <div>
-      <article className="flex items-center p-6 bg-white border border-gray-100 rounded-lg gap-4">
-        <span className="p-3 text-slate-500 bg-gray-100 rounded-full">
+      <article className="flex items-center gap-4 p-6 bg-white border border-gray-100 rounded-lg">
+        <span className="p-3 bg-gray-100 rounded-full text-slate-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-8 h-8"

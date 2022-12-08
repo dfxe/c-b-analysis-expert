@@ -14,7 +14,7 @@ export default function OutTable() {
   };
   return (
     <div className="overflow-hidden overflow-x-auto border border-gray-100 rounded">
-      <div className="text-xl px-4 py-2">
+      <div className="px-4 py-2 text-xl">
         {details.state.title +
           `${
             details.state.initiative === ""

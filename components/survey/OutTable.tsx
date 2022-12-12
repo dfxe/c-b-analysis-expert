@@ -1,4 +1,4 @@
-import { useDetails } from "../contexts/DetailsProvider";
+import { useDetails } from "../../contexts/DetailsContext";
 
 export default function OutTable() {
   const details = useDetails();

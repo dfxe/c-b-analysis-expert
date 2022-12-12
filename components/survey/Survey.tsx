@@ -3,7 +3,7 @@ import FormQuestion from "./FormQuestion";
 import InputField from "./InputField";
 import EndCost from "./EndCost";
 import AddCategory from "./AddCategory";
-import { useDetails } from "../contexts/DetailsProvider";
+import { useDetails } from "../../contexts/DetailsContext";
 import OutTable from "./OutTable";
 
 const Survey = () => {

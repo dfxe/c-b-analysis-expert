@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Survey from "../components/survey/Survey";
 
-import DetailsProvider from "../components/contexts/DetailsProvider";
+import DetailsProvider from "../contexts/DetailsContext";
 
 import Footer from "../components/survey/Footer";
 const Home: NextPage = () => {

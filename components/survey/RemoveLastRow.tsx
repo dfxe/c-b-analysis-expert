@@ -1,5 +1,5 @@
 import React from "react";
-import { useDetails } from "../contexts/DetailsProvider";
+import { useDetails } from "../../contexts/DetailsContext";
 
 export default function RemoveLastRow() {
   const details = useDetails();

@@ -1,4 +1,4 @@
-import { useDetails } from "../contexts/DetailsProvider";
+import { useDetails } from "../../contexts/DetailsContext";
 
 interface FormQuestionProps {
   type: string;

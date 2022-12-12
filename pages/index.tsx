@@ -14,48 +14,6 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <svg
-        className="absolute -z-10"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 800 800"
-      >
-        <defs>
-          <filter
-            id="bbblurry-filter"
-            width="400%"
-            height="400%"
-            x="-100%"
-            y="-100%"
-            colorInterpolationFilters="sRGB"
-            filterUnits="objectBoundingBox"
-            primitiveUnits="userSpaceOnUse"
-          >
-            <feGaussianBlur
-              x="0%"
-              y="0%"
-              in="SourceGraphic"
-              result="blur"
-              stdDeviation="93"
-            ></feGaussianBlur>
-          </filter>
-        </defs>
-        <g filter="url(#bbblurry-filter)">
-          <ellipse
-            cx="401.723"
-            cy="259.887"
-            fill="hsl(38, 99%, 67%)"
-            rx="53.5"
-            ry="110.5"
-          ></ellipse>
-          <ellipse
-            cx="576.292"
-            cy="369.645"
-            fill="#d30001"
-            rx="53.5"
-            ry="110.5"
-          ></ellipse>
-        </g>
-      </svg>
       <DetailsProvider>
         <Survey></Survey>
       </DetailsProvider>

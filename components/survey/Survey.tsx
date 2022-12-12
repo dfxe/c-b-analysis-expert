@@ -63,7 +63,7 @@ const Survey = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className="mt-24 text-4xl">Cost-Benefit Analysis</h1>
+      <h1 className="mt-24 mb-12 text-4xl font-bold">Cost-Benefit Analysis</h1>
       <div className="w-full [&>*]:my-6">
         <div className="text-xl">Organisation Summary</div>
         <FormQuestion

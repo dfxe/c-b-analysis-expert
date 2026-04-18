@@ -20,7 +20,7 @@ export default function Dropdown({ actionDispatchType, values, title }: Props) {
   };
 
   return (
-    <div>
+    <div className="print:hidden">
       <div className="ed-kicker mb-2 !text-ink-black">{title}</div>
       <div
         onClick={() => setHideDropdown(!hideDropdown)}

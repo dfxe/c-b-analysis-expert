@@ -194,3 +194,47 @@ textarea {
   position: relative;
   z-index: 1;
 }
+
+@media print {
+  @page {
+    margin: 1.4cm;
+    size: A4;
+  }
+  html,
+  body {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: var(--paper) !important;
+    color: var(--ink-black) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  html {
+    padding-inline-start: 0 !important;
+    padding-inline-end: 0 !important;
+  }
+  h1.riso-title {
+    margin-top: 0 !important;
+    margin-bottom: 0.75rem !important;
+    font-size: 2.25rem !important;
+    text-align: left !important;
+  }
+  .riso-panel {
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  table {
+    page-break-inside: auto;
+  }
+  tr {
+    page-break-inside: avoid;
+  }
+  footer {
+    margin-top: 1.5rem !important;
+  }
+  a {
+    color: var(--ink-black) !important;
+    border-bottom: 0 !important;
+  }
+}

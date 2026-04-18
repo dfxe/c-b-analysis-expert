@@ -98,13 +98,20 @@ export default function ExportButton({ ratio }: Props) {
     );
   };
 
+  const handleExportPdf = () => {
+    if (typeof window !== "undefined") window.print();
+  };
+
   return (
-    <div className="flex justify-end gap-2">
+    <div className="flex flex-wrap justify-end gap-2 print:hidden">
       <button type="button" className="riso-btn" onClick={handleExportCsv}>
         ↓ Export CSV
       </button>
       <button type="button" className="riso-btn" onClick={handleExportJson}>
         ↓ Export JSON
+      </button>
+      <button type="button" className="riso-btn" onClick={handleExportPdf}>
+        ↓ Export PDF
       </button>
     </div>
   );

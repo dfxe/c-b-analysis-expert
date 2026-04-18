@@ -34,7 +34,7 @@ export default function InputField({
   };
 
   return (
-    <nav className="flex flex-col space-y-1">
+    <nav className="flex flex-col space-y-1 print:hidden">
       <details className="flex group row">
         <summary className="flex items-center px-4 py-2 text-sm font-sans font-semibold uppercase tracking-[0.14em] text-ink-black riso-panel cursor-pointer hover:bg-paper-dark">
           <svg

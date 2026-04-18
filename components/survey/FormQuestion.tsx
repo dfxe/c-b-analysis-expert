@@ -14,7 +14,7 @@ export default function FormQuestion({
   };
   return (
     <label
-      className="relative block w-full p-3 riso-panel"
+      className="relative block w-full p-3 riso-panel print:hidden"
       htmlFor="name"
     >
       <input

@@ -51,7 +51,7 @@ export default function AddCategory({ categoryFrequency }: Props) {
   };
 
   return (
-    <div>
+    <div className="print:hidden">
       <div className="relative">
         <input
           className="w-full py-4 pl-3 pr-20 text-sm riso-input"

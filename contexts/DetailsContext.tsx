@@ -23,10 +23,7 @@ type Details = {
 
 type ActionType = {
   type: string;
-  //nextAction must map to each Details member
-  //each details member should have the following nextAction
-  //that is not good as
-  nextAction?: string | Array<Row>;
+  nextAction?: string | Array<Row> | Partial<Details>;
   editId?: string;
 };
 
@@ -255,6 +252,8 @@ export default function DetailsProvider({ children }: Props) {
             return { ...item };
           }),
         };
+      case "load_state":
+        return { ...state, ...action.nextAction };
     }
 
     throw Error("Unknown action.");

@@ -13,17 +13,37 @@ export default function EndCost({ currency = "", endValue = 0 }: Props) {
     }
     return currency;
   };
+  const verdict =
+    +endValue >= 1
+      ? "GO"
+      : +endValue === 0
+      ? "—"
+      : "NO GO";
+  const verdictBg =
+    +endValue >= 1
+      ? "bg-ink-teal"
+      : +endValue === 0
+      ? "bg-paper-dark"
+      : "bg-ink-pink";
+  const verdictColor =
+    +endValue >= 1
+      ? "text-ink-teal"
+      : +endValue === 0
+      ? "text-ink-slate"
+      : "text-ink-pink";
   return (
     <div>
-      <article className="flex items-center gap-4 p-6 bg-white border border-gray-100 rounded-lg">
-        <span className="p-3 bg-gray-100 rounded-full text-slate-500">
+      <article className="relative flex items-center gap-6 p-6 riso-panel">
+        <span
+          className={`p-3 border border-ink-rule ${verdictBg} text-ink-black shrink-0`}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="w-8 h-8"
+            className="w-7 h-7"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="1.5"
           >
             <path
               strokeLinecap="round"
@@ -33,19 +53,26 @@ export default function EndCost({ currency = "", endValue = 0 }: Props) {
           </svg>
         </span>
 
-        <div>
-          <p className="text-2xl font-medium text-gray-900">
+        <div className="shrink-0 border-r border-ink-rule pr-6">
+          <p className="ed-kicker !text-ink-black">B / C Ratio</p>
+          <p className="text-4xl font-zine italic text-ink-black leading-none mt-2">
             {getCurrencySymbol(currency) + " " + endValue.toString()}
           </p>
-
-          <p className="text-sm text-gray-500">Cost</p>
         </div>
-        <div>
-          {+endValue >= 1
-            ? "If your estimates are accurate (with margin of error) then you can go ahead with the project"
-            : +endValue === 0
-            ? ""
-            : "Your estimates show you might not want to go ahead with this project"}
+        <div className="ml-auto text-right">
+          <div className="ed-kicker !text-ink-black">Verdict</div>
+          <div
+            className={`text-3xl font-zine italic ${verdictColor} leading-none mt-2`}
+          >
+            {verdict}
+          </div>
+          <div className="text-sm font-serif italic text-ink-slate max-w-xs mt-3 leading-snug">
+            {+endValue >= 1
+              ? "If your estimates hold within margin of error, the initiative warrants proceeding."
+              : +endValue === 0
+              ? ""
+              : "Estimates suggest the initiative does not, at present, warrant proceeding."}
+          </div>
         </div>
       </article>
     </div>

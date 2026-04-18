@@ -36,7 +36,7 @@ export default function InputField({
   return (
     <nav className="flex flex-col space-y-1">
       <details className="flex group row">
-        <summary className="flex items-center px-4 py-2 text-gray-500 border-2 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700">
+        <summary className="flex items-center px-4 py-2 text-sm font-sans font-semibold uppercase tracking-[0.14em] text-ink-black riso-panel cursor-pointer hover:bg-paper-dark">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -126,7 +126,7 @@ export default function InputField({
                         <input
                           placeholder={"Row Title"}
                           type="text"
-                          className="block w-1/2 px-2 py-2 mr-2 text-sm font-medium text-gray-500 border-2 rounded-lg hover:bg-gray-100 hover:text-gray-700"
+                          className="block w-1/2 px-2 py-2 mr-2 text-sm riso-input text-ink-black"
                           value={item.title}
                           onChange={(e) =>
                             handleDetails(
@@ -141,7 +141,7 @@ export default function InputField({
                           placeholder="Cost"
                           type="text"
                           pattern={"[0-9]*"}
-                          className="block w-1/2 px-4 py-2 text-sm font-medium text-gray-500 border-2 rounded-lg hover:bg-gray-100 hover:text-gray-700"
+                          className="block w-1/2 px-4 py-2 text-sm riso-input text-ink-black"
                           onChange={(e) => {
                             checkInput(+e.target.value) &&
                               handleDetails(
@@ -192,7 +192,7 @@ export default function InputField({
                         <input
                           placeholder={"Row Title"}
                           type="text"
-                          className="block w-1/2 px-2 py-2 mr-2 text-sm font-medium text-gray-500 border-2 rounded-lg hover:bg-gray-100 hover:text-gray-700"
+                          className="block w-1/2 px-2 py-2 mr-2 text-sm riso-input text-ink-black"
                           value={item.title}
                           onChange={(e) =>
                             handleDetails(
@@ -206,7 +206,7 @@ export default function InputField({
                           placeholder="Cost"
                           type="text"
                           pattern={"[0-9]*"}
-                          className="block w-1/2 px-4 py-2 text-sm font-medium text-gray-500 border-2 rounded-lg hover:bg-gray-100 hover:text-gray-700"
+                          className="block w-1/2 px-4 py-2 text-sm riso-input text-ink-black"
                           onChange={(e) => {
                             checkInput(+e.target.value) &&
                               handleDetails(

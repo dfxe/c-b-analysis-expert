@@ -5,6 +5,8 @@ import EndCost from "./EndCost";
 import AddCategory from "./AddCategory";
 import { useDetails } from "../../contexts/DetailsContext";
 import OutTable from "./OutTable";
+import ExportButton from "./ExportButton";
+import ImportButton from "./ImportButton";
 
 const Survey = () => {
   const details = useDetails();
@@ -63,9 +65,18 @@ const Survey = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className="mt-24 mb-12 text-4xl font-bold">Cost-Benefit Analysis</h1>
+      <h1 className="riso-title mt-24 mb-4 text-5xl md:text-6xl text-center">
+        Cost-Benefit Analysis
+      </h1>
+      <p className="mb-10 text-center italic text-ink-slate max-w-xl">
+        A worksheet for weighing recurring and one-off costs against projected
+        benefits — with the verdict in a single ratio.
+      </p>
+      <hr className="ed-rule w-full max-w-xl mb-2" />
       <div className="w-full [&>*]:my-6">
-        <div className="text-xl">Organisation Summary</div>
+        <div className="text-[0.68rem] font-sans font-semibold uppercase tracking-[0.22em] text-ink-black border-b border-ink-rule pb-2">
+          Organisation Summary
+        </div>
         <FormQuestion
           key={"5qNmRyQh-2vb0Wwa5oSr0"}
           type={"changed_org_title"}
@@ -124,25 +135,33 @@ const Survey = () => {
           title="Pick your currency"
         />
         <hr></hr>
-        <div className="text-xl">Quantitative Costs</div>
-        <div className="text-lg">Non-recurring Costs</div>
+        <div className="text-[0.68rem] font-sans font-semibold uppercase tracking-[0.22em] text-ink-black border-b border-ink-rule pb-2">
+          Quantitative Costs
+        </div>
+        <div className="ed-kicker">Non-recurring Costs</div>
         {details.state.costs.length > 0 && getInputField("non-recurring")}
         <AddCategory
           key="add-cat-1-non-recurring"
           categoryFrequency="non-recurring"
         />
-        <div className="text-lg">Recurring Costs</div>
+        <div className="ed-kicker">Recurring Costs</div>
 
         {details.state.costs.length > 0 && getInputField("recurring")}
         <AddCategory key="add-cat-2-recurring" categoryFrequency="recurring" />
 
-        <div className="text-lg">Benefits</div>
+        <div className="text-[0.68rem] font-sans font-semibold uppercase tracking-[0.22em] text-ink-blue border-b border-ink-blue/30 pb-2">
+          Benefits
+        </div>
 
         {details.state.benefits.length > 0 && getInputField("general")}
         <AddCategory key="add-cat-1-benefit" categoryFrequency="general" />
         <hr></hr>
+        <div className="flex justify-end">
+          <ImportButton />
+        </div>
         <OutTable />
         <EndCost currency={details.state.currency} endValue={computeCost()} />
+        <ExportButton ratio={computeCost()} />
       </div>
     </div>
   );

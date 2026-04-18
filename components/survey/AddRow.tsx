@@ -12,7 +12,7 @@ export default function AddRow({
   const details = useDetails();
   return (
     <button
-      className="py-2 text-slate-500 font-medium before:absolute before:-bottom-1 before:h-0.5 before:w-full before:origin-left before:scale-x-0 before:bg-indigo-600 before:transition hover:before:scale-100"
+      className="py-1.5 px-3 text-[0.68rem] font-sans font-semibold uppercase tracking-[0.2em] text-ink-pink border border-ink-pink hover:bg-ink-pink hover:text-paper transition"
       onClick={() => {
         if (categoryFrequency === "general") {
           details.dispatch({

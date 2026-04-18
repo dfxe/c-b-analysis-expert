@@ -54,15 +54,15 @@ export default function AddCategory({ categoryFrequency }: Props) {
     <div>
       <div className="relative">
         <input
-          className="w-full py-4 pl-3 pr-16 text-sm border-2 border-gray-200 rounded-lg"
+          className="w-full py-4 pl-3 pr-20 text-sm riso-input"
           type="text"
-          placeholder="Add category... (i.e. Hardware, Software)"
+          placeholder="+ add category (i.e. Hardware, Software)"
           value={field}
           onChange={handleInput}
         />
 
         <button
-          className="absolute p-2 text-white disabled:bg-slate-500 bg-slate-500 rounded-full -translate-y-1/2 top-1/2 right-4 disabled:opacity-25"
+          className="absolute p-2 riso-btn rounded-none -translate-y-1/2 top-1/2 right-3"
           type="button"
           onClick={handleAdd}
           disabled={field === ""}

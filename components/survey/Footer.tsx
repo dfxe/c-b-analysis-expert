@@ -3,10 +3,10 @@ import React from "react";
 import packageJson from "../../package.json";
 const Footer = () => {
   return (
-    <footer className="bg-gray-50">
+    <footer className="mt-16 bg-paper-light border-t border-ink-rule">
       <div className="px-4 py-8 mx-auto max-w-screen-xl sm:px-6 lg:px-8">
         <div className="sm:flex sm:items-center sm:justify-between">
-          <div className="flex justify-center text-teal-600 sm:justify-start">
+          <div className="flex justify-center text-ink-teal sm:justify-start">
             <svg
               id="icons"
               xmlns="http://www.w3.org/2000/svg"
@@ -40,18 +40,20 @@ const Footer = () => {
             </svg>
           </div>
 
-          <div className="mt-4 flex flex-col text-sm text-center text-gray-500 lg:text-right lg:mt-0">
-            <div>GPL-3, {new Date().getFullYear()}</div>
-            <div className="h-2"></div>
-            <div
-              style={{
-                textAlign: "center",
-                padding: "1em",
-                border: "2px dotted black",
-                borderRadius: "64px",
-                zIndex: 1,
-              }}
+          <div className="mt-4 flex flex-col text-sm text-center font-mono text-ink-black lg:text-right lg:mt-0">
+            <div className="uppercase tracking-widest">
+              GPL-3 · {new Date().getFullYear()}
+            </div>
+            <a
+              href="https://github.com/dfxe"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="mt-1 uppercase tracking-widest text-xs"
             >
+              github.com/dfxe
+            </a>
+            <div className="h-2"></div>
+            <div className="riso-chip self-center lg:self-end">
               v{packageJson.version}a
             </div>
           </div>

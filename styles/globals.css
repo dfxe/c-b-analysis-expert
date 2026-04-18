@@ -1,40 +1,196 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --paper: #fff1e5;
+  --paper-dark: #f6e4d2;
+  --paper-deep: #ecd7bf;
+  --paper-light: #fffaf3;
+  --ink-black: #1a1716;
+  --ink-pink: #990f3d;
+  --ink-blue: #1b3a5b;
+  --ink-slate: #66605c;
+  --ink-rule: #e6d5c3;
+  --ink-teal: #3c5a3e;
+}
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Montserrat, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  color: var(--ink-black);
+  font-family: "Source Serif 4", "Source Serif Pro", Georgia, serif;
+  font-weight: 400;
+  line-height: 1.55;
 }
+
 html {
-  background-image: url("/ooorganize.svg");
+  background-color: var(--paper);
 }
 
 a {
-  color: inherit;
+  color: var(--ink-pink);
   text-decoration: none;
+  border-bottom: 1px solid var(--ink-pink);
+}
+a:hover {
+  color: var(--ink-black);
+  border-bottom-color: var(--ink-black);
 }
 
 * {
   box-sizing: border-box;
 }
 
+::selection {
+  background: var(--ink-pink);
+  color: var(--paper);
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: var(--ink-rule);
+  margin: 2rem 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  font-weight: 700;
+  color: var(--ink-black);
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+}
+
 @media only screen and (min-width: 1024px) {
   html {
-    padding-inline-start: 25vw;
-    padding-inline-end: 25vw;
+    padding-inline-start: 20vw;
+    padding-inline-end: 20vw;
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+@layer components {
+  .riso-title {
+    display: inline-block;
+    color: var(--ink-black);
+    font-family: "Playfair Display", Georgia, serif;
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    text-transform: none;
   }
-  body {
-    color: white;
-    background: black;
+  .riso-title::before,
+  .riso-title::after {
+    content: none;
   }
+
+  .riso-panel {
+    background: var(--paper-light);
+    border: 1px solid var(--ink-rule);
+    box-shadow: none;
+    border-radius: 2px;
+  }
+
+  .riso-chip {
+    display: inline-block;
+    padding: 2px 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-pink);
+    border-top: 1px solid var(--ink-pink);
+    border-bottom: 1px solid var(--ink-pink);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .riso-btn {
+    background: transparent;
+    color: var(--ink-pink);
+    border: 1px solid var(--ink-pink);
+    box-shadow: none;
+    border-radius: 0;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    padding: 0.55rem 1rem;
+    transition: background 120ms ease, color 120ms ease;
+  }
+  .riso-btn:hover {
+    background: var(--ink-pink);
+    color: var(--paper);
+  }
+  .riso-btn:active {
+    background: var(--ink-black);
+    color: var(--paper);
+    border-color: var(--ink-black);
+  }
+  .riso-btn:disabled {
+    opacity: 0.4;
+    background: transparent;
+    color: var(--ink-slate);
+    border-color: var(--ink-rule);
+  }
+
+  .riso-input {
+    background: transparent;
+    border: 0 !important;
+    border-bottom: 1px solid var(--ink-rule) !important;
+    border-radius: 0;
+    box-shadow: none;
+    font-family: "Source Serif 4", "Source Serif Pro", Georgia, serif;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .riso-input:focus {
+    outline: none;
+    border-bottom-color: var(--ink-pink) !important;
+    box-shadow: none;
+  }
+
+  .riso-halftone {
+    background-image: none;
+  }
+
+  .ed-kicker {
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-pink);
+  }
+
+  .ed-rule {
+    border: 0;
+    height: 1px;
+    background: var(--ink-rule);
+  }
+}
+
+#__next {
+  position: relative;
+  z-index: 1;
 }
